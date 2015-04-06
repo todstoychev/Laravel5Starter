@@ -29,5 +29,7 @@ return [
 	*/
 
 	'compiled' => realpath(storage_path().'/framework/views'),
-
+    
+        'items_per_page' => [10, 20, 50]
+    
 ];

@@ -11,4 +11,12 @@
 |
 */
 
+// Admin routes
+Route::controller('admin/users', 'Admin\AdminUsersController');
+
+Route::controller('admin', 'Admin\AdminController');
+
+// Public and user routes
+Route::controller('users', 'UsersController');
+
 Route::controller('/', 'IndexController');
