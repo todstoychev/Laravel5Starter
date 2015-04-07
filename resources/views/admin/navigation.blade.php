@@ -17,10 +17,22 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class='navbar-left'>
                 <ul class='nav navbar-nav'>
-                    <li>
-                        <a href="{{ URL::to('admin/users/all/10') }}">
-                            {{ trans('users.users') }}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            {{ trans('users.users') }} <span class="caret"></span>
                         </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a href="{{ URL::to('admin/users/all/10') }}">
+                                    {{ trans('users.users') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ URL::to('admin/roles/all/10') }}">
+                                    {{ trans('users.roles') }}
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div><!-- /.navber-left -->

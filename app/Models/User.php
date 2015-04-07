@@ -186,6 +186,22 @@ class User extends Model implements AuthenticatableContract {
             'email' => $this->email
         ]);
     }
+    
+    /**
+     * Deletes search index entry
+     */
+    public function deleteSearchIndex() {
+        $search = new Search();
+        $search->index($this->table)->delete($this->id);
+    }
+    
+    /**
+     * Update search index
+     */
+    public function updateSearchIndex() {
+        $this->deleteSearchIndex();
+        $this->addSearchIndex();
+    }
 
     /**
      * Users roles

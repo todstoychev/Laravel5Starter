@@ -12,6 +12,8 @@
 */
 
 // Admin routes
+Route::controller('admin/roles', 'Admin\AdminRolesController');
+
 Route::controller('admin/users', 'Admin\AdminUsersController');
 
 Route::controller('admin', 'Admin\AdminController');

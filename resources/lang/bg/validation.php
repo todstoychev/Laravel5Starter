@@ -136,7 +136,8 @@ return array(
             "message" => "Съобщение",
             "tags" => 'Тагове',
             "password_confirmation" => 'Повтори паролата',
-            "image" => 'Снимка'
+            "image" => 'Снимка',
+            "role" => "Роля"
             
     ),
 

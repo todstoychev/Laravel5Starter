@@ -45,7 +45,7 @@ $.ajaxSetup({
         </div>
 
         <div class="container-fluid">
-            <div class="col-sm-12">
+            <div class="col-xs-12">
                 @yield('content')
             </div>
         </div>

@@ -5,13 +5,13 @@ use Illuminate\Database\Seeder;
 class RolesSeeder extends Seeder {
     
     public function run() {
-        Role::create([
-            'role' => 'admin'
-        ]);
-        
-        Role::create([
-            'role' => 'user'
-        ]);
+       $roles = ['admin', 'user'];
+       
+       foreach ($roles as $role) {
+           $instance = new Role(['role' => $role]);
+           $instance->save();
+           $instance->addSearchIndex();
+       }
     }
     
 }

@@ -48,8 +48,10 @@ class AdminUsersController extends AdminController {
      */
     public function getDelete($id) {
         UserRole::where('user_id', $id)->first()->delete();
-        User::find($id)->forceDelete();
-
+        $user = new User();
+        $user->find($id)->forceDelete();
+        $user->deleteSearchIndex();
+        
         flash()->success(trans('users.delete_success'));
 
         return redirect()->back();
@@ -90,6 +92,7 @@ class AdminUsersController extends AdminController {
         $roles = Role::getRolesToArray($request->input('roles'));
 
         $user->roles()->saveMany($roles);
+        $user->addSearchIndex();
 
         flash()->success(trans('users.add_success'));
 
@@ -146,6 +149,7 @@ class AdminUsersController extends AdminController {
         $roles = Role::getRolesToArray($request->input('roles'));
 
         $user->roles()->saveMany($roles);
+        $user->updateSearchIndex();
 
         flash()->success(trans('users.edit_success'));
 
