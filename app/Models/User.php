@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Support\Facades\Hash;
 use Mmanos\Search\Search;
+use Illuminate\Support\Facades\Cache;
 
 class User extends Model implements AuthenticatableContract {
 
@@ -82,7 +83,7 @@ class User extends Model implements AuthenticatableContract {
             'confirm_token' => Hash::make(time() . env('APP_KEY'))
         ]);
     }
-    
+
     /**
      * Handles password changing on password reset
      * 
@@ -93,7 +94,7 @@ class User extends Model implements AuthenticatableContract {
         $user->password = Hash::make($request->input('password'));
         $user->save();
     }
-    
+
     /**
      * Gets a single user
      * 
@@ -105,10 +106,10 @@ class User extends Model implements AuthenticatableContract {
         $user = self::base($with_trashed, $with_joins)
                 ->where('id', $id)
                 ->first();
-        
+
         return $user;
     }
-    
+
     /**
      * Handles search
      * 
@@ -118,7 +119,7 @@ class User extends Model implements AuthenticatableContract {
     public static function search($search) {
         $query = self::base(true, true)
                 ->whereIn('users.id', $search);
-        
+
         return $query;
     }
 
@@ -174,19 +175,19 @@ class User extends Model implements AuthenticatableContract {
     public function hasRole($check) {
         return in_array($check, array_fetch($this->roles->toArray(), 'role'));
     }
-    
+
     /**
      * Creates search index
      */
     public function addSearchIndex() {
         $search = new Search();
-        
+
         $search->index($this->table)->insert($this->id, [
             'username' => $this->username,
             'email' => $this->email
         ]);
     }
-    
+
     /**
      * Deletes search index entry
      */
@@ -194,13 +195,28 @@ class User extends Model implements AuthenticatableContract {
         $search = new Search();
         $search->index($this->table)->delete($this->id);
     }
-    
+
     /**
      * Update search index
      */
     public function updateSearchIndex() {
         $this->deleteSearchIndex();
         $this->addSearchIndex();
+    }
+
+    /**
+     * Get last seen
+     * 
+     * @return String
+     */
+    public function lastSeen() {
+        if (Cache::has('last_seen_' . $this->id)) {
+            return Cache::get('last_seen_' . $this->id);
+        } elseif ($this->last_seen) {
+            return $this->last_seen;
+        } else {
+            return null;
+        }
     }
 
     /**

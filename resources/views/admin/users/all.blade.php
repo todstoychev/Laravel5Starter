@@ -37,7 +37,7 @@
     <td>{{ $result->deleted_at ? date('d.m.Y - H:i:s', strtotime($result->deleted_at)) : '-' }}</td>
     <td>{{ date('d.m.Y - H:i:s', strtotime($result->created_at)) }}</td>
     <td>{{ $result->confirmed_at ? date('d.m.Y - H:i:s', strtotime($result->confirmed_at)) : '-' }}</td>
-    <td>{{ $result->last_seen ? date('d.m.Y - H:i:s', strtotime($result->last_seen)) : '-' }}</td>
+    <td>{{ $result->lastSeen() ? date('d.m.Y - H:i:s', strtotime($result->lastSeen())) : '-' }}</td>
     <td>
         <!-- Delete button -->
         <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ $results->total() != 1 ? URL::to($uri . '/delete/' . $result->id) : null }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger {{ ($results->total() == 1) ? 'disabled' : null }}">

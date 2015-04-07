@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Lib\ICR;
+use Illuminate\Support\Facades\Cache;
 // Facades
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -26,6 +27,7 @@ use App\Models\User;
 class UsersController extends Controller {
 
     public function __construct() {
+        parent::__construct();
         $this->middleware('guest', ['only' => [
                 'postLogin',
                 'getLogin',
@@ -172,6 +174,9 @@ class UsersController extends Controller {
      * @return Reponse
      */
     public function getLogout() {
+        Auth::user()->last_seen = Cache::get('last_seen_' . Auth::user()->id);
+        Cache::forget('last_seen_' . Auth::user()->id);
+        
         Auth::logout();
 
         flash()->info(trans('users.logout_success'));

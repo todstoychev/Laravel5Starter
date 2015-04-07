@@ -13,6 +13,10 @@ abstract class Controller extends BaseController {
 
     use DispatchesCommands,
         ValidatesRequests;
+    
+    public function __construct() {
+        $this->middleware('last_activity');
+    }
 
     /**
      * Function to send emails to the user and to the admin.
@@ -83,10 +87,11 @@ abstract class Controller extends BaseController {
         if ($params['param'] && $params['order']) {
             $results = $results->orderBy($params['param'], $params['order']);
         }
-
+        
         $paginator = $results->paginate($params['limit']);
         $paginator->appends(['limit' => $params['limit'], 'param' => $params['param'], 'order' => $params['order']]);
-
+        $paginator->setPath('all');
+        
         $data = [
             'results' => $paginator,
             'uri' => $uri,
