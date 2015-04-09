@@ -20,23 +20,9 @@ class Locale {
         $settings = Settings::getAll();
 
         if (!Session::has('locale')) {
-            if (Auth::user() && Auth::user()->locale) {
-                Session::put('locale', Auth::user()->locale);
-            } elseif (Auth::user() && !Auth::user()->locale) {
-                Auth::user()->locale = $settings['fallback_locale'];
-                Auth::user()->save();
-                Session::put('locale', $settings['fallback_locale']);
-            } else {
-                Session::put('locale', $settings['fallback_locale']);
-            }
-        }
-        
-        if (count($settings['locales']) == 1) {
-            Auth::user()->locale = $settings['fallback_locale'];
-            Auth::user()->save();
             Session::put('locale', $settings['fallback_locale']);
         }
-        
+
         app()->setLocale(Session::get('locale'));
 
         return $next($request);

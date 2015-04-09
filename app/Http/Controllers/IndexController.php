@@ -25,11 +25,6 @@ class IndexController extends Controller {
     public function getChangeLocale($locale) {
         Session::put('locale', $locale);
         
-        if (Auth::user()) {
-            Auth::user()->locale = $locale;
-            Auth::user()->save();
-        }
-        
         return redirect()->back();
     }
 }
