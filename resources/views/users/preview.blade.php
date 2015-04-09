@@ -11,6 +11,7 @@
         <p><strong>{{ trans('users.email') }}: </strong>{{ Auth::user()->email }}</p>
         <p><strong>{{ trans('users.registered_at') }}: </strong>{{ date('d M Y - H:i:s', strtotime(Auth::user()->created_at)) }}</p>
         <p><strong>{{ trans('users.updated_at') }}: </strong>{{ date('d M Y - H:i:s', strtotime(Auth::user()->updated_at)) }}</p>
-        <p><strong>{{ trans('users.last_seen') }}: </strong>{{ date('d M Y - H:i:s', strtotime(Auth::user()->last_seen)) }}</p>
+        <p><strong>{{ trans('users.last_seen') }}: </strong>{{ date('d M Y - H:i:s', strtotime(Cache::get('last_seen_' . Auth::user()->id))) }}</p>
     </div>
 </div>
+<br />

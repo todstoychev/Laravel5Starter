@@ -54,3 +54,17 @@
     </div>
 </div>
 @stop
+
+@section('javascripts')
+<script>
+    $(document).ready(function () {
+        var profile_tab = "{{ Session::pull('profile_tab') }}";
+        if (profile_tab) {
+            $('div.tab-pane').removeClass('active');
+            $('li[role="presentation"]').removeClass('active');
+            $('div#' + profile_tab).addClass('active');
+            $('a[aria-controls="' + profile_tab + '"]').parent('li').addClass('active');
+        }
+    });
+</script>
+@stop

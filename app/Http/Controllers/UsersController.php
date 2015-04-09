@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Lib\ICR;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 // Facades
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
@@ -200,6 +201,8 @@ class UsersController extends Controller {
      * @return Response
      */
     public function putChangePassword(ChangePasswordRequest $request) {
+        Session::put('profile_tab', 'password');
+        
         if (Hash::check($request->input('old_password'), Auth::user()->password)) {
             Auth::user()->password = Hash::make($request->input('new_password'));
             Auth::user()->save();
@@ -221,6 +224,8 @@ class UsersController extends Controller {
      * @return Response
      */
     public function putChangeEmail(ChangeEmailRequest $request) {
+        Session::put('profile_tab', 'email');
+        
         Auth::user()->email = $request->input('email');
         Auth::user()->save();
 
@@ -324,6 +329,8 @@ class UsersController extends Controller {
     }
 
     public function postChangeAvatar(ChangeAvatarRequest $request) {
+        Session::put('profile_tab', 'avatar');
+        
         $file = $request->file('avatar');
 
         try {
@@ -350,6 +357,8 @@ class UsersController extends Controller {
      * @return Response
      */
     public function getDeleteAvatar() {
+        Session::put('profile_tab', 'avatar');
+        
         $this->deleteAvatar();
         
         flash()->success(trans('users.avatar_deleted'));
