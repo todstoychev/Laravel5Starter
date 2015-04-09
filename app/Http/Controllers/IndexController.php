@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller {
     
@@ -12,5 +14,22 @@ class IndexController extends Controller {
 
     public function getIndex() {
         return view('index.index');
+    }
+    
+    /**
+     * Change locale
+     * 
+     * @param string $locale
+     * @return Response
+     */
+    public function getChangeLocale($locale) {
+        Session::put('locale', $locale);
+        
+        if (Auth::user()) {
+            Auth::user()->locale = $locale;
+            Auth::user()->save();
+        }
+        
+        return redirect()->back();
     }
 }

@@ -134,6 +134,8 @@ return [
          */
         'Orchestra\Imagine\ImagineServiceProvider',
         'Mmanos\Search\SearchServiceProvider',
+        'Dimsav\Translatable\TranslatableServiceProvider',
+
     ],
     /*
       |--------------------------------------------------------------------------

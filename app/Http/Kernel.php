@@ -29,7 +29,8 @@ class Kernel extends HttpKernel {
 		'guest' => 'App\Http\Middleware\RedirectIfAuthenticated',
                 'admin' => 'App\Http\Middleware\Admin',
                 'force_https' => 'App\Http\Middleware\ForceHttps',
-                'last_activity' => 'App\Http\Middleware\LastActivity'
+                'last_activity' => 'App\Http\Middleware\LastActivity',
+                'locale' => 'App\Http\Middleware\Locale'
 	];
 
 }

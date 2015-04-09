@@ -17,6 +17,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class='navbar-left'>
                 <ul class='nav navbar-nav'>
+                    <!-- Settings -->
+                    <li>
+                        <a href="{{ URL::to('admin/settings') }}">
+                            {{ trans('settings.settings') }}
+                        </a>
+                    </li>
+
+                    <!-- Users menu -->
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             {{ trans('users.users') }} <span class="caret"></span>
@@ -36,19 +44,22 @@
                     </li>
                 </ul>
             </div><!-- /.navber-left -->
-            
+
             <div class="navbar-right">
+                @if (count(App\Models\Settings::getLocales()) > 1)
+                    @include('change_locale')
+                @endif
+                @if(Auth::user())
+                @include('user_menu')
+                @else
                 <ul class="nav navbar-nav">
-                    @if(Auth::user())
-                        @include('user_menu')
-                    @else
                     <li>
                         <a href="{{ URL::to('users/login') }}">
                             <i class="glyphicon glyphicon-log-in"></i> {{ trans('users.login') }}
                         </a>
                     </li>
-                    @endif
                 </ul>
+                @endif
             </div><!-- /.navbar-right -->
         </div><!-- /.navbar-collapse -->
     </div>

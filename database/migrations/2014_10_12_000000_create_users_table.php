@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration {
             $table->string('password', 60);
             $table->string('confirm_token', 100)->nullable();
             $table->string('avatar')->nullable();
+            $table->string('locale')->nullable();
             $table->rememberToken();
             $table->datetime('confirmed_at')->nullable();
             $table->softDeletes();

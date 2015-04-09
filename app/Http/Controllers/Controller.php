@@ -16,6 +16,7 @@ abstract class Controller extends BaseController {
     
     public function __construct() {
         $this->middleware('last_activity');
+        $this->middleware('locale');
     }
 
     /**

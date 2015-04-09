@@ -18,17 +18,20 @@
 
 
             <div class="navbar-right">
+                @if (count(App\Models\Settings::getLocales()) > 1)
+                    @include('change_locale')
+                @endif
+                @if(Auth::user())
+                @include('user_menu')
+                @else
                 <ul class="nav navbar-nav">
-                    @if(Auth::user())
-                    @include('user_menu')
-                    @else
                     <li>
                         <a href="{{ URL::to('users/login') }}">
                             <i class="glyphicon glyphicon-log-in"></i> {{ trans('users.login') }}
                         </a>
                     </li>
-                    @endif
                 </ul>
+                @endif
             </div>
         </div><!-- /.navbar-collapse -->
     </div>
