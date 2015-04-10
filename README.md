@@ -10,7 +10,11 @@ The project uses several modules:
 7. [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable) - used to translate models. It is necessary if you plan to create multilanguage application.
 
 # Installation
-First clone the project. 
+First clone the project. Than run
+    
+    composer update
+    
+Depending on your OS this command may be in different format.
 
 ## Cofiguration
 Than you can create your .env file as it is in [Laravel 5 documentation](http://laravel.com/docs/master) or can use this sample:
