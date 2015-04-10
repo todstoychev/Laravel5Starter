@@ -1,6 +1,7 @@
 This project uses the Laravel 5 framework. Actually this is starter Laravel 5 project. It contains user managment system, including register, login, forgotten password, change password and other related functionalities. It also contains Basic admin panel and user roles implementation.
 The project uses several modules:
-1. [laracasts/flash](https://github.com/laracasts/flash) - module used for the flash message notifications;
+
+1. [laracasts/flash](https://github.com/laracasts/flash) - module used for the flash message notifications
 2. [fzaninotto/faker](https://github.com/fzaninotto/Faker) - used to generate dummy data
 3. [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar) - used for the debug bar in development mode
 4. [orchestra/imagine](https://github.com/orchestral/imagine) - module used to manipulate images. Used for the user avatar
