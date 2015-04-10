@@ -15,7 +15,7 @@ return [
     'email' => 'Email',
     'register_success' => 'Your registration was successful!',
     'successful_registration' => 'Successful registration',
-    'registration_message' => 'Hello, :username! Your registration was successful! To activate your account use this link.',
+    'registration_message' => '<p>Hello, :username!</p><p>Your registration was successful! To activate your account use this link.</p>',
     'new_user_registered' => 'New user registered',
     'account_confirmation' => 'Account confirmation',
     'account_confirmed' => 'You have successfully confirmed your account! You can now login to your profile.',
@@ -67,4 +67,6 @@ return [
     'avatar_changed' => 'Avatar changed!',
     'updated_at' => 'Updated at',
     'avatar_deleted' => 'The avatar is deleted!',
+    'account_confirmed_successfully' => '<p>Hello :username!</p> <p>Your account has been confirmed. Now you can login.</p>',
+    'user_account_confirmed' => 'Account confirmed'
 ];

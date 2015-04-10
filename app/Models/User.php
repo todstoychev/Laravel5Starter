@@ -89,7 +89,7 @@ class User extends Model implements AuthenticatableContract {
      * 
      * @param \App\Http\Requests\Request $request
      */
-    public static function changePassword(Http\Requests\User\PasswordResetRequest $request) {
+    public static function changePassword(\App\Http\Requests\User\PasswordResetRequest $request) {
         $user = self::where('email', $request->input('email'))->first();
         $user->password = Hash::make($request->input('password'));
         $user->save();
@@ -137,7 +137,7 @@ class User extends Model implements AuthenticatableContract {
 
         $data = [
             'username' => $this->username,
-            'email' => $this->email,
+            'user_email' => $this->email,
             'created_at' => $this->created_at,
             'confirmed_at' => $this->confirmed_at
         ];

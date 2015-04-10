@@ -148,16 +148,10 @@ class UsersController extends Controller {
 
         if ($user != null) {
             $data = $user->confirmRegistration();
+            $data['user_subject'] = trans('users.user_account_confirmed');
+            $data['admin_subject'] = 'Account confirmation';
 
-            try {
-                Mail::send('emails.account_confirmed', $data, function($msg) use ($data) {
-                    $msg->to(Config::get('mail.from.address'), Config::get('mail.from.name'));
-                    $msg->from($data['email'], $data['username']);
-                    $msg->subject(trans('users.account_confirmation'));
-                });
-            } catch (\Swift_TransportException $e) {
-                
-            }
+            $this->sendMail($data, 'emails.user_confirmed', 'emails.account_confirmed');
 
             flash()->success(trans('users.account_confirmed'));
 
