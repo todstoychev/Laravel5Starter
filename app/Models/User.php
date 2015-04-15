@@ -124,6 +124,27 @@ class User extends Model implements AuthenticatableContract {
     }
 
     /**
+     * Get all admin users
+     * 
+     * @param boolean $with_thrashed Get with soft deleted
+     * @param boolean $with_join Add joins
+     * @return Array
+     */
+    public static function getAdmins($with_thrashed, $with_join) {
+        if (Cache::has('admin_users')) {
+            return Cache::get('admin_users');
+        } else {
+            $query = self::base($with_thrashed, $with_join)
+                    ->where('r.role', 'admin')
+                    ->get();
+
+            Cache::put('admin_users', $query, 60);
+
+            return $query;
+        }
+    }
+
+    /**
      * Handles user account confirmation
      * 
      * @param \App\User $user

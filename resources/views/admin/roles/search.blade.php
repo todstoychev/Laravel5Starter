@@ -17,7 +17,7 @@
     <td>{{ $result->role }}</td>
     <td>
         <!-- Delete button -->
-        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ $result->role != 'admin' ? URL::to($uri . '/delete/' . $result->id) : null }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger {{ ($result->role == 'admin') ? 'disabled' : null }}">
+        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ URL::to($uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
 

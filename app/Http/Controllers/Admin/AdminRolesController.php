@@ -4,20 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminController;
-
 // Models
 use App\Models\Role;
-
 // Requests
 use App\Http\Requests\Admin\AddRoleRequest;
 use App\Http\Requests\Admin\EditRoleRequest;
 use App\Http\Requests\Role\SearchRequest;
 
 class AdminRolesController extends AdminController {
+
     public function __construct() {
         parent::__construct();
     }
-    
+
     /**
      * Get all roles page
      * 
@@ -29,7 +28,7 @@ class AdminRolesController extends AdminController {
 
         return $this->all($request, $query, 'roles', 'admin/roles', trans('roles.all_title'), trans('roles.delete_message'), 'admin.roles.all');
     }
-    
+
     /**
      * Render add form
      * 
@@ -38,7 +37,7 @@ class AdminRolesController extends AdminController {
     public function getAdd() {
         return view('admin.roles.add');
     }
-    
+
     /**
      * Handles role add
      * 
@@ -49,25 +48,39 @@ class AdminRolesController extends AdminController {
         Role::create([
             'role' => $request->input('role')
         ]);
-        
+
         flash()->success(trans('roles.role_added'));
-        
+
         return redirect()->back();
     }
-    
+
     /**
+     * Handles delete
      * 
      * @param int $id Role id
      * @return Response
      */
     public function getDelete($id) {
-        Role::find($id)->delete();
-        
-        flash()->success(trans('roles.role_deleted'));
-        
-        return redirect()->back();
+        $role = Role::find($id);
+
+        try {
+            if ($role->role != 'admin') {
+                $role->delete();
+                $role->deleteSearchIndex();
+
+                flash()->success(trans('roles.role_deleted'));
+
+                return redirect()->back();
+            } else {
+                throw new \Exception('Can not delete!');
+            }
+        } catch (\Exception $e) {
+            flash()->error(trans('roles.can_not_delete'));
+
+            return redirect()->back();
+        }
     }
-    
+
     /**
      * Renders edit page
      * 
@@ -76,10 +89,16 @@ class AdminRolesController extends AdminController {
      */
     public function getEdit($id) {
         $role = Role::find($id);
-        
-        return view('admin.roles.edit', ['role' => $role]);
+
+        if ($role->role != 'admin') {
+            return view('admin.roles.edit', ['role' => $role]);
+        } else {
+            flash()->error(trans('roles.can_not_edit'));
+
+            return redirect()->back();
+        }
     }
-    
+
     /**
      * Handles role edit
      * 
@@ -92,10 +111,10 @@ class AdminRolesController extends AdminController {
         $role->role = $request->input('role');
         
         flash()->success(trans('roles.role_edited'));
-        
+
         return redirect()->back();
     }
-    
+
     /**
      * Gets search page
      * 

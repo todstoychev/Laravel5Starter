@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 // Models
 use App\Models\User;
 use App\Models\UserRole;
@@ -47,14 +48,24 @@ class AdminUsersController extends AdminController {
      * @return Reponse
      */
     public function getDelete($id) {
-        UserRole::where('user_id', $id)->first()->delete();
-        $user = new User();
-        $user->find($id)->forceDelete();
-        $user->deleteSearchIndex();
-        
-        flash()->success(trans('users.delete_success'));
+        $user = User::find($id);
 
-        return redirect()->back();
+        if (!$user->hasRole('admin') && count($user->getAdmins(false, true)) > 1) {
+            UserRole::where('user_id', $id)->first()->delete();
+
+            $user->forceDelete();
+            $user->deleteSearchIndex();
+
+            Cache::flush(['admin_users']);
+
+            flash()->success(trans('users.delete_success'));
+
+            return redirect()->back();
+        } else {
+            flash()->error(trans('users.can_not_delete'));
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -94,6 +105,8 @@ class AdminUsersController extends AdminController {
         $user->roles()->saveMany($roles);
         $user->addSearchIndex();
 
+        Cache::flush('admin_users');
+
         flash()->success(trans('users.add_success'));
 
         return redirect()->back();
@@ -123,37 +136,49 @@ class AdminUsersController extends AdminController {
      * @return Response
      */
     public function putEdit(EditUserRequest $request, $id) {
-        $user = User::getUser($id, true);
+        try {
+            $user = User::getUser($id, true);
+            
+            if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1 && !in_array('admin', $request->input('roles'))) {
+                throw new \Exception('Can not edit!');
+            }
 
-        $user->username = $request->input('username');
+            $user->username = $request->input('username');
 
-        if ($request->input('password')) {
-            $user->password = Hash::make($request->input('password'));
+            if ($request->input('password')) {
+                $user->password = Hash::make($request->input('password'));
+            }
+
+            $user->email = $request->input('email');
+
+            if ($request->input('active') && $user->deleted_at) {
+                $user->deleted_at = null;
+                $user->confirmed_at = date('Y-m-d H:i:s');
+            } elseif (!$request->input('active') && $user->confirmed_at && !$user->deleted_at) {
+                $user->deleted_at = date('Y-m-d H:i:s');
+                $user->confirmed_at = null;
+            }
+
+            $user->save();
+
+            // Clean up user roles
+            UserRole::cleanUpRoles($id);
+
+            $roles = Role::getRolesToArray($request->input('roles'));
+
+            $user->roles()->saveMany($roles);
+            $user->updateSearchIndex();
+
+            Cache::flush('admin_users');
+
+            flash()->success(trans('users.edit_success'));
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            flash()->error(trans('users.can_not_edit'));
+
+            return redirect()->back();
         }
-
-        $user->email = $request->input('email');
-
-        if ($request->input('active') && $user->deleted_at) {
-            $user->deleted_at = null;
-            $user->confirmed_at = date('Y-m-d H:i:s');
-        } elseif (!$request->input('active') && $user->confirmed_at && !$user->deleted_at) {
-            $user->deleted_at = date('Y-m-d H:i:s');
-            $user->confirmed_at = null;
-        }
-
-        $user->save();
-
-        // Clean up user roles
-        UserRole::cleanUpRoles($id);
-
-        $roles = Role::getRolesToArray($request->input('roles'));
-
-        $user->roles()->saveMany($roles);
-        $user->updateSearchIndex();
-
-        flash()->success(trans('users.edit_success'));
-
-        return redirect()->back();
     }
 
     /**
@@ -163,11 +188,21 @@ class AdminUsersController extends AdminController {
      * @return Response
      */
     public function getDisable($id) {
-        User::find($id)->delete();
+        $user = User::find($id);
 
-        flash()->success(trans('users.disabled_success'));
+        if (!$user->hasRole('admin') && count($user->getAdmins(false, true)) > 1) {
+            $user->delete();
 
-        return redirect()->back();
+            flash()->success(trans('users.disabled_success'));
+
+            Cache::flush('admin_users');
+
+            return redirect()->back();
+        } else {
+            flash()->error(trans('users.can_not_deactivate'));
+
+            return redirect()->back();
+        }
     }
 
     /**
@@ -181,6 +216,8 @@ class AdminUsersController extends AdminController {
 
         $user->deleted_at = null;
         $user->save();
+
+        Cache::flush('admin_users');
 
         flash()->success(trans('users.activated_success'));
 

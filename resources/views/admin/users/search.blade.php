@@ -40,7 +40,7 @@
     <td>{{ $result->last_seen ? date('d.m.Y - H:i:s', strtotime($result->last_seen)) : '-' }}</td>
     <td>
         <!-- Delete button -->
-        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ $all != 1 ? URL::to($uri . '/delete/' . $result->id) : null }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger {{ ($all == 1) ? 'disabled' : null }}">
+        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ URL::to($uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
 
@@ -50,12 +50,12 @@
         </a>
 
         <!-- Disable -->
-        <a href="{{ URL::to($uri . '/disable/' . $result->id) }}" class="btn btn-xs btn-danger {{ ($all == 1 || $result->deleted_at) ? 'disabled' : null }}" title="{{ trans('temp.disable') }}">
+        <a href="{{ URL::to($uri . '/disable/' . $result->id) }}" class="btn btn-xs btn-danger {{ ($result->deleted_at) ? 'disabled' : null }}" title="{{ trans('temp.disable') }}">
             <i class="glyphicon glyphicon-arrow-down"></i>
         </a>
 
         <!-- Restore -->
-        <a href="{{ URL::to($uri . '/activate/' . $result->id) }}" class="btn btn-xs btn-success {{ ($all == 1 || !$result->deleted_at) ? 'disabled' : null }}" title="{{ trans('users.activate') }}">
+        <a href="{{ URL::to($uri . '/activate/' . $result->id) }}" class="btn btn-xs btn-success {{ (!$result->deleted_at) ? 'disabled' : null }}" title="{{ trans('users.activate') }}">
             <i class="glyphicon glyphicon-arrow-up"></i>
         </a>
     </td>

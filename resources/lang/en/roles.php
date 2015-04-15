@@ -12,5 +12,7 @@ return [
     'add_role' => 'Add role',
     'role_added' => 'Role has been added successfully!',
     'role_deleted' => 'Role has been deleted successfully!',
-    'edit_role' => 'Edit role'
+    'edit_role' => 'Edit role',
+    'can_not_delete' => 'This role can not be deleted!',
+    'can_not_edit' => 'This role can not be edited!'
 ];

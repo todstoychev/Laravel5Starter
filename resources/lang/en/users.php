@@ -68,5 +68,8 @@ return [
     'updated_at' => 'Updated at',
     'avatar_deleted' => 'The avatar is deleted!',
     'account_confirmed_successfully' => '<p>Hello :username!</p> <p>Your account has been confirmed. Now you can login.</p>',
-    'user_account_confirmed' => 'Account confirmed'
+    'user_account_confirmed' => 'Account confirmed',
+    'can_not_delete' => 'This user is the only one administrator and can not be deleted!',
+    'can_not_deactivate' => 'This user is the only one administrator and can not be deactivated!', 
+    'can_not_edit' => 'This user is the only one administrator and can not be edited!', 
 ];
