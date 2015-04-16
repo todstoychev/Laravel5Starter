@@ -187,7 +187,7 @@ class ICR {
         $bytes = $mb * 1048576;
 
         if ($this->file->getSize() > $bytes) {
-            throw new Exception('File too large');
+            throw new \Exception('File too large');
         }
     }
 

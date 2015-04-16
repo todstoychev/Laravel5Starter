@@ -324,11 +324,9 @@ class UsersController extends Controller {
 
     public function postChangeAvatar(ChangeAvatarRequest $request) {
         Session::put('profile_tab', 'avatar');
-        
-        $file = $request->file('avatar');
 
         try {
-            $icr = new ICR('avatar', $file);
+            $icr = new ICR('avatar', $request->file('avatar'));
         } catch (\Exception $e) {
             flash()->error(trans('temp.image_error'));
 
