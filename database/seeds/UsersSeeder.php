@@ -12,7 +12,7 @@ class UsersSeeder extends Seeder {
         $user = new User();
         $user->username = 'admin';
         $user->password = Hash::make('admin');
-        $user->email = 'todstoychev@gmail.com';
+        $user->email = 'admin@domain.com';
         $user->deleted_at = null;
         $user->confirmed_at = \Carbon\Carbon::now();
         $user->save();

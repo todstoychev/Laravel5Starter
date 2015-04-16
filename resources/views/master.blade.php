@@ -18,13 +18,13 @@
         <script type="text/javascript" src="{{ URL::asset('js/jquery.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('bs/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript">
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+});
         </script>
-        
+
         @yield('stylesheets')
 
         <!--[if lt IE 9]>
@@ -36,15 +36,18 @@
         <header>
             @include('navigation')
         </header>
-        
-        <div class="container">
-            @include('vendor.flash.message')
-            @yield('content')
+
+        <div class="body">
+            <div class="container">
+                @include('vendor.flash.message')
+                @yield('content')
+            </div>
         </div>
 
         <footer class="navbar navbar-default" role="navigation">
 
         </footer>
+        <script src="{{ URL::asset('js/main.js') }}"></script>
         @yield('javascripts')
     </body>
 </html>
