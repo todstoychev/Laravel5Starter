@@ -325,18 +325,7 @@ class UsersController extends Controller {
     public function postChangeAvatar(ChangeAvatarRequest $request) {
         Session::put('profile_tab', 'avatar');
 
-        try {
-            $icr = new ICR('avatar', $request->file('avatar'));
-        } catch (\Exception $e) {
-            flash()->error(trans('temp.image_error'));
-
-            return redirect()->back();
-        }
-
-        $this->deleteAvatar();
-
-        Auth::user()->avatar = $icr->getFilename();
-        Auth::user()->save();
+        Auth::user()->changeAvatar($request);
 
         flash()->success(trans('users.avatar_changed'));
 
@@ -351,31 +340,11 @@ class UsersController extends Controller {
     public function getDeleteAvatar() {
         Session::put('profile_tab', 'avatar');
         
-        $this->deleteAvatar();
+        Auth::user()->deleteAvatar();
         
         flash()->success(trans('users.avatar_deleted'));
         
         return redirect()->back();
-    }
-
-    /**
-     * Deletes avatar
-     * 
-     * @return Response
-     */
-    private function deleteAvatar() {
-        if (Auth::user()->avatar) {
-            $config = Config::get('image_crop_resizer');
-
-            foreach ($config['avatar'] as $size => $data) {
-                unlink(public_path($config['uploads_path'] . '/avatar/' . $size . '/' . Auth::user()->avatar));
-            }
-
-            unlink(public_path($config['uploads_path'] . '/avatar/' . Auth::user()->avatar));
-
-            Auth::user()->avatar = null;
-            Auth::user()->save();
-        }
     }
 
 }

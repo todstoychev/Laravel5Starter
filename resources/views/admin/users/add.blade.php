@@ -12,11 +12,11 @@
 @section('content')
 @if(isset($user))
 <h1 class="page-header">{{ trans('users.edit') }}</h1>
-<form action="{{ URL::to('admin/users/edit/' . $user->id) }}" method="POST">
+<form action="{{ URL::to('admin/users/edit/' . $user->id) }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT" />
 @else
 <h1 class="page-header">{{ trans('users.add') }}</h1>
-<form action="{{ URL::to('admin/users/add') }}" method="POST">
+<form action="{{ URL::to('admin/users/add') }}" method="POST" enctype="multipart/form-data">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="col-sm-6 col-sm-offset-3">
@@ -38,7 +38,24 @@
                     </div>
                 </div>
             </div>
-
+            
+            <!-- Avatar -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#avatar">
+                            {{ trans('users.avatar') }}
+                            <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                        </a>
+                    </h4>
+                </div>
+                <div id="avatar" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @include('admin.users.avatar_form')
+                    </div>
+                </div>
+            </div>
+            
             <!-- Settings -->
             <div class="panel panel-default">
                 <div class="panel-heading">

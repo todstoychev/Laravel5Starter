@@ -26,7 +26,7 @@ class AddUserRequest extends Request {
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
             'email' => 'required|email|unique:users',
-            'roles' => 'required'
+            'roles' => 'required',
         ];
     }
 

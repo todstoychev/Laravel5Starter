@@ -26,7 +26,7 @@ class EditUserRequest extends Request {
             'password' => 'min:6|confirmed',
             'password_confirmation' => 'min:6',
             'email' => 'required|email',
-            'roles' => 'required'
+            'roles' => 'required',
         ];
     }
 

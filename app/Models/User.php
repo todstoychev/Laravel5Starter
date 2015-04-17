@@ -8,6 +8,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Support\Facades\Hash;
 use Mmanos\Search\Search;
 use Illuminate\Support\Facades\Cache;
+use Lib\ICR;
+use Illuminate\Support\Facades\Config;
 
 class User extends Model implements AuthenticatableContract {
 
@@ -238,6 +240,70 @@ class User extends Model implements AuthenticatableContract {
         } else {
             return null;
         }
+    }
+    
+    /**
+     * Change user profile
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Models\User
+     */
+    public function changeProfile(\Illuminate\Http\Request $request) {
+        $this->username = $request->input('username');
+        
+        if ($request->input('password')) {
+            $this->password = Hash::make($request->input('password'));
+        }
+        
+        $this->email = $request->input('email');
+        $this->save();
+    }
+    
+    /**
+     * Change settings
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \App\Models\User
+     */
+    public function changeSettings(\Illuminate\Http\Request $request) {
+        if ($request->input('active')) {
+            $this->confirmed_at = \Carbon\Carbon::now();
+            $this->confirm_token = null;
+        } else {
+            $this->deleted_at = \Carbon\Carbon::now();
+        }
+        
+        $this->save();
+    }
+    
+    public function changeAvatar(\Illuminate\Http\Request $request) {
+        if ($this->avatar) {
+            $this->deleteAvatar();
+        }
+  
+        $icr = new ICR('avatar', $request->file('avatar'));
+        
+        $this->avatar = $icr->getFilename();
+        $this->save();
+    }
+    
+    /**
+     * Deletes avatar
+     * 
+     * @return \App\Models\User
+     */
+    public function deleteAvatar() {
+        $config = Config::get('image_crop_resizer');
+        $path = public_path($config['uploads_path']);
+        
+        unlink($path . '/avatar/' . $this->avatar);
+        
+        foreach ($config['avatar'] as $size => $values) {
+            unlink($path . '/avatar/' . $size . '/' . $this->avatar);
+        }
+        
+        $this->avatar = null;
+        $this->save();
     }
 
     /**
