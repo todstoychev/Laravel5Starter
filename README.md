@@ -66,3 +66,10 @@ to run the migrations.
 
 ## Your first login
 Use 'admin' as username and 'admin' as password to enter the application. The 'admin' account has an administrator role so you have access to all application futures.
+
+## About the user managment
+There are 2 roles in this application - admin and user. Admin role can not be deleted or edited. All other roles can be edited. 
+Users can be deleted if they do not have something that relates to them. If you have only one active admin user, he can not be deleted or deactivated.
+
+## Settings (Admin panel)
+There is a settings module in the admin panel. You can define your site name from here. This is the name that will be shown at the navigation tab in your browser. Also you can define the locales. Use standart 2 characters locale codes. The fallback locale is used as default if the user has no choose a language from the language menu.
