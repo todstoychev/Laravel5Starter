@@ -4,7 +4,7 @@ namespace Lib;
 
 use Imagine\Image\Box;
 use Imagine\Image\Point;
-use Imagine\Imagick\Imagine;
+use Imagine\Gd\Imagine;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\Config;
 
