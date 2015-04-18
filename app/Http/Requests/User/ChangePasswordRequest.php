@@ -23,7 +23,7 @@ class ChangePasswordRequest extends Request {
      */
     public function rules() {
         // Put session active tab
-        Session::put('profile_active_tab', 'password');
+        Session::put('profile_tab', 'password');
         
         return [
             'old_password' => 'required',

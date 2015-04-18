@@ -65,6 +65,11 @@
             $('div#' + profile_tab).addClass('active');
             $('a[aria-controls="' + profile_tab + '"]').parent('li').addClass('active');
         }
+        
+        // Delete confirmation dialog
+        $('#delete').on('show.bs.modal', function (e) {
+            $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
+        });
     });
 </script>
 @stop

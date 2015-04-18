@@ -9,6 +9,18 @@ The project uses several modules:
 6. [zendframework/zendsearch](https://github.com/zendframework/ZendSearch) - used from mmanos/laravel-search
 7. [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable) - used to translate models. It is necessary if you plan to create multilanguage application.
 
+The project contains also several frontend plugins:
+
+1. [Bootstrap 3](http://getbootstrap.com/) - can be found in ```public/bs/```
+2. [jQuery 1.11.1](https://jquery.com/) - can be found in ```public/js/jquery.js```
+3. [Select2 3.5.2 with Bootstrap compitability](http://select2.github.io/select2/) - can be found in ```public/select2/```
+4. [Lightbox 2.7.1](http://lokeshdhakar.com/projects/lightbox2/) - can be found in ```public/lightbox/```
+5. [FontAwesome 4.3.0](http://fortawesome.github.io/Font-Awesome/) - can be found in ```public/fa/```
+
+In the ```libs/``` directory there are some custom libraries written by me. Those are ICR - The Image Crop Resizer library used to manipulate images through the Imagine bundle. And the TableSorter, which provides an methods for table columns sorting. You can find exapmles for the usage of both libraries in the code itself. 
+For the ICR you can check the ```putChangeAvatar()``` method in the ```app/Http/Controllers/UserController.php```. 
+For TableSorter check some of the templates named ```all.blade.php``` and ```search.blade.php``` in ```resources/views/admin/users/``` or in the ```resources/views/admin/roles/```. Check the related methods in the controllers for some hints. Such methods are ```getAll()```, ```getSearch()``` and ```postSearch()``` in ```app/Http/Controllers/Admin/AdminUsersController.php```. 
+
 # Installation
 First clone the project. Than run
     
@@ -34,11 +46,7 @@ Than you can create your .env file as it is in [Laravel 5 documentation](http://
     EMAIL_ADDRESS=application_email@domain.com
     EMAIL_PASSWORD=email_password
 
-    PROVIDERS=Barryvdh\Debugbar\ServiceProvider
-
-    ALIASES='Debugbar' => 'Barryvdh\Debugbar\Facade',
-
-Put your database host, username and password. ```EMAIL_ADDRESS``` is the application mailing service address. ```EMAIL_PASSWORD``` is the password for the mailbox. ```PROVIDERS``` may contain your modules required for the current configuration. In this case the Bardryvdh/Debugbar is used only for local environment which is development mode. ```ALIASES``` is the same like ```PROVIDERS``` but here you can add your aliases for the modules.
+Put your database host, username and password. ```EMAIL_ADDRESS``` is the application mailing service address. ```EMAIL_PASSWORD``` is the password for the mailbox. I am using this way of configuration due to the mail.php config file commit. I do not want to distribute my email and password ;).
 
 For more details about the .env file, check [Laravel's documentation](http://laravel.com/docs/master) or just Google about it. There is a plenty of info out there.
 

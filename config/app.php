@@ -94,7 +94,7 @@ return [
       |
      */
     'providers' => [
-        env('PROVIDERS'),
+        'Barryvdh\Debugbar\ServiceProvider',
         /*
          * Laravel Framework Service Providers...
          */
@@ -184,6 +184,6 @@ return [
         'Flash' => 'Laracasts\Flash\Flash',
         'Imagine' => 'Orchestra\Imagine\Facade',
         'Search' => 'Mmanos\Search\Facade',
-        env('ALIASES')
+        'Debugbar' => 'Barryvdh\Debugbar\Facade'
     ],
 ];

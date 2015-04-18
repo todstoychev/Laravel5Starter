@@ -55,6 +55,8 @@ class User extends Model implements AuthenticatableContract {
                     ->leftJoin('roles as r', 'r.id', '=', 'ur.role_id');
         }
 
+        $query->distinct();
+
         return $query;
     }
 
@@ -143,6 +145,17 @@ class User extends Model implements AuthenticatableContract {
             Cache::put('admin_users', $query, 60);
 
             return $query;
+        }
+    }
+    
+    /**
+     * Flush the users cache
+     * 
+     * @param \App\Models\User $user
+     */
+    public static function flushCache(User $user = null) {
+        if ($user && $user->hasRole('admin')) {
+            Cache::flush(['admin_users']);
         }
     }
 
@@ -241,7 +254,7 @@ class User extends Model implements AuthenticatableContract {
             return null;
         }
     }
-    
+
     /**
      * Change user profile
      * 
@@ -250,15 +263,15 @@ class User extends Model implements AuthenticatableContract {
      */
     public function changeProfile(\Illuminate\Http\Request $request) {
         $this->username = $request->input('username');
-        
+
         if ($request->input('password')) {
             $this->password = Hash::make($request->input('password'));
         }
-        
+
         $this->email = $request->input('email');
         $this->save();
     }
-    
+
     /**
      * Change settings
      * 
@@ -275,18 +288,18 @@ class User extends Model implements AuthenticatableContract {
         
         $this->save();
     }
-    
+
     public function changeAvatar(\Illuminate\Http\Request $request) {
         if ($this->avatar) {
             $this->deleteAvatar();
         }
-  
+
         $icr = new ICR('avatar', $request->file('avatar'));
-        
+
         $this->avatar = $icr->getFilename();
         $this->save();
     }
-    
+
     /**
      * Deletes avatar
      * 
@@ -295,17 +308,17 @@ class User extends Model implements AuthenticatableContract {
     public function deleteAvatar() {
         $config = Config::get('image_crop_resizer');
         $path = public_path($config['uploads_path']);
-        
+
         unlink($path . '/avatar/' . $this->avatar);
-        
+
         foreach ($config['avatar'] as $size => $values) {
             unlink($path . '/avatar/' . $size . '/' . $this->avatar);
         }
-        
+
         $this->avatar = null;
         $this->save();
     }
-
+    
     /**
      * Users roles
      * 

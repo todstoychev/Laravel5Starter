@@ -22,7 +22,7 @@ class ChangeEmailRequest extends Request {
      * @return array
      */
     public function rules() {
-        Session::put('profile_active_tab', 'email');
+        Session::put('profile_tab', 'email');
         
         return [
            'email' => 'required|unique:users|email'

@@ -1,5 +1,3 @@
-div.input-group-addon#search {
-    cursor: pointer;
-}
-
+div.input-group-addon#search {cursor: pointer;}
 footer {margin-top: 30px;}
+a.btn.delete-avatar {position: absolute; left: 40px; top: 10px;}

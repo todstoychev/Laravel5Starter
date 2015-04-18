@@ -14,6 +14,7 @@
 
         <link rel="stylesheet" href="{{ URL::asset('bs/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ URL::asset('bs/css/bootstrap-theme.min.css') }}" />
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}" />
 
         <script type="text/javascript" src="{{ URL::asset('js/jquery.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('bs/js/bootstrap.min.js') }}"></script>

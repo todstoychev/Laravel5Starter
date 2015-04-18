@@ -49,21 +49,20 @@ class AdminUsersController extends AdminController {
      * @return Reponse
      */
     public function getDelete($id) {
-        $user = User::find($id);
+        $user = User::where('id', $id)->withTrashed()->first();
 
-        if (!$user->hasRole('admin') && count($user->getAdmins(false, true)) > 1) {
-            UserRole::where('user_id', $id)->first()->delete();
-
-            $user->forceDelete();
-            $user->deleteSearchIndex();
-
-            Cache::flush(['admin_users']);
-
-            flash()->success(trans('users.delete_success'));
+        if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1) {
+            flash()->error(trans('users.can_not_delete'));
 
             return redirect()->back();
         } else {
-            flash()->error(trans('users.can_not_delete'));
+            UserRole::where('user_id', $id)->delete();
+
+            $user->forceDelete();
+            $user->deleteSearchIndex();
+            User::flushCache($user);
+
+            flash()->success(trans('users.delete_success'));
 
             return redirect()->back();
         }
@@ -96,6 +95,10 @@ class AdminUsersController extends AdminController {
         if ($request->file('avatar')) {
             $user->changeAvatar($request);
         }
+        
+        $user->save();
+        $user->addSearchIndex();
+        User::flushCache($user);
 
         flash()->success(trans('users.add_success'));
 
@@ -127,20 +130,31 @@ class AdminUsersController extends AdminController {
      */
     public function putEdit(EditUserRequest $request, $id) {
         $user = User::find($id);
-
         $user->changeProfile($request);
-        $user->roles()->attach($request->input('roles'));
-        $user->changeSettings($request);
+
+        if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1 && (!in_array(1, $request->input('roles')) || !$request->input('active'))) {
+            flash()->error(trans('users.can_not_edit'));
+
+            return redirect()->back();
+        } else {
+            UserRole::where('user_id', $user->id)->delete();
+            $user->roles()->attach($request->input('roles'));
+            $user->changeSettings($request);
+        }
 
         if ($request->file('avatar')) {
             $user->changeAvatar($request);
         }
 
+        $user->save();
+        $user->addSearchIndex();
+        User::flushCache($user);
+
         flash()->success(trans('users.edit_success'));
 
         return redirect()->back();
     }
-    
+
     /**
      * Deletes user avatar
      * 
@@ -150,9 +164,11 @@ class AdminUsersController extends AdminController {
     public function getDeleteAvatar($id) {
         $user = User::find($id);
         $user->deleteAvatar();
-        
+        $user->save();
+
         flash()->success(trans('users.avatar_deleted'));
-        
+        User::flushCache($user);
+
         return redirect()->back();
     }
 
@@ -165,16 +181,16 @@ class AdminUsersController extends AdminController {
     public function getDisable($id) {
         $user = User::find($id);
 
-        if (!$user->hasRole('admin') && count($user->getAdmins(false, true)) > 1) {
+        if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1) {
+            flash()->error(trans('users.can_not_deactivate'));
+
+            return redirect()->back();
+        } else {
             $user->delete();
 
             flash()->success(trans('users.disabled_success'));
 
-            Cache::flush('admin_users');
-
-            return redirect()->back();
-        } else {
-            flash()->error(trans('users.can_not_deactivate'));
+            User::flushCache($user);
 
             return redirect()->back();
         }
@@ -192,7 +208,7 @@ class AdminUsersController extends AdminController {
         $user->deleted_at = null;
         $user->save();
 
-        Cache::flush('admin_users');
+        User::flushCache($user);
 
         flash()->success(trans('users.activated_success'));
 
