@@ -25,6 +25,23 @@
             </div>
         </div>
     </div><!-- /Sitename -->
+    
+    <!-- Favicon -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#favicon" class="collapsed">
+                    {{ trans('settings.favicon') }}
+                    <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="favicon" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('admin.settings.favicon_form')
+            </div>
+        </div>
+    </div><!-- /Favicon -->
 
     <!-- Locales -->
     <div class="panel panel-default">

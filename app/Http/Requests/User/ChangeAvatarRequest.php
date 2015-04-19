@@ -22,7 +22,6 @@ class ChangeAvatarRequest extends Request {
      * @return array
      */
     public function rules() {
-        Session::put('profile_tab', 'avatar');
         return [
             'avatar' => 'required|image'
         ];

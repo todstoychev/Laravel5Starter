@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Requests\User;
+namespace App\Http\Requests\Admin\Settings;
 
 use App\Http\Requests\Request;
-use Illuminate\Support\Facades\Session;
 
-class ChangePasswordRequest extends Request {
+class FaviconRequest extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +22,7 @@ class ChangePasswordRequest extends Request {
      */
     public function rules() {
         return [
-            'old_password' => 'required',
-            'new_password' => 'required|min:6|confirmed',
-            'new_password_confirmation' => 'required|min:6'
+            'favicon' => 'required'
         ];
     }
 

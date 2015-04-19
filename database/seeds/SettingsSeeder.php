@@ -9,7 +9,8 @@ class SettingsSeeder extends Seeder {
             'locales' => 'en, bg',
             'sitename_en' => 'My site',
             'sitename_bg' => 'Моят сайт',
-            'fallback_locale' => 'bg'
+            'fallback_locale' => 'bg',
+            'favicon' => 'favicon.ico'
         ];
 
         foreach ($array as $key => $item) {

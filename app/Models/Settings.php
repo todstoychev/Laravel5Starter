@@ -63,5 +63,17 @@ class Settings extends Model {
         
         return $locales;
     } 
+    
+    /**
+     * Get the favicon
+     * 
+     * @return string
+     */
+    public static function getFavicon() {
+        $array = self::getAll();
+        $value = $array['favicon'];
+        
+        return $value;
+    }
 
 }

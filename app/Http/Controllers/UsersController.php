@@ -194,6 +194,9 @@ class UsersController extends Controller {
      * @return Response
      */
     public function putChangePassword(ChangePasswordRequest $request) {
+        // Put session active tab
+        Session::put('profile_tab', 'password');
+
         if (Hash::check($request->input('old_password'), Auth::user()->password)) {
             Auth::user()->password = Hash::make($request->input('new_password'));
             Auth::user()->save();
@@ -215,6 +218,8 @@ class UsersController extends Controller {
      * @return Response
      */
     public function putChangeEmail(ChangeEmailRequest $request) {
+        Session::put('profile_tab', 'email');
+
         Auth::user()->email = $request->input('email');
         Auth::user()->save();
 
@@ -320,6 +325,8 @@ class UsersController extends Controller {
     }
 
     public function postChangeAvatar(ChangeAvatarRequest $request) {
+        Session::put('profile_tab', 'avatar');
+        
         Auth::user()->changeAvatar($request);
 
         flash()->success(trans('users.avatar_changed'));
