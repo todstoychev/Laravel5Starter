@@ -4,7 +4,7 @@
     
     @if($settings['favicon'])
     <div class="form-group">
-        <img src="{{ URL::to($settings['favicon']) }}" />
+        <img src="{{ URL::asset($settings['favicon']) }}" />
         <a href="{{ URL::to('admin/settings/delete-favicon') }}" title="{{ trans('settings.delete_favicon') }}" class="btn btn-xs btn-danger">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
