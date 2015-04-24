@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Session;
 
 class Settings extends Model {
 
@@ -76,4 +77,17 @@ class Settings extends Model {
         return $value;
     }
 
+    /**
+     * Gets the sitename
+     * 
+     * @return String
+     */
+    public static function getSitename() {
+        $array = self::getAll();
+        $value = $array['sitename_' . Session::get('locale')];
+        
+        return $value;
+    }
+    
+    
 }
