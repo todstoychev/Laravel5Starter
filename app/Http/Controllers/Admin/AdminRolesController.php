@@ -109,6 +109,7 @@ class AdminRolesController extends AdminController {
     public function putEdit(EditRoleRequest $request, $id) {
         $role = Role::find($id);
         $role->role = $request->input('role');
+        $role->save();
         
         flash()->success(trans('roles.role_edited'));
 

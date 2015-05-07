@@ -1,9 +1,9 @@
-@if (isset($user))
+@if (isset($role))
 <form action="{{ URL::to('admin/roles/edit/' . $role->id) }}" method="POST">
     <input type="hidden" name="_method" value="PUT" />
 @else
 <form action="{{ URL::to('admin/roles/add') }}" method="POST">
-    @endif
+@endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="form-group">
         <div class="input-group">

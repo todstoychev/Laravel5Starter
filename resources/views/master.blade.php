@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ Session::has('locale') ? Session::get('locale') : Cache::get('settings')['fallback_locale'] }}">
     @include('head')
     <body>
         <header>
