@@ -22,7 +22,7 @@ class EditRoleRequest extends Request {
      */
     public function rules() {
         return [
-            'role' => 'required|alpha|unique:roles'
+            'role' => 'required|alpha'
         ];
     }
 

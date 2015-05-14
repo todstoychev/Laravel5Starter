@@ -57,6 +57,25 @@ class Role extends Model {
 
         return $query;
     }
+    
+    /**
+     * Checks if role exists on edit
+     * 
+     * @param int $id
+     * @param string $name
+     * @return boolean
+     */
+    public static function checkRoleOnEdit($id, $role) {
+        $query = self::where('id', '!=', $id)
+                ->where('role', '=',  $role)
+                ->get();
+        
+        if (count($query) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Add search index

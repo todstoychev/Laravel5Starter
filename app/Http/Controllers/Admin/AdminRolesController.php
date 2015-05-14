@@ -108,11 +108,16 @@ class AdminRolesController extends AdminController {
      */
     public function putEdit(EditRoleRequest $request, $id) {
         $role = Role::find($id);
-        $role->role = $request->input('role');
-        $role->save();
-        
-        flash()->success(trans('roles.role_edited'));
+        $check = Role::checkRoleOnEdit($role->id, $request->input('role'));
 
+        if (!$check) {
+            $role->role = $request->input('role');
+            $role->save();
+
+            flash()->success(trans('roles.role_edited'));
+        } else {
+            flash()->error(trans('roles.role_exists'));
+        }
         return redirect()->back();
     }
 
