@@ -12,8 +12,9 @@ use App\Http\Requests\Admin\Settings\FallbackLocaleRequest;
 use App\Http\Requests\Admin\Settings\FaviconRequest;
 // Models
 use App\Models\Settings;
+use App\Models\User;
 
-class AdminSettingsController extends Controller {
+class AdminSettingsController extends AdminController {
 
     public function __construct() {
         parent::__construct();
@@ -42,13 +43,24 @@ class AdminSettingsController extends Controller {
      * @return Response
      */
     public function putLocales(LocalesRequest $request) {
-        Settings::where('param', 'locales')->update(['value' => $request->input('locales')]);
-
-        Cache::flush('settings');
-
+        $fallback_locale = Settings::getAll()['fallback_locale'];
+        $old_locales = Settings::getLocales();
         Session::put('settings_tab', 'locales');
-
-        flash()->success(trans('settings.locales_updated'));
+        
+        // Check if try to set fallback locale that is not in the locales list
+        if (!preg_match('/' . $fallback_locale . '/', $request->get('locales'))) {
+            flash()->warning(trans('settings.fallback_locale_not_in_list'));
+        } else {
+            flash()->success(trans('settings.locales_updated'));
+        }
+                
+        Settings::where('param', 'locales')->update(['value' => $request->input('locales')]);
+        Cache::flush('settings');
+        $locales = Settings::getLocales();
+        $diff = array_diff($old_locales, $locales);
+        
+        // Change user locale to fallback where user locale is equal to removed one
+        User::onChangeLocales($diff, $fallback_locale);
 
         return redirect()->back();
     }
@@ -94,8 +106,13 @@ class AdminSettingsController extends Controller {
         Cache::flush('settings');
 
         Session::put('settings_tab', 'fallback-locale');
-
-        flash()->success(trans('settings.fallback_locale_updated'));
+        
+        // Check if try to set fallback locale that is not in the locales list
+        if (!in_array($request->input('fallback_locale'), Settings::getLocales())) {
+            flash()->warning(trans('settings.fallback_locale_not_in_list'));
+        } else {
+            flash()->success(trans('settings.fallback_locale_updated'));
+        }
 
         return redirect()->back();
     }

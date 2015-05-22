@@ -60,7 +60,7 @@ class Settings extends Model {
         $array = self::getAll();
         $value = $array['locales'];
         
-        $locales = explode(', ', $value);
+            $locales = explode(', ', $value);
         
         return $locales;
     } 

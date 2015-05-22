@@ -158,6 +158,10 @@ class User extends Model implements AuthenticatableContract {
             Cache::flush(['admin_users']);
         }
     }
+    
+    public static function onChangeLocales($diff, $fallback_locale) {
+        self::whereIn('locale', $diff)->update(['locale' => $fallback_locale]);
+    }
 
     /**
      * Handles user account confirmation

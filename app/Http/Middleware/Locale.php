@@ -21,7 +21,7 @@ class Locale {
         if (!Session::has('locale')) {
             Session::put('locale', $settings['fallback_locale']);
         }
-
+           
         app()->setLocale(Session::get('locale'));
 
         return $next($request);

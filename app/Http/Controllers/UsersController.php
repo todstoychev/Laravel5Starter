@@ -170,6 +170,9 @@ class UsersController extends Controller {
     public function getLogout() {
         Auth::user()->last_seen = Cache::get('last_seen_' . Auth::user()->id);
         Cache::forget('last_seen_' . Auth::user()->id);
+        Auth::user()->locale = Session::get('locale');
+        Session::pull('locale');
+        Auth::user()->save();
 
         Auth::logout();
 

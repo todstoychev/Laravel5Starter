@@ -17,5 +17,6 @@ return [
     'delete_favicon' => 'Delete favicon',
     'favicon_changed' => 'Favicon changed successfully!',
     'favicon_error' => 'Error! Invalid file format.',
-    'favicon_deleted' => 'Favicon deleted!'
+    'favicon_deleted' => 'Favicon deleted!',
+    'fallback_locale_not_in_list' => 'The fallback locale is not in the locales list! Please change it.'
 ];
