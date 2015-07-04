@@ -16,10 +16,11 @@ class Locale {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        $settings = Settings::getAll();
+        $fallback_locale = Settings::getFallBackLocale();
+        $locales = Settings::getLocales();
 
-        if (!Session::has('locale')) {
-            Session::put('locale', $settings['fallback_locale']);
+        if (!Session::has('locale') || !in_array(Session::get('locale'), $locales)) {
+            Session::put('locale', $fallback_locale);
         }
            
         app()->setLocale(Session::get('locale'));

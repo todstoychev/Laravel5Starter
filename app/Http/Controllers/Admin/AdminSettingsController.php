@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+//use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Requests
@@ -12,7 +12,7 @@ use App\Http\Requests\Admin\Settings\FallbackLocaleRequest;
 use App\Http\Requests\Admin\Settings\FaviconRequest;
 // Models
 use App\Models\Settings;
-use App\Models\User;
+//use App\Models\User;
 
 class AdminSettingsController extends AdminController {
 
@@ -43,8 +43,7 @@ class AdminSettingsController extends AdminController {
      * @return Response
      */
     public function putLocales(LocalesRequest $request) {
-        $fallback_locale = Settings::getAll()['fallback_locale'];
-        $old_locales = Settings::getLocales();
+        $fallback_locale = Settings::getFallBackLocale();
         Session::put('settings_tab', 'locales');
         
         // Check if try to set fallback locale that is not in the locales list
@@ -56,11 +55,7 @@ class AdminSettingsController extends AdminController {
                 
         Settings::where('param', 'locales')->update(['value' => $request->input('locales')]);
         Cache::flush('settings');
-        $locales = Settings::getLocales();
-        $diff = array_diff($old_locales, $locales);
-        
-        // Change user locale to fallback where user locale is equal to removed one
-        User::onChangeLocales($diff, $fallback_locale);
+        Session::put('locale', $fallback_locale);
 
         return redirect()->back();
     }

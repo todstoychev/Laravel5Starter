@@ -89,5 +89,17 @@ class Settings extends Model {
         return $value;
     }
     
+    /**
+     * Gets the fallback locale
+     * 
+     * @return string
+     */
+    public static function getFallBackLocale() {
+        $array = self::getAll();
+        $value = $array['fallback_locale'];
+        
+        return $value;
+    }
+    
     
 }
