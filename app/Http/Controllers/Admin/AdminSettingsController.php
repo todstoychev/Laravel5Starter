@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-//use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Requests
@@ -12,7 +11,6 @@ use App\Http\Requests\Admin\Settings\FallbackLocaleRequest;
 use App\Http\Requests\Admin\Settings\FaviconRequest;
 // Models
 use App\Models\Settings;
-//use App\Models\User;
 
 class AdminSettingsController extends AdminController {
 
@@ -21,9 +19,9 @@ class AdminSettingsController extends AdminController {
     }
 
     /**
-     * Renders index page for the settings
-     * 
-     * @return Response
+     * Get index page
+     *
+     * @return \Illuminate\View\View
      */
     public function getIndex() {
         $settings = Settings::getAll();
@@ -38,9 +36,9 @@ class AdminSettingsController extends AdminController {
 
     /**
      * Handles locales update
-     * 
+     *
      * @param LocalesRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putLocales(LocalesRequest $request) {
         $fallback_locale = Settings::getFallBackLocale();
@@ -62,9 +60,9 @@ class AdminSettingsController extends AdminController {
 
     /**
      * Handles sitename update
-     * 
+     *
      * @param SitenameRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putSitename(SitenameRequest $request) {
         foreach (Settings::getLocales() as $locale) {
@@ -91,9 +89,9 @@ class AdminSettingsController extends AdminController {
 
     /**
      * Handle fallback locale change
-     * 
+     *
      * @param FallbackLocaleRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putFallbackLocale(FallbackLocaleRequest $request) {
         Settings::where('param', 'fallback_locale')->update(['value' => $request->input('fallback_locale')]);
@@ -114,9 +112,9 @@ class AdminSettingsController extends AdminController {
 
     /**
      * Changes the favicon
-     * 
+     *
      * @param FaviconRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putFavicon(FaviconRequest $request) {
         Session::put('settings_tab', 'favicon');
@@ -140,9 +138,9 @@ class AdminSettingsController extends AdminController {
     }
 
     /**
-     * Deletes favicon
-     * 
-     * @return Response
+     * Delete favicon
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDeleteFavicon() {
         Session::put('settings_tab', 'favicon');
