@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Auth;
 
 class IndexController extends Controller {
     
@@ -12,15 +10,20 @@ class IndexController extends Controller {
         parent::__construct();
     }
 
+    /**
+     * Get index page
+     *
+     * @return \Illuminate\View\View
+     */
     public function getIndex() {
         return view('index.index');
     }
-    
+
     /**
      * Change locale
-     * 
+     *
      * @param string $locale
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getChangeLocale($locale) {
         Session::put('locale', $locale);

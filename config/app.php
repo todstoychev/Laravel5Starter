@@ -121,6 +121,7 @@ return [
         'Illuminate\Validation\ValidationServiceProvider',
         'Illuminate\View\ViewServiceProvider',
         'Laracasts\Flash\FlashServiceProvider',
+        'Illuminate\Broadcasting\BroadcastServiceProvider',
         /*
          * Application Service Providers...
          */
@@ -129,12 +130,12 @@ return [
         'App\Providers\ConfigServiceProvider',
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
-        /**
+        /*
          * Packages
          */
         'Orchestra\Imagine\ImagineServiceProvider',
-        'Mmanos\Search\SearchServiceProvider',
         'Dimsav\Translatable\TranslatableServiceProvider',
+        'Nqxcode\LuceneSearch\ServiceProvider'
 
     ],
     /*
@@ -183,7 +184,7 @@ return [
         'View' => 'Illuminate\Support\Facades\View',
         'Flash' => 'Laracasts\Flash\Flash',
         'Imagine' => 'Orchestra\Imagine\Facade',
-        'Search' => 'Mmanos\Search\Facade',
-        'Debugbar' => 'Barryvdh\Debugbar\Facade'
+        'Debugbar' => 'Barryvdh\Debugbar\Facade',
+        'Search' => 'Nqxcode\LuceneSearch\Facade'
     ],
 ];
