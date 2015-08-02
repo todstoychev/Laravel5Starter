@@ -1,13 +1,12 @@
-This project uses the Laravel 5 framework. Actually this is starter Laravel 5 project. It contains user managment system, including register, login, forgotten password, change password and other related functionalities. It also contains Basic admin panel and user roles implementation.
+This project uses the Laravel 5 framework. Actually this is starter Laravel 5 project. It contains user management system, including register, login, forgotten password, change password and other related functionalities. It also contains Basic admin panel and user roles implementation.
 The project uses several modules:
 
 1. [laracasts/flash](https://github.com/laracasts/flash) - module used for the flash message notifications
 2. [fzaninotto/faker](https://github.com/fzaninotto/Faker) - used to generate dummy data
 3. [barryvdh/laravel-debugbar](https://github.com/barryvdh/laravel-debugbar) - used for the debug bar in development mode
 4. [orchestra/imagine](https://github.com/orchestral/imagine) - module used to manipulate images. Used for the user avatar
-5. [mmanos/laravel-search](https://github.com/mmanos/laravel-search) - used to provide full text search functionallity in the admin panel
-6. [zendframework/zendsearch](https://github.com/zendframework/ZendSearch) - used from mmanos/laravel-search
-7. [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable) - used to translate models. It is necessary if you plan to create multilanguage application.
+5. [nqxcode/laravel-lucene-search](https://github.com/nqxcode/laravel-lucene-search) - full text search module
+6. [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable) - used to translate models. It is necessary if you plan to create multilanguage application.
 
 The project contains also several frontend plugins:
 
@@ -17,7 +16,7 @@ The project contains also several frontend plugins:
 4. [Lightbox 2.7.1](http://lokeshdhakar.com/projects/lightbox2/) - can be found in ```public/lightbox/```
 5. [FontAwesome 4.3.0](http://fortawesome.github.io/Font-Awesome/) - can be found in ```public/fa/```
 
-In the ```libs/``` directory there are some custom libraries written by me. Those are ICR - The Image Crop Resizer library used to manipulate images through the Imagine bundle. And the TableSorter, which provides an methods for table columns sorting. You can find exapmles for the usage of both libraries in the code itself. 
+In the ```libs/``` directory there are some custom libraries written by me. Those are ICR - The Image Crop Resizer library used to manipulate images through the Imagine bundle. And the TableSorter, which provides an methods for table columns sorting. You can find examples for the usage of both libraries in the code itself. 
 For the ICR you can check the ```putChangeAvatar()``` method in the ```app/Http/Controllers/UserController.php```. 
 For TableSorter check some of the templates named ```all.blade.php``` and ```search.blade.php``` in ```resources/views/admin/users/``` or in the ```resources/views/admin/roles/```. Check the related methods in the controllers for some hints. Such methods are ```getAll()```, ```getSearch()``` and ```postSearch()``` in ```app/Http/Controllers/Admin/AdminUsersController.php```. 
 
@@ -28,7 +27,7 @@ First clone the project. Than run
     
 Depending on your OS this command may be in different format.
 
-## Cofiguration
+## Configuration
 Than you can create your .env file as it is in [Laravel 5 documentation](http://laravel.com/docs/master) or can use this sample:
     
     APP_ENV=local
@@ -67,7 +66,7 @@ to run the migrations.
 ## Your first login
 Use 'admin' as username and 'admin' as password to enter the application. The 'admin' account has an administrator role so you have access to all application futures.
 
-## About the user managment
+## About the user management
 There are 2 roles in this application - admin and user. Admin role can not be deleted or edited. All other roles can be edited. 
 Users can be deleted if they do not have something that relates to them. If you have only one active admin user, he can not be deleted or deactivated.
 

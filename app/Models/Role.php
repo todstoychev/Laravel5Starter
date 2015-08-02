@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Mmanos\Search\Search;
+use Nqxcode\LuceneSearch\Model\Searchable;
+use Nqxcode\LuceneSearch\Model\SearchTrait;
 
-class Role extends Model {
+class Role extends Model implements Searchable {
+    use SearchTrait;
 
     /**
      * Database table name
@@ -57,13 +59,14 @@ class Role extends Model {
 
         return $query;
     }
-    
+
     /**
      * Checks if role exists on edit
-     * 
+     *
      * @param int $id
-     * @param string $name
-     * @return boolean
+     * @param $role
+     * @return bool
+     * @internal param string $name
      */
     public static function checkRoleOnEdit($id, $role) {
         $query = self::where('id', '!=', $id)
@@ -78,32 +81,6 @@ class Role extends Model {
     }
 
     /**
-     * Add search index
-     */
-    public function addSearchIndex() {
-        $search = new Search();
-        $search->index($this->table)->insert($this->id, [
-            'role' => $this->role
-        ]);
-    }
-
-    /**
-     * Deletes search index
-     */
-    public function deleteSearchIndex() {
-        $search = new Search();
-        $search->index($this->table)->delete($this->id);
-    }
-
-    /**
-     * Update search index
-     */
-    public function updateSearchIndex() {
-        $this->deleteSearchIndex();
-        $this->addSearchIndex();
-    }
-
-    /**
      * Users
      * 
      * @return object
@@ -112,4 +89,13 @@ class Role extends Model {
         return $this->belongsToMany('App\Models\User', 'users_roles');
     }
 
+    /**
+     * Is the model available for search indexing?
+     *
+     * @return boolean
+     */
+    public function isSearchable()
+    {
+        return true;
+    }
 }
