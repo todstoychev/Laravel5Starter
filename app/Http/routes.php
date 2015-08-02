@@ -12,13 +12,16 @@
 */
 
 // Admin routes
-Route::controller('admin/settings', 'Admin\AdminSettingsController');
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 
-Route::controller('admin/roles', 'Admin\AdminRolesController');
+    Route::controller('settings', 'AdminSettingsController');
 
-Route::controller('admin/users', 'Admin\AdminUsersController');
+    Route::controller('roles', 'AdminRolesController');
 
-Route::controller('admin', 'Admin\AdminController');
+    Route::controller('users', 'AdminUsersController');
+
+    Route::controller('/', 'AdminController');
+});
 
 // Public and user routes
 Route::controller('users', 'UsersController');
