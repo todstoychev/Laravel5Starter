@@ -16,42 +16,42 @@ class ICR
      *
      * @var String
      */
-    private $uploadsPath;
+    protected $uploadsPath;
 
     /**
      * Contexts configuration
      *
      * @var Array
      */
-    private $contexts;
+    protected $contexts;
 
     /**
      * Generated unique filename
      *
      * @var string
      */
-    private $filename;
+    protected $filename;
 
     /**
      * File object
      *
      * @var UploadedFile
      */
-    private $file;
+    protected $file;
 
     /**
      * Calculated image width
      *
      * @var int
      */
-    private $calculatedWidth;
+    protected $calculatedWidth;
 
     /**
      * Calculated image height
      *
      * @var int
      */
-    private $calculatedHeight;
+    protected $calculatedHeight;
 
     /**
      * Image manipulations
@@ -62,7 +62,7 @@ class ICR
 
     public function __construct($context, UploadedFile $file)
     {
-        $this->uploadsPath = Config::get('image_crop_resizer.uploadsPath');
+        $this->uploadsPath = Config::get('image_crop_resizer.uploads_path');
         $this->contexts = Config::get('image_crop_resizer');
         $this->checkDir($context);
         $this->file = $file;
@@ -86,7 +86,7 @@ class ICR
      *
      * @param string $context Context name
      */
-    private function process($context)
+    protected function process($context)
     {
         $original = $this->saveOriginalFile($context);
         $config = $this->contexts[$context];
@@ -112,7 +112,7 @@ class ICR
      * @param string $context
      * @param string $size
      */
-    private function crop($file, $data, $context, $size)
+    protected function crop($file, $data, $context, $size)
     {
         $file->crop($this->calcCropPoint($file, $data['width'], $data['height']), new Box($data['width'], $data['height']));
         $file->save(public_path($this->uploadsPath . '/' . $context . '/' . $size . '/' . $this->filename));
@@ -126,7 +126,7 @@ class ICR
      * @param string $context
      * @param string $size
      */
-    private function resize($file, $data, $context, $size)
+    protected function resize($file, $data, $context, $size)
     {
         $file->resize(new Box($data['width'], $data['height']));
         $file->save(public_path($this->uploadsPath . '/' . $context . '/' . $size . '/' . $this->filename));
@@ -140,7 +140,7 @@ class ICR
      * @param string $context
      * @param string $size
      */
-    private function resizeCrop($file, $data, $context, $size)
+    protected function resizeCrop($file, $data, $context, $size)
     {
         $this->calcOutputSize($file, $data['width'], $data['height']);
         $file->resize(new Box($this->calculatedWidth, $this->calculatedHeight));
@@ -153,7 +153,7 @@ class ICR
      *
      * @param string $context Image context
      */
-    private function checkDir($context)
+    protected function checkDir($context)
     {
         $folders = explode('/', $this->uploadsPath);
         $path = public_path();
@@ -179,7 +179,7 @@ class ICR
      *
      * @param string $path Path to directory
      */
-    private function createDir($path)
+    protected function createDir($path)
     {
         if (!is_dir($path)) {
             mkdir($path, 0755);
@@ -193,7 +193,7 @@ class ICR
      * @param string $ext File type extension
      * @return string
      */
-    private function generateImageName($context, $ext)
+    protected function generateImageName($context, $ext)
     {
         $name = md5(microtime()) . '.' . $ext;
         $path = public_path($this->uploadsPath . '/' . $context . '/' . $name);
@@ -211,7 +211,7 @@ class ICR
      * @param string $context Context name
      * @return \Imagine\Imagick\Imagine
      */
-    private function saveOriginalFile($context)
+    protected function saveOriginalFile($context)
     {
         $path = public_path($this->uploadsPath . '/' . $context);
         $this->file->move($path, $this->filename);
@@ -227,7 +227,7 @@ class ICR
      *
      * @throws Exception
      */
-    private function determineFilesizeLimit()
+    protected function determineFilesizeLimit()
     {
         $phpIni = ini_get('upload_max_filesize');
         $mb = str_replace('M', '', $phpIni);
@@ -245,7 +245,7 @@ class ICR
      * @param int $outputWidth
      * @param int $outputHeight
      */
-    private function calcOutputSize($file, $outputWidth, $outputHeight)
+    protected function calcOutputSize($file, $outputWidth, $outputHeight)
     {
         $width_ratio = $file->getSize()->getWidth() / $outputWidth;
         $height_ratio = $file->getSize()->getHeight() / $outputHeight;
@@ -265,7 +265,7 @@ class ICR
      * @param integer $outputHeight Output height
      * @return Point Imagine Point interface instance
      */
-    private function calcCropPoint($file, $outputWidth, $outputHeight)
+    protected function calcCropPoint($file, $outputWidth, $outputHeight)
     {
         if ($file->getSize()->getHeight() > $outputHeight) {
             $y = ($file->getSize()->getHeight() - $outputHeight) / 2;
