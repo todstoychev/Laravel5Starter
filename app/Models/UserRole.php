@@ -19,13 +19,13 @@ class UserRole extends Model {
      * @var Boolean
      */
     public $timestamps = false;
-    
+
     /**
      * Clean up user roles
-     * 
-     * @param int $user_id User id
+     *
+     * @param int $userId
      */
-    public static function cleanUpRoles($user_id) {
-        self::where('user_id', $user_id)->delete();
+    public static function cleanUpRoles($userId) {
+        self::where('user_id', $userId)->delete();
     }
 }

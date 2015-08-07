@@ -17,15 +17,17 @@ use Nqxcode\LuceneSearch\Model\Searchable;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
 /**
- * @property null confirm_token
+ * @property int id
+ * @property null|string confirm_token
  * @property string username
  * @property string password
  * @property \DateTime confirmed_at
  * @property \DateTime last_seen
  * @property string avatar
- * @property mixed roles
- * @property null deleted_at
+ * @property Role roles
+ * @property null|\DateTime deleted_at
  * @property string email
+ * @property \DateTime created_at
  */
 class User extends Model implements AuthenticatableContract, Searchable {
 
@@ -57,17 +59,17 @@ class User extends Model implements AuthenticatableContract, Searchable {
     /**
      * Base User query
      * 
-     * @param boolean $with_trashed Get with deleted
-     * @param boolean $with_join Use defined joins
+     * @param boolean $withTrashed Get with deleted
+     * @param boolean $withJoin Use defined joins
      * @return Model
      */
-    private static function base($with_trashed = false, $with_join = false) {
+    private static function base($withTrashed = false, $withJoin = false) {
         $query = self::select('users.*')
                 ->with('roles');
 
-        $with_trashed ? $query->withTrashed() : null;
+        $withTrashed ? $query->withTrashed() : null;
 
-        if ($with_join) {
+        if ($withJoin) {
             $query->leftJoin('user_roles as ur', 'ur.user_id', '=', 'users.id')
                     ->leftJoin('roles as r', 'r.id', '=', 'ur.role_id');
         }
@@ -80,12 +82,12 @@ class User extends Model implements AuthenticatableContract, Searchable {
     /**
      * Creates all elements query
      * 
-     * @param Boolean $with_trashed With soft deleted entries
-     * @param Boolean $with_join With join clauses
+     * @param Boolean $withTrashed With soft deleted entries
+     * @param Boolean $withJoin With join clauses
      * @return Model
      */
-    public static function getAll($with_trashed, $with_join) {
-        $query = self::base($with_trashed, $with_join);
+    public static function getAll($withTrashed, $withJoin) {
+        $query = self::base($withTrashed, $withJoin);
 
         return $query;
     }
@@ -118,13 +120,14 @@ class User extends Model implements AuthenticatableContract, Searchable {
 
     /**
      * Gets a single user
-     * 
-     * @param boolean $with_trashed Extract with soft deleted
-     * @param boolean $with_joins Extract record with joins
-     * @return self
+     *
+     * @param int $id User id
+     * @param boolean $withTrashed Extract with soft deleted
+     * @param boolean $withJoins Extract record with joins
+     * @return User
      */
-    public static function getUser($id, $with_trashed = false, $with_joins = false) {
-        $user = self::base($with_trashed, $with_joins)
+    public static function getUser($id, $withTrashed = false, $withJoins = false) {
+        $user = self::base($withTrashed, $withJoins)
                 ->where('id', $id)
                 ->first();
 
@@ -146,16 +149,17 @@ class User extends Model implements AuthenticatableContract, Searchable {
 
     /**
      * Get all admin users
-     * 
-     * @param boolean $with_thrashed Get with soft deleted
-     * @param boolean $with_join Add joins
+     *
+     * @param boolean $withTrashed Add trashed elements
+     * @param boolean $withJoin Add joins
      * @return Array
+     * @internal param bool $with_thrashed Get with soft deleted
      */
-    public static function getAdmins($with_thrashed, $with_join) {
+    public static function getAdmins($withTrashed, $withJoin) {
         if (Cache::has('admin_users')) {
             return Cache::get('admin_users');
         } else {
-            $query = self::base($with_thrashed, $with_join)
+            $query = self::base($withTrashed, $withJoin)
                     ->where('r.role', 'admin')
                     ->get();
 

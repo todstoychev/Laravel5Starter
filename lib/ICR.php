@@ -8,49 +8,50 @@ use Imagine\Gd\Imagine;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Illuminate\Support\Facades\Config;
 
-class ICR {
+class ICR
+{
 
     /**
      * Uploads path
      *
      * @var String
      */
-    private $uploads_path;
+    protected $uploadsPath;
 
     /**
      * Contexts configuration
      *
      * @var Array
      */
-    private $contexts;
+    protected $contexts;
 
     /**
      * Generated unique filename
      *
      * @var string
      */
-    private $filename;
+    protected $filename;
 
     /**
      * File object
      *
-     * @var Symfony\Component\HttpFoundation\File\UploadedFile
+     * @var UploadedFile
      */
-    private $file;
+    protected $file;
 
     /**
      * Calculated image width
      *
      * @var int
      */
-    private $calc_width;
+    protected $calculatedWidth;
 
     /**
      * Calculated image height
      *
      * @var int
      */
-    private $calc_height;
+    protected $calculatedHeight;
 
     /**
      * Image manipulations
@@ -59,8 +60,9 @@ class ICR {
     const RESIZE = 'resize';
     const RESIZE_CROP = 'resize-crop';
 
-    public function __construct($context, UploadedFile $file) {
-        $this->uploads_path = Config::get('image_crop_resizer.uploads_path');
+    public function __construct($context, UploadedFile $file)
+    {
+        $this->uploadsPath = Config::get('image_crop_resizer.uploads_path');
         $this->contexts = Config::get('image_crop_resizer');
         $this->checkDir($context);
         $this->file = $file;
@@ -68,50 +70,92 @@ class ICR {
         $this->determineFilesizeLimit();
         $this->process($context);
     }
-    
+
     /**
      * Gets the filename for the uploaded image
-     * 
+     *
      * @return string
      */
-    public function getFilename() {
+    public function getFilename()
+    {
         return $this->filename;
     }
 
     /**
      * Processes the image
-     * 
+     *
      * @param string $context Context name
      */
-    private function process($context) {
+    protected function process($context)
+    {
         $original = $this->saveOriginalFile($context);
         $config = $this->contexts[$context];
 
         foreach ($config as $size => $data) {
             $file = $original->copy();
-            
+
             if ($data['operation'] == self::CROP) {
-                $file->crop($this->calcCropPoint($file, $data['width'], $data['height']), new Box($data['width'], $data['height']));
-                $file->save(public_path($this->uploads_path . '/' . $context . '/' . $size . '/' . $this->filename));
+                $this->crop($file, $data, $context, $size);
             } elseif ($data['operation'] == self::RESIZE) {
-                $file->resize(new Box($data['width'], $data['height']));
-                $file->save(public_path($this->uploads_path . '/' . $context . '/' . $size . '/' . $this->filename));
+                $this->resize($file, $data, $context, $size);
             } elseif ($data['operation'] == self::RESIZE_CROP) {
-                $this->calcOutputSize($file, $data['width'], $data['height']);
-                $file->resize(new Box($this->calc_width, $this->calc_height));
-                $file->crop($this->calcCropPoint($file, $data['width'], $data['height']), new Box($data['width'], $data['height']));
-                $file->save(public_path($this->uploads_path . '/' . $context . '/' . $size . '/' . $this->filename));
+                $this->resizeCrop($file, $data, $context, $size);
             }
         }
     }
 
     /**
+     * Crop image
+     *
+     * @param UploadedFile $file
+     * @param array $data
+     * @param string $context
+     * @param string $size
+     */
+    protected function crop($file, $data, $context, $size)
+    {
+        $file->crop($this->calcCropPoint($file, $data['width'], $data['height']), new Box($data['width'], $data['height']));
+        $file->save(public_path($this->uploadsPath . '/' . $context . '/' . $size . '/' . $this->filename));
+    }
+
+    /**
+     * Resize image
+     *
+     * @param UploadedFile $file
+     * @param array $data
+     * @param string $context
+     * @param string $size
+     */
+    protected function resize($file, $data, $context, $size)
+    {
+        $file->resize(new Box($data['width'], $data['height']));
+        $file->save(public_path($this->uploadsPath . '/' . $context . '/' . $size . '/' . $this->filename));
+    }
+
+    /**
+     * Resize and crops image
+     *
+     * @param UploadedFile $file
+     * @param array $data
+     * @param string $context
+     * @param string $size
+     */
+    protected function resizeCrop($file, $data, $context, $size)
+    {
+        $this->calcOutputSize($file, $data['width'], $data['height']);
+        $file->resize(new Box($this->calculatedWidth, $this->calculatedHeight));
+        $file->crop($this->calcCropPoint($file, $data['width'], $data['height']), new Box($data['width'], $data['height']));
+        $file->save(public_path($this->uploadsPath . '/' . $context . '/' . $size . '/' . $this->filename));
+    }
+
+    /**
      * Checks and creates the necessary directory structure
-     * 
+     *
      * @param string $context Image context
      */
-    private function checkDir($context) {
-        $folders = explode('/', $this->uploads_path);
+    protected function checkDir($context)
+    {
+        $folders = explode('/', $this->uploadsPath);
         $path = public_path();
 
         // Create base dir structure
@@ -132,10 +176,11 @@ class ICR {
 
     /**
      * Creates directory if not exists
-     * 
+     *
      * @param string $path Path to directory
      */
-    private function createDir($path) {
+    protected function createDir($path)
+    {
         if (!is_dir($path)) {
             mkdir($path, 0755);
         }
@@ -143,14 +188,15 @@ class ICR {
 
     /**
      * Checks and generates the unique filename
-     * 
+     *
      * @param string $context Context name
-     * @param string $ext Fyletype extension
+     * @param string $ext File type extension
      * @return string
      */
-    private function generateImageName($context, $ext) {
+    protected function generateImageName($context, $ext)
+    {
         $name = md5(microtime()) . '.' . $ext;
-        $path = public_path($this->uploads_path . '/' . $context . '/' . $name);
+        $path = public_path($this->uploadsPath . '/' . $context . '/' . $name);
 
         if (is_file($path)) {
             $this->generateImageName($context, $ext);
@@ -161,13 +207,13 @@ class ICR {
 
     /**
      * Saves the original file and returns an Imagine instance of the file
-     * 
+     *
      * @param string $context Context name
-     * @param UploadedFile $file
      * @return \Imagine\Imagick\Imagine
      */
-    private function saveOriginalFile($context) {
-        $path = public_path($this->uploads_path . '/' . $context);
+    protected function saveOriginalFile($context)
+    {
+        $path = public_path($this->uploadsPath . '/' . $context);
         $this->file->move($path, $this->filename);
 
         $imagine = new Imagine();
@@ -178,12 +224,13 @@ class ICR {
 
     /**
      * Determines if the file is too large
-     * 
+     *
      * @throws Exception
      */
-    private function determineFilesizeLimit() {
-        $php_ini = ini_get('upload_max_filesize');
-        $mb = str_replace('M', '', $php_ini);
+    protected function determineFilesizeLimit()
+    {
+        $phpIni = ini_get('upload_max_filesize');
+        $mb = str_replace('M', '', $phpIni);
         $bytes = $mb * 1048576;
 
         if ($this->file->getSize() > $bytes) {
@@ -193,42 +240,47 @@ class ICR {
 
     /**
      * Calculates the image resize width and height based on the desired measures
-     * 
-     * @param int $output_width
-     * @param int $output_height
+     *
+     * @param UploadedFile $file
+     * @param int $outputWidth
+     * @param int $outputHeight
      */
-    private function calcOutputSize($file, $output_width, $output_height) {
-        $width_ratio = $file->getSize()->getWidth() / $output_width;
-        $height_ratio = $file->getSize()->getHeight() / $output_height;
+    protected function calcOutputSize($file, $outputWidth, $outputHeight)
+    {
+        $width_ratio = $file->getSize()->getWidth() / $outputWidth;
+        $height_ratio = $file->getSize()->getHeight() / $outputHeight;
         $ratio = min($width_ratio, $height_ratio);
         $width = round($file->getSize()->getWidth() / $ratio);
         $height = round($file->getSize()->getHeight() / $ratio);
 
-        $this->calc_width = (int) $width;
-        $this->calc_height = (int) $height;
+        $this->calculatedWidth = (int)$width;
+        $this->calculatedHeight = (int)$height;
     }
 
     /**
      * Calculates the position of the crop point and returns Imagine Point object
      *
-     * @param integer $output_width Output width
-     * @param integer $output_height Output height
+     * @param UploadedFile $file
+     * @param integer $outputWidth Output width
+     * @param integer $outputHeight Output height
      * @return Point Imagine Point interface instance
      */
-    private function calcCropPoint($file, $output_width, $output_height) {
-        if ($file->getSize()->getHeight() > $output_height) {
-            $y = ($file->getSize()->getHeight() - $output_height) / 2;
+    protected function calcCropPoint($file, $outputWidth, $outputHeight)
+    {
+        if ($file->getSize()->getHeight() > $outputHeight) {
+            $y = ($file->getSize()->getHeight() - $outputHeight) / 2;
             $x = 0;
-        } else if ($file->getSize()->getWidth() > $output_width) {
-            $x = ($file->getSize()->getWidth() - $output_width) / 2;
+        } else if ($file->getSize()->getWidth() > $outputWidth) {
+            $x = ($file->getSize()->getWidth() - $outputWidth) / 2;
             $y = 0;
         } else {
-            $x = ($file->getSize()->getWidth() - $output_width) / 2;
-            $y = ($file->getSize()->getHeight() - $output_height) / 2;
+            $x = ($file->getSize()->getWidth() - $outputWidth) / 2;
+            $y = ($file->getSize()->getHeight() - $outputHeight) / 2;
         }
         $x = round($x);
         $y = round($y);
-        return new Point((int) $x, (int) $y);
+
+        return new Point((int)$x, (int)$y);
     }
 
 }
