@@ -135,6 +135,7 @@ return [
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Nqxcode\LuceneSearch\ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class
+    ],
     /*
       |--------------------------------------------------------------------------
       | Class Aliases

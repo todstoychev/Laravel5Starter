@@ -28,9 +28,7 @@ return [
             App\Models\User::class => [
                 'fields' => [
                     'username', 'email', 'last_activity', 'created_at', 'confirmed_at', 'confirm_token',
-                ],
-                'optional_attributes' => true
-
+                ]
             ],
             App\Models\Role::class => [
                 'fields' => [
