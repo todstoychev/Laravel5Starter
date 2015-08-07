@@ -25,12 +25,12 @@ return [
         'path' => storage_path('app') . '/lucene-search/index',
 
         'models' => [
-            App\Models\User::class => [
+            \App\Models\User::class => [
                 'fields' => [
                     'username', 'email', 'last_activity', 'created_at', 'confirmed_at', 'confirm_token',
                 ]
             ],
-            App\Models\Role::class => [
+            \App\Models\Role::class => [
                 'fields' => [
                     'role'
                 ]
