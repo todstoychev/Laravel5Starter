@@ -2,8 +2,7 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
             @if (Auth::user()->avatar)
-                <img src="{{ asset('uploads/avatar/small/' . Auth::user()->avatar) }}"
-                     alt="{{ trans('users.avatar') }}"/>
+                <img src="{{ asset('uploads/images/avatar/small/' . Auth::user()->avatar) }}" alt="{{ trans('users.avatar') }}" />
             @else
                 <i class="glyphicon glyphicon-user"></i>
             @endif
