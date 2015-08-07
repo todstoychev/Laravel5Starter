@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
-use Mmanos\Search\Search;
+use Nqxcode\LuceneSearch\Facade as Search;
 
 abstract class Controller extends BaseController {
 
@@ -33,8 +34,7 @@ abstract class Controller extends BaseController {
      * 
      * @param Array $data Data to use for the emails
      * @param string $user_template User email template
-     * @param $admin_template Admin email template
-     * 
+     * @param string $admin_template Admin email template
      * @return boolean
      */
     protected function sendMail($data, $user_template, $admin_template) {
@@ -68,18 +68,20 @@ abstract class Controller extends BaseController {
 
     /**
      * Renders the all items page
-     * 
-     * @param Illuminate\Database\Eloquent\Model $query Initial query
+     *
+     * @param $request
+     * @param Model $query Initial query
      * @param string $uri URI (base path prefix)
      * @param string $title Page title
-     * @param string $view View to render
      * @param string $delete_message Delete confirmation dialog message text
-     * @param integer $limit Items per page
-     * @param string $param Column name to sort
-     * @param string $order Order to sort
-     * @return Response
+     * @param string $view View to render
+     * @internal param $cache_key
+     * @internal param int $limit Items per page
+     * @internal param string $param Column name to sort
+     * @internal param string $order Order to sort
+     * @return \Illuminate\View\View
      */
-    protected function all($request, $query, $cache_key, $uri, $title, $delete_message, $view) {
+    protected function all($request, $query, $uri, $title, $delete_message, $view) {
         $params = $this->formParams($request);
 
         $results = $query;
@@ -105,22 +107,18 @@ abstract class Controller extends BaseController {
 
         return view($view, $data);
     }
-    
+
     /**
      * Handles full text search
-     * 
+     *
      * @param string $search Search string
-     * @param string $index Search index
+     * @param array $options
      * @return Array
      */
-    protected function search($search, $index) {
-        $search_instance = new Search();
-        $result = $search_instance->index($index)
-                ->search(null, $search)
-                ->get();
-        
+    protected function search($search, $options = []) {
+        $result = Search::query($search, '*', $options)->get();
         $array = $this->formIdsArray($result);
-        
+
         return $array;
     }
     

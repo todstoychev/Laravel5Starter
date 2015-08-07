@@ -2,19 +2,36 @@
 
 namespace App\Models;
 
+use App\Http\Requests\User\PasswordResetRequest;
+use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Mmanos\Search\Search;
 use Illuminate\Support\Facades\Cache;
 use Lib\ICR;
 use Illuminate\Support\Facades\Config;
+use Nqxcode\LuceneSearch\Model\Searchable;
+use Nqxcode\LuceneSearch\Model\SearchTrait;
 
-class User extends Model implements AuthenticatableContract {
+/**
+ * @property null confirm_token
+ * @property string username
+ * @property string password
+ * @property \DateTime confirmed_at
+ * @property \DateTime last_seen
+ * @property string avatar
+ * @property mixed roles
+ * @property null deleted_at
+ * @property string email
+ */
+class User extends Model implements AuthenticatableContract, Searchable {
 
-    use \Illuminate\Database\Eloquent\SoftDeletes,
-        Authenticatable;
+    use SoftDeletes,
+        Authenticatable,
+        SearchTrait;
 
     /**
      * The database table used by the model.
@@ -42,7 +59,7 @@ class User extends Model implements AuthenticatableContract {
      * 
      * @param boolean $with_trashed Get with deleted
      * @param boolean $with_join Use defined joins
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     private static function base($with_trashed = false, $with_join = false) {
         $query = self::select('users.*')
@@ -65,7 +82,7 @@ class User extends Model implements AuthenticatableContract {
      * 
      * @param Boolean $with_trashed With soft deleted entries
      * @param Boolean $with_join With join clauses
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Model
      */
     public static function getAll($with_trashed, $with_join) {
         $query = self::base($with_trashed, $with_join);
@@ -90,10 +107,10 @@ class User extends Model implements AuthenticatableContract {
 
     /**
      * Handles password changing on password reset
-     * 
-     * @param \App\Http\Requests\Request $request
+     *
+     * @param \App\Http\Requests\Request|PasswordResetRequest $request
      */
-    public static function changePassword(\App\Http\Requests\User\PasswordResetRequest $request) {
+    public static function changePassword(PasswordResetRequest $request) {
         $user = self::where('email', $request->input('email'))->first();
         $user->password = Hash::make($request->input('password'));
         $user->save();
@@ -160,10 +177,22 @@ class User extends Model implements AuthenticatableContract {
     }
 
     /**
+     * Get optional search attributes
+     *
+     * @return array
+     */
+    public function getOptionalAttributesAttribute()
+    {
+        return [
+            'confirm_token' => $this->confirm_token
+        ];
+    }
+
+    /**
      * Handles user account confirmation
-     * 
-     * @param \App\User $user
+     *
      * @return Array
+     * @internal param \App\Models\User $user
      */
     public function confirmRegistration() {
         $this->confirm_token = null;
@@ -213,34 +242,6 @@ class User extends Model implements AuthenticatableContract {
     }
 
     /**
-     * Creates search index
-     */
-    public function addSearchIndex() {
-        $search = new Search();
-
-        $search->index($this->table)->insert($this->id, [
-            'username' => $this->username,
-            'email' => $this->email
-        ]);
-    }
-
-    /**
-     * Deletes search index entry
-     */
-    public function deleteSearchIndex() {
-        $search = new Search();
-        $search->index($this->table)->delete($this->id);
-    }
-
-    /**
-     * Update search index
-     */
-    public function updateSearchIndex() {
-        $this->deleteSearchIndex();
-        $this->addSearchIndex();
-    }
-
-    /**
      * Get last seen
      * 
      * @return String
@@ -258,10 +259,9 @@ class User extends Model implements AuthenticatableContract {
     /**
      * Change user profile
      * 
-     * @param \Illuminate\Http\Request $request
-     * @return \App\Models\User
+     * @param Request $request
      */
-    public function changeProfile(\Illuminate\Http\Request $request) {
+    public function changeProfile(Request $request) {
         $this->username = $request->input('username');
 
         if ($request->input('password')) {
@@ -275,21 +275,20 @@ class User extends Model implements AuthenticatableContract {
     /**
      * Change settings
      * 
-     * @param \Illuminate\Http\Request $request
-     * @return \App\Models\User
+     * @param Request $request
      */
-    public function changeSettings(\Illuminate\Http\Request $request) {
+    public function changeSettings(Request $request) {
         if ($request->input('active')) {
-            $this->confirmed_at = \Carbon\Carbon::now();
+            $this->confirmed_at = Carbon::now();
             $this->confirm_token = null;
         } else {
-            $this->deleted_at = \Carbon\Carbon::now();
+            $this->deleted_at = Carbon::now();
         }
         
         $this->save();
     }
 
-    public function changeAvatar(\Illuminate\Http\Request $request) {
+    public function changeAvatar(Request $request) {
         if ($this->avatar) {
             $this->deleteAvatar();
         }
@@ -302,8 +301,6 @@ class User extends Model implements AuthenticatableContract {
 
     /**
      * Deletes avatar
-     * 
-     * @return \App\Models\User
      */
     public function deleteAvatar() {
         $config = Config::get('image_crop_resizer');
@@ -318,14 +315,23 @@ class User extends Model implements AuthenticatableContract {
         $this->avatar = null;
         $this->save();
     }
-    
+
     /**
-     * Users roles
-     * 
-     * @return object
+     * Roles relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function roles() {
         return $this->belongsToMany('App\Models\Role', 'user_roles');
     }
 
+    /**
+     * Is the model available for search indexing?
+     *
+     * @return boolean
+     */
+    public function isSearchable()
+    {
+        return true;
+    }
 }

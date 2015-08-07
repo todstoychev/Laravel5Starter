@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Facades
@@ -54,9 +53,9 @@ class UsersController extends Controller {
     }
 
     /**
-     * Gets the login page
-     * 
-     * @return Response
+     * Get login page
+     *
+     * @return \Illuminate\View\View
      */
     public function getLogin() {
         return view('users.login');
@@ -64,9 +63,9 @@ class UsersController extends Controller {
 
     /**
      * Handles login
-     * 
+     *
      * @param LoginRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postLogin(LoginRequest $request) {
 
@@ -82,9 +81,9 @@ class UsersController extends Controller {
     }
 
     /**
-     * Gets the registration form
-     * 
-     * @return Response
+     * Get the registration form
+     *
+     * @return \Illuminate\View\View
      */
     public function getRegister() {
         return view('users.register');
@@ -92,9 +91,9 @@ class UsersController extends Controller {
 
     /**
      * Handles user registration
-     * 
+     *
      * @param RegisterRequest $request
-     * @return Response
+     * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postRegister(RegisterRequest $request) {
         $user = new User([
@@ -138,9 +137,9 @@ class UsersController extends Controller {
 
     /**
      * Handles account confirmation
-     * 
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function getConfirm(Request $request) {
         $user = User::where('confirm_token', $request->input('token'))->first();
@@ -164,8 +163,8 @@ class UsersController extends Controller {
 
     /**
      * Handle logout
-     * 
-     * @return Reponse
+     *
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function getLogout() {
         Auth::user()->last_seen = Cache::get('last_seen_' . Auth::user()->id);
@@ -182,8 +181,8 @@ class UsersController extends Controller {
 
     /**
      * Renders profile page
-     * 
-     * @return Response
+     *
+     * @return \Illuminate\View\View
      */
     public function getProfile() {
         return view('users.profile');
@@ -191,9 +190,9 @@ class UsersController extends Controller {
 
     /**
      * Handles password change
-     * 
+     *
      * @param ChangePasswordRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putChangePassword(ChangePasswordRequest $request) {
         // Put session active tab
@@ -215,9 +214,9 @@ class UsersController extends Controller {
 
     /**
      * Handles email changing
-     * 
+     *
      * @param ChangeEmailRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putChangeEmail(ChangeEmailRequest $request) {
         Session::put('profile_tab', 'email');
@@ -234,8 +233,8 @@ class UsersController extends Controller {
 
     /**
      * Renders reset password form
-     * 
-     * @return Response
+     *
+     * @return \Illuminate\View\View
      */
     public function getForgottenPassword() {
         return view('users.forgotten_password');
@@ -243,9 +242,9 @@ class UsersController extends Controller {
 
     /**
      * Handles forgotten password token creation and email sending
-     * 
+     *
      * @param ForgottenPasswordRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postForgottenPassword(ForgottenPasswordRequest $request) {
         $check = User::where('email', $request->input('email'));
@@ -281,9 +280,9 @@ class UsersController extends Controller {
 
     /**
      * Renders reset password form
-     * 
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getPasswordReset(Request $request) {
         if ($request->input('token')) {
@@ -305,9 +304,9 @@ class UsersController extends Controller {
 
     /**
      * Handles forgotten password changing
-     * 
+     *
      * @param PasswordResetRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function putPasswordReset(PasswordResetRequest $request) {
         $check = PasswordReset::where(['email' => $request->input('email'), 'token' => $request->input('token')])->first();
@@ -326,6 +325,12 @@ class UsersController extends Controller {
         }
     }
 
+    /**
+     * Handles avatar change
+     *
+     * @param ChangeAvatarRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function postChangeAvatar(ChangeAvatarRequest $request) {
         Session::put('profile_tab', 'avatar');
         
@@ -338,8 +343,8 @@ class UsersController extends Controller {
 
     /**
      * Handles avatar deletion
-     * 
-     * @return Response
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDeleteAvatar() {
         Session::put('profile_tab', 'avatar');

@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\AdminController;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cache;
-use Lib\ICR;
 // Models
 use App\Models\User;
 use App\Models\UserRole;
@@ -30,23 +26,24 @@ class AdminUsersController extends AdminController {
 
     /**
      * Renders all page
-     * 
-     * @param integer $limit Items per page
-     * @param string $param Column to order
-     * @param string $order Order direction
-     * @return Response
+     *
+     * @param Request $request
+     * @internal param int $limit Items per page
+     * @internal param string $param Column to order
+     * @internal param string $order Order direction
+     * @return \Illuminate\View\View
      */
     public function getAll(Request $request) {
         $query = User::getAll(true, true);
 
-        return $this->all($request, $query, 'users', 'admin/users', trans('users.all_title'), trans('users.delete_message'), 'admin.users.all');
+        return $this->all($request, $query, 'admin/users', trans('users.all_title'), trans('users.delete_message'), 'admin.users.all');
     }
 
     /**
      * Deletes user
-     * 
+     *
      * @param int $id User id
-     * @return Reponse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete($id) {
         $user = User::where('id', $id)->withTrashed()->first();
@@ -58,8 +55,6 @@ class AdminUsersController extends AdminController {
         } else {
             UserRole::where('user_id', $id)->delete();
 
-            $user->forceDelete();
-            $user->deleteSearchIndex();
             User::flushCache($user);
 
             flash()->success(trans('users.delete_success'));
@@ -70,8 +65,8 @@ class AdminUsersController extends AdminController {
 
     /**
      * Renders add user form
-     * 
-     * @return Response
+     *
+     * @return \Illuminate\View\View
      */
     public function getAdd() {
         $roles = Role::all();
@@ -81,9 +76,9 @@ class AdminUsersController extends AdminController {
 
     /**
      * Adds an user
-     * 
+     *
      * @param AddUserRequest $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(AddUserRequest $request) {
         $user = new User();
@@ -97,7 +92,7 @@ class AdminUsersController extends AdminController {
         }
         
         $user->save();
-        $user->addSearchIndex();
+
         User::flushCache($user);
 
         flash()->success(trans('users.add_success'));
@@ -107,9 +102,9 @@ class AdminUsersController extends AdminController {
 
     /**
      * Renders edit user page
-     * 
+     *
      * @param int $id User id
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function getEdit($id) {
         $user = User::getUser($id, true);
@@ -123,10 +118,10 @@ class AdminUsersController extends AdminController {
 
     /**
      * Handles user edit
-     * 
+     *
      * @param EditUserRequest $request
      * @param int $id User id
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function putEdit(EditUserRequest $request, $id) {
         $user = User::find($id);
@@ -147,7 +142,7 @@ class AdminUsersController extends AdminController {
         }
 
         $user->save();
-        $user->addSearchIndex();
+
         User::flushCache($user);
 
         flash()->success(trans('users.edit_success'));
@@ -157,9 +152,9 @@ class AdminUsersController extends AdminController {
 
     /**
      * Deletes user avatar
-     * 
+     *
      * @param int $id User id
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDeleteAvatar($id) {
         $user = User::find($id);
@@ -174,9 +169,9 @@ class AdminUsersController extends AdminController {
 
     /**
      * Disable user
-     * 
+     *
      * @param int $id User id
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getDisable($id) {
         $user = User::find($id);
@@ -198,9 +193,9 @@ class AdminUsersController extends AdminController {
 
     /**
      * Activates user
-     * 
+     *
      * @param int $id User id
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function getActivate($id) {
         $user = User::getUser($id, true);
@@ -217,44 +212,59 @@ class AdminUsersController extends AdminController {
 
     /**
      * Gets search page
-     * 
+     *
      * @param Request $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function getSearch(Request $request) {
         $order = $request->input('order');
         $param = $request->input('param');
         $search = $request->input('search');
 
-        $results = User::search($this->search($search, 'users'));
+        try {
+            $results = User::search($this->search($search, ['proximity' => false, 'fuzzy' => 0.1, 'phrase' => false]));
 
-        $query = $results;
-        $count = $query->count();
+            $query = $results;
+            $count = $query->count();
 
-        // Order
-        if ($param && $order) {
-            $results = $results->orderBy($param, $order);
-        } else {
-            $param = null;
+            // Order
+            if ($param && $order) {
+                $results = $results->orderBy($param, $order);
+            } else {
+                $param = null;
+            }
+
+            $data = [
+                'results' => $results->get(),
+                'param' => $param,
+                'order' => $order,
+                'search' => $search,
+                'uri' => 'admin/users',
+                'count' => $count,
+                'all' => User::count(),
+                'delete_message' => trans('users.delete_message')
+            ];
         }
-
-        return view('admin.users.search', [
-            'results' => $results->get(),
-            'param' => $param,
-            'order' => $order,
-            'search' => $search,
-            'uri' => 'admin/users',
-            'count' => $count,
-            'all' => User::count(),
-            'delete_message' => trans('users.delete_message')
-        ]);
+        catch (\Exception $e) {
+            $data = [
+                'results' => [],
+                'param' => null,
+                'order' => null,
+                'search' => $search,
+                'uri' => 'admin/users',
+                'count' => 0,
+                'all' => 0,
+                'delete_message' => trans('users.delete_message')
+            ];
+        }
+        return view('admin.users.search', $data);
     }
 
     /**
      * Handles search
-     * 
+     *
      * @param SearchRequest $request
-     * @return Response
+     * @return \Illuminate\View\View
      */
     public function postSearch(SearchRequest $request) {
         return $this->getSearch($request, $request->input('search'), null, null);
