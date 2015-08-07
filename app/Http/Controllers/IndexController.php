@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Session;
 
 class IndexController extends Controller {
-    
+
+    /**
+     * @inheritdoc
+     */
     public function __construct() {
         parent::__construct();
     }

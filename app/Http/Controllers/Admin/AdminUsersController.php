@@ -12,9 +12,14 @@ use App\Http\Requests\Admin\AddUserRequest;
 use App\Http\Requests\Admin\EditUserRequest;
 use App\Http\Requests\User\SearchRequest;
 
-class AdminUsersController extends AdminController {
+class AdminUsersController extends AdminController
+{
 
-    public function __construct() {
+    /**
+     * @inheritdoc
+     */
+    public function __construct()
+    {
         parent::__construct();
         $this->middleware('force_https', [
             'only' => [
@@ -33,7 +38,8 @@ class AdminUsersController extends AdminController {
      * @internal param string $order Order direction
      * @return \Illuminate\View\View
      */
-    public function getAll(Request $request) {
+    public function getAll(Request $request)
+    {
         $query = User::getAll(true, true);
 
         return $this->all($request, $query, 'admin/users', trans('users.all_title'), trans('users.delete_message'), 'admin.users.all');
@@ -45,7 +51,8 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getDelete($id) {
+    public function getDelete($id)
+    {
         $user = User::where('id', $id)->withTrashed()->first();
 
         if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1) {
@@ -68,7 +75,8 @@ class AdminUsersController extends AdminController {
      *
      * @return \Illuminate\View\View
      */
-    public function getAdd() {
+    public function getAdd()
+    {
         $roles = Role::all();
 
         return view('admin.users.add', ['roles' => $roles]);
@@ -80,7 +88,8 @@ class AdminUsersController extends AdminController {
      * @param AddUserRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postAdd(AddUserRequest $request) {
+    public function postAdd(AddUserRequest $request)
+    {
         $user = new User();
 
         $user->changeProfile($request);
@@ -90,7 +99,7 @@ class AdminUsersController extends AdminController {
         if ($request->file('avatar')) {
             $user->changeAvatar($request);
         }
-        
+
         $user->save();
 
         User::flushCache($user);
@@ -106,7 +115,8 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\View\View
      */
-    public function getEdit($id) {
+    public function getEdit($id)
+    {
         $user = User::getUser($id, true);
         $roles = Role::all();
 
@@ -123,11 +133,19 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function putEdit(EditUserRequest $request, $id) {
+    public function putEdit(EditUserRequest $request, $id)
+    {
         $user = User::find($id);
         $user->changeProfile($request);
 
-        if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1 && (!in_array(1, $request->input('roles')) || !$request->input('active'))) {
+        if (
+            $user->hasRole('admin') &&
+            count($user->getAdmins(false, true)) <= 1 &&
+            (
+                !in_array(1, $request->input('roles'))
+                || !$request->input('active')
+            )
+        ) {
             flash()->error(trans('users.can_not_edit'));
 
             return redirect()->back();
@@ -156,7 +174,8 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getDeleteAvatar($id) {
+    public function getDeleteAvatar($id)
+    {
         $user = User::find($id);
         $user->deleteAvatar();
         $user->save();
@@ -173,10 +192,14 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getDisable($id) {
+    public function getDisable($id)
+    {
         $user = User::find($id);
 
-        if ($user->hasRole('admin') && count($user->getAdmins(false, true)) <= 1) {
+        if (
+            $user->hasRole('admin') &&
+            count($user->getAdmins(false, true)) <= 1
+        ) {
             flash()->error(trans('users.can_not_deactivate'));
 
             return redirect()->back();
@@ -197,7 +220,8 @@ class AdminUsersController extends AdminController {
      * @param int $id User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getActivate($id) {
+    public function getActivate($id)
+    {
         $user = User::getUser($id, true);
 
         $user->deleted_at = null;
@@ -216,13 +240,23 @@ class AdminUsersController extends AdminController {
      * @param Request $request
      * @return \Illuminate\View\View
      */
-    public function getSearch(Request $request) {
+    public function getSearch(Request $request)
+    {
         $order = $request->input('order');
         $param = $request->input('param');
         $search = $request->input('search');
 
         try {
-            $results = User::search($this->search($search, ['proximity' => false, 'fuzzy' => 0.1, 'phrase' => false]));
+            $results = User::search(
+                $this->search(
+                    $search,
+                    [
+                        'proximity' => false,
+                        'fuzzy' => 0.1,
+                        'phrase' => false
+                    ]
+                )
+            );
 
             $query = $results;
             $count = $query->count();
@@ -244,8 +278,7 @@ class AdminUsersController extends AdminController {
                 'all' => User::count(),
                 'delete_message' => trans('users.delete_message')
             ];
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             $data = [
                 'results' => [],
                 'param' => null,
@@ -266,8 +299,14 @@ class AdminUsersController extends AdminController {
      * @param SearchRequest $request
      * @return \Illuminate\View\View
      */
-    public function postSearch(SearchRequest $request) {
-        return $this->getSearch($request, $request->input('search'), null, null);
+    public function postSearch(SearchRequest $request)
+    {
+        return $this->getSearch(
+            $request,
+            $request->input('search'),
+            null,
+            null
+        );
     }
 
 }

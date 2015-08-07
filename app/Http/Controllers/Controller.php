@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Request;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
@@ -67,21 +68,24 @@ abstract class Controller extends BaseController {
     }
 
     /**
-     * Renders the all items page
+     * Handles the all items pages
      *
-     * @param $request
-     * @param Model $query Initial query
-     * @param string $uri URI (base path prefix)
-     * @param string $title Page title
-     * @param string $delete_message Delete confirmation dialog message text
-     * @param string $view View to render
-     * @internal param $cache_key
-     * @internal param int $limit Items per page
-     * @internal param string $param Column name to sort
-     * @internal param string $order Order to sort
+     * @param Request $request
+     * @param Model $query
+     * @param string $uri
+     * @param string $title
+     * @param string $delete_message
+     * @param string $view
      * @return \Illuminate\View\View
      */
-    protected function all($request, $query, $uri, $title, $delete_message, $view) {
+    protected function all(
+        Request $request,
+        Model $query,
+        $uri,
+        $title,
+        $delete_message,
+        $view
+    ) {
         $params = $this->formParams($request);
 
         $results = $query;
@@ -123,12 +127,12 @@ abstract class Controller extends BaseController {
     }
 
     /**
-     * Fomr the ids array
+     * Form the ids array
      *
      * @param Array $result Full text search result
      * @return Array
      */
-    private function formIdsArray($result) {
+    protected function formIdsArray($result) {
         $array = [];
 
         foreach ($result as $item) {
@@ -141,10 +145,10 @@ abstract class Controller extends BaseController {
     /**
      * Creates params array
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request|\Illuminate\Http\Request $request
      * @return Array
      */
-    private function formParams(\Illuminate\Http\Request $request) {
+    protected function formParams(Request $request) {
         $params = [];
 
         $params['limit'] = $request->input('limit') ? $request->input('limit') : null;
