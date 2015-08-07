@@ -14,7 +14,7 @@ abstract class Controller extends BaseController {
 
     use DispatchesCommands,
         ValidatesRequests;
-    
+
     public function __construct() {
         $this->middleware('last_activity');
         $this->middleware('locale');
@@ -25,13 +25,13 @@ abstract class Controller extends BaseController {
      * The input array must be in the following format
      * [
      *  'user_email' => '',
-     *  'username' => '', 
+     *  'username' => '',
      *  'user_subject' => '',
      *  'admin_subject' => '',
      *  'user_email_text' => '',
-     *  'admin_mail_text' => 
+     *  'admin_mail_text' =>
      * ]
-     * 
+     *
      * @param Array $data Data to use for the emails
      * @param string $user_template User email template
      * @param string $admin_template Admin email template
@@ -90,11 +90,11 @@ abstract class Controller extends BaseController {
         if ($params['param'] && $params['order']) {
             $results = $results->orderBy($params['param'], $params['order']);
         }
-        
+
         $paginator = $results->paginate($params['limit']);
         $paginator->appends(['limit' => $params['limit'], 'param' => $params['param'], 'order' => $params['order']]);
         $paginator->setPath('all');
-        
+
         $data = [
             'results' => $paginator,
             'uri' => $uri,
@@ -121,26 +121,26 @@ abstract class Controller extends BaseController {
 
         return $array;
     }
-    
+
     /**
      * Fomr the ids array
-     * 
+     *
      * @param Array $result Full text search result
      * @return Array
      */
     private function formIdsArray($result) {
         $array = [];
-        
+
         foreach ($result as $item) {
             $array[] = $item['id'];
         }
-        
+
         return $array;
     }
 
     /**
      * Creates params array
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return Array
      */
