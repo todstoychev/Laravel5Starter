@@ -63,6 +63,12 @@ Use:
     
 to run the migrations.
 
+## Create search indexes
+The search indexes are necessary for full text search service. So to create them run:
+    
+    php artisan search:rebuild
+    
+
 ## Your first login
 Use 'admin' as username and 'admin' as password to enter the application. The 'admin' account has an administrator role so you have access to all application futures.
 
