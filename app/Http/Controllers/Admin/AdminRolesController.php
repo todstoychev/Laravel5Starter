@@ -37,7 +37,9 @@ class AdminRolesController extends AdminController
     }
 
     /**
-     * Render add form
+     * Render Add role page
+     *
+     * @return View
      */
     public function getAdd()
     {
@@ -45,7 +47,7 @@ class AdminRolesController extends AdminController
     }
 
     /**
-     * Handles role add
+     * Handles role creating
      *
      * @param AddRoleRequest $request
      * @return RedirectResponse
@@ -62,7 +64,7 @@ class AdminRolesController extends AdminController
     }
 
     /**
-     * Handles delete
+     * Delete role
      *
      * @param int $id Role id
      * @return RedirectResponse
@@ -89,9 +91,9 @@ class AdminRolesController extends AdminController
     }
 
     /**
-     * Renders edit page
+     * Get edit role page
      *
-     * @param int $id Role id
+     * @param $id
      * @return RedirectResponse|View
      */
     public function getEdit($id)
@@ -108,7 +110,7 @@ class AdminRolesController extends AdminController
     }
 
     /**
-     * Handles role edit
+     * Handles role update
      *
      * @param EditRoleRequest $request
      * @param int $id Role id

@@ -23,33 +23,50 @@ use App\Http\Requests\User\ChangeAvatarRequest;
 use App\Models\PasswordReset;
 use App\Models\User;
 
-class UsersController extends Controller {
+class UsersController extends Controller
+{
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-        $this->middleware('guest', ['only' => [
-                'postLogin',
-                'getLogin',
-                'postRegister',
-                'getRegister',
-                'getConfirm',
-                'getForgottenPassword',
-                'postForgottenPassword',
-                'getPasswordReset',
-                'postPasswordReset'
+        $this->middleware(
+            'guest',
+            [
+                'only' => [
+                    'postLogin',
+                    'getLogin',
+                    'postRegister',
+                    'getRegister',
+                    'getConfirm',
+                    'getForgottenPassword',
+                    'postForgottenPassword',
+                    'getPasswordReset',
+                    'postPasswordReset'
+                ]
+            ]);
+        $this->middleware(
+            'auth',
+            [
+                'only' => [
+                    'getProfile',
+                    'putChangePassword',
+                    'putEmailChange'
+                ]
             ]
-        ]);
-        $this->middleware('auth', ['only' => ['getProfile', 'putChangePassword', 'putEmailChange']]);
-        $this->middleware('force_https', [
-            'only' => [
-                'getLogin',
-                'postLogin',
-                'getRegister',
-                'postRegister',
-                'getProfile',
-                'putChangePassword'
+        );
+        $this->middleware(
+            'force_https',
+            [
+                'only' => [
+                    'getLogin',
+                    'postLogin',
+                    'getRegister',
+                    'postRegister',
+                    'getProfile',
+                    'putChangePassword'
+                ]
             ]
-        ]);
+        );
     }
 
     /**
@@ -57,7 +74,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function getLogin() {
+    public function getLogin()
+    {
         return view('users.login');
     }
 
@@ -67,10 +85,24 @@ class UsersController extends Controller {
      * @param LoginRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function postLogin(LoginRequest $request) {
+    public function postLogin(LoginRequest $request)
+    {
 
-        if (Auth::attempt(['username' => $request->input('username'), 'password' => $request->input('password')], $request->input('remember_me'))) {
-            flash()->success(trans('users.welcome', ['username' => Auth::user()->username]));
+        if (
+        Auth::attempt(
+            [
+                'username' => $request->input('username'),
+                'password' => $request->input('password')
+            ],
+            $request->input('remember_me')
+        )
+        ) {
+            flash()->success(
+                trans(
+                    'users.welcome',
+                    ['username' => Auth::user()->username]
+                )
+            );
 
             return redirect('/');
         } else {
@@ -85,17 +117,21 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function getRegister() {
+    public function getRegister()
+    {
         return view('users.register');
     }
+
 
     /**
      * Handles user registration
      *
      * @param RegisterRequest $request
      * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
-    public function postRegister(RegisterRequest $request) {
+    public function postRegister(RegisterRequest $request)
+    {
         $user = new User([
             'username' => $request->input('username'),
             'password' => Hash::make($request->input('password')),
@@ -141,8 +177,10 @@ class UsersController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function getConfirm(Request $request) {
-        $user = User::where('confirm_token', $request->input('token'))->first();
+    public function getConfirm(Request $request)
+    {
+        $user = User::where('confirm_token', $request->input('token'))
+            ->first();
 
         if ($user != null) {
             $data = $user->confirmRegistration();
@@ -166,7 +204,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function getLogout() {
+    public function getLogout()
+    {
         Auth::user()->last_seen = Cache::get('last_seen_' . Auth::user()->id);
         Cache::forget('last_seen_' . Auth::user()->id);
         Session::pull('locale');
@@ -184,7 +223,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function getProfile() {
+    public function getProfile()
+    {
         return view('users.profile');
     }
 
@@ -194,11 +234,17 @@ class UsersController extends Controller {
      * @param ChangePasswordRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function putChangePassword(ChangePasswordRequest $request) {
+    public function putChangePassword(ChangePasswordRequest $request)
+    {
         // Put session active tab
         Session::put('profile_tab', 'password');
 
-        if (Hash::check($request->input('old_password'), Auth::user()->password)) {
+        if (
+        Hash::check(
+            $request->input('old_password'),
+            Auth::user()->password
+        )
+        ) {
             Auth::user()->password = Hash::make($request->input('new_password'));
             Auth::user()->save();
 
@@ -218,7 +264,8 @@ class UsersController extends Controller {
      * @param ChangeEmailRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function putChangeEmail(ChangeEmailRequest $request) {
+    public function putChangeEmail(ChangeEmailRequest $request)
+    {
         Session::put('profile_tab', 'email');
 
         Auth::user()->email = $request->input('email');
@@ -236,7 +283,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\View\View
      */
-    public function getForgottenPassword() {
+    public function getForgottenPassword()
+    {
         return view('users.forgotten_password');
     }
 
@@ -246,7 +294,8 @@ class UsersController extends Controller {
      * @param ForgottenPasswordRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postForgottenPassword(ForgottenPasswordRequest $request) {
+    public function postForgottenPassword(ForgottenPasswordRequest $request)
+    {
         $check = User::where('email', $request->input('email'));
 
         if ($check) {
@@ -261,7 +310,7 @@ class UsersController extends Controller {
             ];
 
             // Send email
-            Mail::send('emails.password_reset', $data, function($msg) use ($request) {
+            Mail::send('emails.password_reset', $data, function ($msg) use ($request) {
                 $msg->to($request->input('email'));
                 $msg->from(Config::get('mail.from.address'), 'NoReply');
                 $msg->subject(trans('users.reset_password_subject'));
@@ -284,7 +333,8 @@ class UsersController extends Controller {
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function getPasswordReset(Request $request) {
+    public function getPasswordReset(Request $request)
+    {
         if ($request->input('token')) {
             $check = PasswordReset::where('token', $request->input('token'))->first();
 
@@ -308,7 +358,8 @@ class UsersController extends Controller {
      * @param PasswordResetRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function putPasswordReset(PasswordResetRequest $request) {
+    public function putPasswordReset(PasswordResetRequest $request)
+    {
         $check = PasswordReset::where(['email' => $request->input('email'), 'token' => $request->input('token')])->first();
 
         if ($check) {
@@ -331,9 +382,10 @@ class UsersController extends Controller {
      * @param ChangeAvatarRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postChangeAvatar(ChangeAvatarRequest $request) {
+    public function postChangeAvatar(ChangeAvatarRequest $request)
+    {
         Session::put('profile_tab', 'avatar');
-        
+
         Auth::user()->changeAvatar($request);
 
         flash()->success(trans('users.avatar_changed'));
@@ -346,7 +398,8 @@ class UsersController extends Controller {
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function getDeleteAvatar() {
+    public function getDeleteAvatar()
+    {
         Session::put('profile_tab', 'avatar');
 
         Auth::user()->deleteAvatar();

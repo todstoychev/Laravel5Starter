@@ -14,6 +14,9 @@ use App\Models\Settings;
 
 class AdminSettingsController extends AdminController {
 
+    /**
+     * @inheritdoc
+     */
     public function __construct() {
         parent::__construct();
     }
