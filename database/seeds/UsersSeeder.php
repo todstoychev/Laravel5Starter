@@ -30,7 +30,6 @@ class UsersSeeder extends Seeder {
             $user->save();
             
             $user->roles()->save(Role::find(2));
-            $user->addSearchIndex();
         }
     }
 
