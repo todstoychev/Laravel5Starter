@@ -10,7 +10,6 @@ class RolesSeeder extends Seeder {
        foreach ($roles as $role) {
            $instance = new Role(['role' => $role]);
            $instance->save();
-           $instance->addSearchIndex();
        }
     }
     
