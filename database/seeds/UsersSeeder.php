@@ -18,8 +18,7 @@ class UsersSeeder extends Seeder {
         $user->save();
 
         $user->roles()->save(Role::find(1));
-        $user->addSearchIndex();
-
+        
         for ($i = 0; $i < 50; $i++) {
             $user = new User();
             $user->username = $faker->userName;
