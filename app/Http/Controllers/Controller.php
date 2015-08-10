@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Request;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Bus\DispatchesCommands;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -80,7 +79,7 @@ abstract class Controller extends BaseController {
      */
     protected function all(
         Request $request,
-        Model $query,
+        $query,
         $uri,
         $title,
         $delete_message,
