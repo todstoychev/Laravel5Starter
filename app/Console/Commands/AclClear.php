@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\Action;
 use App\Models\ActionRoles;
+use App\Models\CacheTrait;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Console\Command;
@@ -22,6 +23,8 @@ use Illuminate\Support\Facades\Route;
  */
 class AclClear extends Command
 {
+    use CacheTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -76,7 +79,8 @@ class AclClear extends Command
                 $this->comment("Added action " . $action->action . "\n");
             }
 
-            Cache::tags(['permissions'])->flush();
+            $cache = $this->getCacheInstance(['permissions']);
+            $cache->flush();
 
             DB::commit();
         } catch (\Exception $e) {

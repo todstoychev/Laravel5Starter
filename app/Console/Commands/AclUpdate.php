@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Action;
+use App\Models\CacheTrait;
 use App\Models\Role;
 use Illuminate\Support\Facades\Cache;
 
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Cache;
  */
 class AclUpdate extends AclClear
 {
+    use CacheTrait;
+
     /**
      * The name and signature of the console command.
      *
@@ -76,7 +79,8 @@ class AclUpdate extends AclClear
             $this->comment("Removed " . $action . "\n");
         }
 
-        Cache::tags(['permissions'])->flush();
+        $cache = $this->getCacheInstance(['permissions']);
+        $cache->flush();
 
         $this->info("Done. \n");
     }

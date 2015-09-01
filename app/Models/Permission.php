@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Cache;
 
 /**
  * Permission model
@@ -13,6 +12,8 @@ use Illuminate\Support\Facades\Cache;
  */
 class Permission extends Model
 {
+    use CacheTrait;
+
     /**
      * Database table name
      *
@@ -38,9 +39,10 @@ class Permission extends Model
     {
         $cacheKey = md5($action . serialize($roleIds));
         $cacheTags = ['permissions'];
+        $cache = self::getCacheInstance($cacheTags);
 
-        if (Cache::tags($cacheTags)->has($cacheKey)) {
-            return Cache::tags($cacheTags)->get($cacheKey);
+        if ($cache->has($cacheKey)) {
+            return $cache->get($cacheKey);
         } else {
             $result = self::select('permissions.*')
                 ->join('actions as actions', 'actions.id', '=', 'permissions.action_id', 'left')
@@ -55,7 +57,7 @@ class Permission extends Model
 
             $permission = $result->first();
 
-            Cache::tags($cacheTags)->put($cacheKey, $permission, 60);
+            $cache->put($cacheKey, $permission, 60);
 
             return $permission;
         }
