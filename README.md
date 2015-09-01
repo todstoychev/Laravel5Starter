@@ -1,4 +1,5 @@
 This project uses the Laravel 5 framework. Actually this is starter Laravel 5 project. It contains user management system, including register, login, forgotten password, change password and other related functionalities. It also contains Basic admin panel and user roles implementation.
+The project has also Access Control List implementation.
 The project uses several modules:
 
 1. [laracasts/flash](https://github.com/laracasts/flash) - module used for the flash message notifications
@@ -63,6 +64,17 @@ Use:
     
 to run the migrations.
 
+## Create Access Control List
+To create the initial Access Control List data run:
+    
+    php artisan acl:update
+    
+To clear the data you can use:
+    
+    php artisan acl:clear
+    
+If you add new controllers to your project, the rules for them can be set while running the update command. This command will not touch your existing database entries.
+
 ## Create search indexes
 The search indexes are necessary for full text search service. So to create them run:
     
@@ -78,3 +90,6 @@ Users can be deleted if they do not have something that relates to them. If you 
 
 ## Settings (Admin panel)
 There is a settings module in the admin panel. You can define your site name from here. This is the name that will be shown at the navigation tab in your browser. Also you can define the locales. Use standart 2 characters locale codes. The fallback locale is used as default if the user has no choose a language from the language menu.
+
+## ACL (Permissions)
+This is the section from where you can control your users access. Against every action in the project you will see a checkbox. The checkboxes are situated under the roles named columns. If checkbox is checked, the current role has access to this action. 
