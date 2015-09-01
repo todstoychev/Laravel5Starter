@@ -12,6 +12,12 @@ use App\Http\Requests\Admin\Settings\FaviconRequest;
 // Models
 use App\Models\Settings;
 
+/**
+ * Controller that handles the settings CRUD in the admin part
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class AdminSettingsController extends AdminController {
 
     /**

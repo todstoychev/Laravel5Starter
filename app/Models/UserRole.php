@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * UserRole model
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Models
+ */
 class UserRole extends Model {
     
     /**

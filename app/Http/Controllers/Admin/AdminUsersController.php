@@ -12,6 +12,13 @@ use App\Http\Requests\Admin\AddUserRequest;
 use App\Http\Requests\Admin\EditUserRequest;
 use App\Http\Requests\User\SearchRequest;
 
+/**
+ * Controller used to handle user actions in the admin part.
+ * Adding user, deleting user and etc.
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class AdminUsersController extends AdminController
 {
 

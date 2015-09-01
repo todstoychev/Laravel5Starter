@@ -6,6 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Settings model
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Models
+ */
 class Settings extends Model {
 
     /**

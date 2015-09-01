@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Session;
 
+/**
+ * Index page controller, holds the language switching method
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers
+ */
 class IndexController extends Controller {
 
     /**

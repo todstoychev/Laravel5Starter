@@ -12,6 +12,12 @@ use App\Http\Requests\Admin\AddRoleRequest;
 use App\Http\Requests\Admin\EditRoleRequest;
 use App\Http\Requests\Role\SearchRequest;
 
+/**
+ * Controller to handle the roles CRUD in the admin part
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class AdminRolesController extends AdminController
 {
 
@@ -119,7 +125,7 @@ class AdminRolesController extends AdminController
     public function putEdit(EditRoleRequest $request, $id)
     {
         $role = Role::find($id);
-        $check = Role::checkRoleOnEdit($role->id, $request->input('role'));
+        $check = Role::checkOnEdit($role->id, ['role' => $request->input('role')]);
 
         if (!$check) {
             $role->role = $request->input('role');
