@@ -13,6 +13,7 @@
 
 // Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::controller('permissions', 'AdminPermissionsController');
 
     Route::controller('settings', 'AdminSettingsController');
 

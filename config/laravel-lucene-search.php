@@ -34,7 +34,12 @@ return [
                 'fields' => [
                     'role'
                 ]
-             ]
+             ],
+            \App\Models\Action::class => [
+                'fields' => [
+                    'uri', 'action'
+                ]
+            ]
         ],
     ],
 
