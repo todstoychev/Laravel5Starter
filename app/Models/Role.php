@@ -6,8 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 use Nqxcode\LuceneSearch\Model\Searchable;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
+/**
+ * Role model
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Models
+ */
 class Role extends Model implements Searchable {
-    use SearchTrait;
+    use SearchTrait,
+        ChecksTrait;
 
     /**
      * Database table name
@@ -61,32 +68,22 @@ class Role extends Model implements Searchable {
     }
 
     /**
-     * Checks if role exists on edit
-     *
-     * @param int $id
-     * @param $role
-     * @return bool
-     * @internal param string $name
-     */
-    public static function checkRoleOnEdit($id, $role) {
-        $query = self::where('id', '!=', $id)
-                ->where('role', '=',  $role)
-                ->get();
-        
-        if (count($query) > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
      * Users
      * 
      * @return object
      */
     public function users() {
         return $this->belongsToMany('App\Models\User', 'users_roles');
+    }
+
+    /**
+     * Permission relation
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function permissions()
+    {
+        return $this->hasMany('App\Models\Permisson');
     }
 
     /**

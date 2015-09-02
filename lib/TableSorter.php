@@ -7,32 +7,33 @@ class TableSorter {
      * Table column sorter
      *
      * @param string $action "Controller@action"
-     * @param string $col_name Column name to show in the table
-     * @param string $param Parameter to order(databese table column name)
+     * @param string $columnName Column name to show in the table
+     * @param string $param Parameter to order(database table column name)
      * @param string $order Order direction
      * @param integer $limit Items per page
      * @return string
      */
-    public static function sort($action, $col_name, $param, $order = 'asc', $limit = 10) {
+    public static function sort($action, $columnName, $param, $order = 'asc', $limit = 10) {
         If ($order == 'asc') {
             $order = 'desc';
         } else {
             $order = 'asc';
         }
         
-        echo '<a href="' . action($action) . '?limit=' . $limit . '&param=' . $param . '&order=' . $order . '">' . $col_name . '</a>';
+        echo '<a href="' . action($action) . '?limit=' . $limit . '&param=' . $param . '&order=' . $order . '">' . $columnName . '</a>';
     }
 
     /**
      * Table column sorter
      *
      * @param string $action "Controller@action"
+     * @param string $columnName Column name
      * @param string $search Search keyword
      * @param string $param Parameter to order(databese table column name)
      * @param string $order Order direction
      * @return string
      */
-    public static function sort_search($action, $search = null, $param = null, $order = 'asc') {
+    public static function sort_search($action, $columnName, $search = null, $param = null, $order = 'asc') {
         If ($order == 'asc') {
             $order = 'desc';
         } else {

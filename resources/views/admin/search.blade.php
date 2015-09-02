@@ -71,23 +71,13 @@
 @stop
 
 @section('javascripts')
-<script src="{{ URL::asset('js/select2.js') }}"></script>
-<script>
+<script type="text/javascript" src="{{ asset('js/select2.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+<script type="text/javascript">
     $(document).ready(function () {
         // Delete confirmation dialog
         $('#delete').on('show.bs.modal', function (e) {
-            console.log($(e.relatedTarget).data('href'));
             $(this).find('.danger').attr('href', $(e.relatedTarget).data('href'));
-        });
-
-        // Submit the limit per page form
-        $('select[name="limit"]').on('change', function () {
-            var form = $(this).parent().parent('form');
-            window.location = form.attr('action') + '/' + $(this).val() + '{{ $param ? "/" . $param : null }}' + '{{ $order ? "/" . $order : null }}';
-        });
-
-        $('i.glyphicon-search').on('click', function () {
-            $(this).parentс()('form').submit();
         });
     });
 </script>

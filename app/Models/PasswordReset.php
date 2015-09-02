@@ -4,6 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * PasswordReset model
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Models
+ */
 class PasswordReset extends Model {
 
     /**

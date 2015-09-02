@@ -3,6 +3,12 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * Base admin section controller
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class AdminController extends Controller {
 
     /**
@@ -10,7 +16,6 @@ class AdminController extends Controller {
      */
     public function __construct() {
         parent::__construct();
-        $this->middleware('admin');
     }
 
     /**

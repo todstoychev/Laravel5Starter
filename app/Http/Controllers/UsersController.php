@@ -23,37 +23,19 @@ use App\Http\Requests\User\ChangeAvatarRequest;
 use App\Models\PasswordReset;
 use App\Models\User;
 
+/**
+ * Controller that holds basic user action, like changing password,
+ * changing email and avatar...
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers
+ */
 class UsersController extends Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->middleware(
-            'guest',
-            [
-                'only' => [
-                    'postLogin',
-                    'getLogin',
-                    'postRegister',
-                    'getRegister',
-                    'getConfirm',
-                    'getForgottenPassword',
-                    'postForgottenPassword',
-                    'getPasswordReset',
-                    'postPasswordReset'
-                ]
-            ]);
-        $this->middleware(
-            'auth',
-            [
-                'only' => [
-                    'getProfile',
-                    'putChangePassword',
-                    'putEmailChange'
-                ]
-            ]
-        );
         $this->middleware(
             'force_https',
             [
@@ -64,6 +46,21 @@ class UsersController extends Controller
                     'postRegister',
                     'getProfile',
                     'putChangePassword'
+                ]
+            ]
+        );
+        $this->middleware(
+            'authenticated',
+            [
+                'only' => [
+                    'getLogin',
+                    'postLogin',
+                    'getRegister',
+                    'postRegister',
+                    'getForgottenPassword',
+                    'postForgottenPassword',
+                    'getPasswordReset',
+                    'postPasswordReset'
                 ]
             ]
         );

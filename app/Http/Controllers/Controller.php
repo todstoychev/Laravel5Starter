@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Config;
 use Nqxcode\LuceneSearch\Facade as Search;
 
+/**
+ * Base controller class. Holds some basic methods used by the child classes
+ *
+ * @author Todor Todorov <todstoychev@gmail.com>
+ * @package App\Http\Controllers
+ */
 abstract class Controller extends BaseController {
 
     use DispatchesCommands,
@@ -17,6 +23,7 @@ abstract class Controller extends BaseController {
 
     public function __construct() {
         $this->middleware('last_activity');
+        $this->middleware('permissions');
         $this->middleware('locale');
     }
 
@@ -70,7 +77,7 @@ abstract class Controller extends BaseController {
      * Handles the all items pages
      *
      * @param Request $request
-     * @param Model $query
+     * @param mixed $query
      * @param string $uri
      * @param string $title
      * @param string $delete_message
