@@ -48,7 +48,7 @@ class AclUpdate extends AclClear
      */
     public function handle()
     {
-        $permissions = $this->getAllActionActions();
+        $permissions = $this->getAllActions();
         $actions = $this->getRouteData();
         $roles = Role::all();
 
@@ -91,7 +91,7 @@ class AclUpdate extends AclClear
      *
      * @return array
      */
-    protected function getAllActionActions()
+    protected function getAllActions()
     {
         $array = [];
         $permissions = Action::all();

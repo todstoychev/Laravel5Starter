@@ -49,6 +49,21 @@ class UsersController extends Controller
                 ]
             ]
         );
+        $this->middleware(
+            'authenticated',
+            [
+                'only' => [
+                    'getLogin',
+                    'postLogin',
+                    'getRegister',
+                    'postRegister',
+                    'getForgottenPassword',
+                    'postForgottenPassword',
+                    'getPasswordReset',
+                    'postPasswordReset'
+                ]
+            ]
+        );
     }
 
     /**
