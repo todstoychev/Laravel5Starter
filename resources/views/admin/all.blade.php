@@ -16,7 +16,7 @@
             @section('add_button')
                 <a href="{{ URL::to($uri . '/add') }}" class="btn btn-primary" id="add"><i
                             class="glyphicon glyphicon-plus-sign"></i> {{ trans('temp.add') }}</a>
-            @stop
+            @show
         </div>
         <div class="col-lg-6">
             <form action="{{ URL::to($uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
