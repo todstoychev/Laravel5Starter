@@ -21,6 +21,9 @@ abstract class Controller extends BaseController {
     use DispatchesCommands,
         ValidatesRequests;
 
+    /**
+     * @inheritdoc
+     */
     public function __construct() {
         $this->middleware('last_activity');
         $this->middleware('permissions');
