@@ -25,6 +25,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
 });
 
 // Public and user routes
+Route::controller('contacts', 'ContactsController');
+
 Route::controller('users', 'UsersController');
 
 Route::controller('/', 'IndexController');
