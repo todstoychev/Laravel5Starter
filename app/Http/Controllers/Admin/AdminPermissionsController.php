@@ -70,11 +70,16 @@ class AdminPermissionsController extends AdminController
             });
             DB::commit();
 
-            Cache::tags(['permissions'])->flush();
-
             flash()->success(trans('permissions.save_success'));
         } catch (\Exception $e) {
+            var_dump($e->getMessage()); die();
             flash()->error(trans('permissions.save_error'));
+        }
+
+        try {
+            Cache::tags(['permissions'])->flush();
+        } catch (\Exception $e) {
+            Cache::flush();
         }
 
         return redirect()->back();

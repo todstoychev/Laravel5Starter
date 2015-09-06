@@ -29,7 +29,8 @@ class Kernel extends HttpKernel
         'permissions' => 'App\Http\Middleware\Permissions',
         'force_https' => 'App\Http\Middleware\ForceHttps',
         'last_activity' => 'App\Http\Middleware\LastActivity',
-        'locale' => 'App\Http\Middleware\Locale'
+        'locale' => 'App\Http\Middleware\Locale',
+        'contacts' => 'App\Http\Middleware\Contacts'
     ];
 
 }
