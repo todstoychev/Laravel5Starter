@@ -18,5 +18,8 @@ return [
     'favicon_changed' => 'Favicon changed successfully!',
     'favicon_error' => 'Error! Invalid file format.',
     'favicon_deleted' => 'Favicon deleted!',
-    'fallback_locale_not_in_list' => 'The fallback locale is not in the locales list! Please change it.'
+    'fallback_locale_not_in_list' => 'The fallback locale is not in the locales list! Please change it.',
+    'contacts' => 'Contacts',
+    'show_contacts_page' => 'Show contacts page',
+    'contacts_updated' => 'Contacts page settings updated!'
 ];

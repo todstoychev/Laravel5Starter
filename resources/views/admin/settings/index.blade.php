@@ -76,6 +76,23 @@
             </div>
         </div>
     </div><!-- /Locales -->
+
+    <!-- Contacts -->
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#contacts" class="collapsed">
+                    {{ trans('settings.contacts') }}
+                    <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                </a>
+            </h4>
+        </div>
+        <div id="contacts" class="panel-collapse collapse">
+            <div class="panel-body">
+                @include('admin.settings.contacts_form')
+            </div>
+        </div>
+    </div><!-- /Contacts -->
     @stop
 
     @section('javascripts')

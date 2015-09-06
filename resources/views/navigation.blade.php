@@ -18,11 +18,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <div class="navbar-left">
                 <ul class="nav navbar-nav">
-                    <li>
-                        <a href="{{ url('contacts') }}">
-                            {{ trans('contacts.contacts') }}
-                        </a>
-                    </li>
+                    {{-- Contacts page --}}
+                    @if (\App\Models\Settings::get('show_contacts_page'))
+                        <li>
+                            <a href="{{ url('contacts') }}">
+                                {{ trans('contacts.contacts') }}
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
 
