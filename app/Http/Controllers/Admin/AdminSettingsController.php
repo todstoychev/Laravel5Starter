@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Requests
@@ -11,6 +12,7 @@ use App\Http\Requests\Admin\Settings\FallbackLocaleRequest;
 use App\Http\Requests\Admin\Settings\FaviconRequest;
 // Models
 use App\Models\Settings;
+use Symfony\Component\HttpFoundation\Tests\RequestContentProxy;
 
 /**
  * Controller that handles the settings CRUD in the admin part
@@ -163,6 +165,19 @@ class AdminSettingsController extends AdminController {
         
         flash()->success(trans('settings.favicon_deleted'));
         
+        return redirect()->back();
+    }
+
+    public function putContacts(Request $request)
+    {
+        Session::put('settings_tab', 'contacts');
+
+        Settings::where('param', 'show_contacts_page')->update(['value' => ($request->input('show_contacts_page')) ? true : null]);
+
+        Cache::flush('settings');
+
+        flash()->success(trans('settings.contacts_updated'));
+
         return redirect()->back();
     }
 

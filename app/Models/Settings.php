@@ -53,8 +53,21 @@ class Settings extends Model {
 
             Cache::forever('settings', $array);
         }
-        
+
         return $array;
+    }
+
+    /**
+     * Get specific setting value
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public static function get($key)
+    {
+        $array = self::getAll();
+
+        return $array[$key];
     }
     
     /**

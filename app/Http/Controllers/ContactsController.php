@@ -16,6 +16,7 @@ class ContactsController extends Controller
     public function __construct()
     {
         parent::__construct();
+        $this->middleware('contacts');
     }
 
     public function getIndex()
