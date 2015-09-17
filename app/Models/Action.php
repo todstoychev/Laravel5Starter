@@ -33,7 +33,7 @@ class Action extends Model implements Searchable
     public $timestamps = false;
 
     /**
-     * Fillable propeties
+     * Fillable properties
      *
      * @var array
      */

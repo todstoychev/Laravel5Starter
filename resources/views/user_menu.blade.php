@@ -1,7 +1,7 @@
 <ul class="nav navbar-nav">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            @if (Auth::user()->avatar)
+            @if (\App\Models\Settings::get('use_avatars') && Auth::user()->avatar)
                 <img src="{{ asset('uploads/images/avatar/small/' . Auth::user()->avatar) }}" alt="{{ trans('users.avatar') }}" />
             @else
                 <i class="glyphicon glyphicon-user"></i>

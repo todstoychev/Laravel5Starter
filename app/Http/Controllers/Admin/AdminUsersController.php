@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 // Models
+use App\Models\Settings;
 use App\Models\User;
 use App\Models\UserRole;
 use App\Models\Role;
@@ -103,7 +104,7 @@ class AdminUsersController extends AdminController
         $user->roles()->attach($request->input('roles'));
         $user->changeSettings($request);
 
-        if ($request->file('avatar')) {
+        if ($request->file('avatar') && Settings::get('use_avatars')) {
             $user->changeAvatar($request);
         }
 
@@ -162,7 +163,7 @@ class AdminUsersController extends AdminController
             $user->changeSettings($request);
         }
 
-        if ($request->file('avatar')) {
+        if ($request->file('avatar') && Settings::get('use_avatars')) {
             $user->changeAvatar($request);
         }
 
@@ -183,12 +184,14 @@ class AdminUsersController extends AdminController
      */
     public function getDeleteAvatar($id)
     {
-        $user = User::find($id);
-        $user->deleteAvatar();
-        $user->save();
+        if (Settings::get('use_avatars')) {
+            $user = User::find($id);
+            $user->deleteAvatar();
+            $user->save();
 
-        flash()->success(trans('users.avatar_deleted'));
-        User::flushCache($user);
+            flash()->success(trans('users.avatar_deleted'));
+            User::flushCache($user);
+        }
 
         return redirect()->back();
     }

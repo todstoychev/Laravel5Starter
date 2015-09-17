@@ -100,6 +100,24 @@
             </div>
         </div>
         <!-- /Contacts -->
+
+        <!-- Avatar -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-parent="#accordion2" href="#avatars" class="collapsed">
+                        {{ trans('settings.avatars') }}
+                        <i class="glyphicon glyphicon-chevron-right pull-right"></i>
+                    </a>
+                </h4>
+            </div>
+            <div id="avatars" class="panel-collapse collapse">
+                <div class="panel-body">
+                    @include('admin.settings.avatars_form')
+                </div>
+            </div>
+        </div>
+        <!-- /Avatar -->
 </div>
     @stop
 
