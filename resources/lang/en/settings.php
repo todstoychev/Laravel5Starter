@@ -21,5 +21,8 @@ return [
     'fallback_locale_not_in_list' => 'The fallback locale is not in the locales list! Please change it.',
     'contacts' => 'Contacts',
     'show_contacts_page' => 'Show contacts page',
-    'contacts_updated' => 'Contacts page settings updated!'
+    'contacts_updated' => 'Contacts page settings updated!',
+    'avatars' => 'avatars',
+    'use_avatars' => 'Use avatars',
+    'avatars_update' => 'Avatar settings updated successfully!'
 ];

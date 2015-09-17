@@ -11,7 +11,8 @@ class SettingsSeeder extends Seeder {
             'sitename_bg' => 'Моят сайт',
             'fallback_locale' => 'bg',
             'favicon' => 'favicon.ico',
-            'show_contacts_page' => true
+            'show_contacts_page' => true,
+            'use_avatars' => true
         ];
 
         foreach ($array as $key => $item) {

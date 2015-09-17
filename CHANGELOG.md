@@ -1,3 +1,6 @@
+# v0.4.0
+- Added new setting to enable and disable the use avatars. Created the necessary seeder data to enter the new setting in the database. Based on this setting value the usage of the avatars is enabled or disabled.
+
 # v0.3.1
 - Reorganized Settings page. Applied 2 columns design.
 - Added change log file. 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Settings;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Facades
@@ -381,11 +382,13 @@ class UsersController extends Controller
      */
     public function postChangeAvatar(ChangeAvatarRequest $request)
     {
-        Session::put('profile_tab', 'avatar');
+        if (Settings::get('use_avatars')) {
+            Session::put('profile_tab', 'avatar');
 
-        Auth::user()->changeAvatar($request);
+            Auth::user()->changeAvatar($request);
 
-        flash()->success(trans('users.avatar_changed'));
+            flash()->success(trans('users.avatar_changed'));
+        }
 
         return redirect()->back();
     }
@@ -397,11 +400,13 @@ class UsersController extends Controller
      */
     public function getDeleteAvatar()
     {
-        Session::put('profile_tab', 'avatar');
+        if (Settings::get('use_avatars')) {
+            Session::put('profile_tab', 'avatar');
 
-        Auth::user()->deleteAvatar();
+            Auth::user()->deleteAvatar();
 
-        flash()->success(trans('users.avatar_deleted'));
+            flash()->success(trans('users.avatar_deleted'));
+        }
 
         return redirect()->back();
     }
