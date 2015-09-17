@@ -40,6 +40,7 @@
             </div>
             
             <!-- Avatar -->
+            @if(\App\Models\Settings::get('use_avatars'))
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4 class="panel-title">
@@ -55,6 +56,7 @@
                     </div>
                 </div>
             </div>
+            @endif
             
             <!-- Settings -->
             <div class="panel panel-default">

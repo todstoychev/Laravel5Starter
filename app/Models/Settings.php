@@ -86,6 +86,8 @@ class Settings extends Model {
     
     /**
      * Get the favicon
+     *
+     * @deprecated
      * 
      * @return string
      */
@@ -98,6 +100,8 @@ class Settings extends Model {
 
     /**
      * Gets the sitename
+     *
+     * @deprecated
      * 
      * @return String
      */
@@ -110,6 +114,8 @@ class Settings extends Model {
     
     /**
      * Gets the fallback locale
+     *
+     * @deprecated
      * 
      * @return string
      */

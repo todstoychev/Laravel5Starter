@@ -52,7 +52,7 @@ class AdminSettingsController extends AdminController {
      * @return \Illuminate\Http\RedirectResponse
      */
     public function putLocales(LocalesRequest $request) {
-        $fallback_locale = Settings::getFallBackLocale();
+        $fallback_locale = Settings::get('fallback_locale');
         Session::put('settings_tab', 'locales');
         
         // Check if try to set fallback locale that is not in the locales list
@@ -131,7 +131,7 @@ class AdminSettingsController extends AdminController {
         Session::put('settings_tab', 'favicon');
 
         if ($request->file('favicon')->getMimeType() == 'image/x-icon') {
-            $path = public_path(Settings::getFavicon());
+            $path = public_path(Settings::get('favicon'));
             (file_exists($path) && !is_dir($path)) ? unlink($path) : null;
             $request->file('favicon')->move(public_path(), $request->file('favicon')->getClientOriginalName());
             Settings::where('param', 'favicon')->update(['value' => $request->file('favicon')->getClientOriginalName()]);
@@ -156,7 +156,7 @@ class AdminSettingsController extends AdminController {
     public function getDeleteFavicon() {
         Session::put('settings_tab', 'favicon');
         
-        $path = public_path(Settings::getFavicon());
+        $path = public_path(Settings::get('favicon'));
         file_exists($path) ? unlink($path) : null;
         
         Settings::where('param', 'favicon')->update(['value' => null]);
@@ -168,6 +168,12 @@ class AdminSettingsController extends AdminController {
         return redirect()->back();
     }
 
+    /**
+     * Handles contacts setting
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function putContacts(Request $request)
     {
         Session::put('settings_tab', 'contacts');
@@ -177,6 +183,19 @@ class AdminSettingsController extends AdminController {
         Cache::flush('settings');
 
         flash()->success(trans('settings.contacts_updated'));
+
+        return redirect()->back();
+    }
+
+    public function putAvatar(Request $request)
+    {
+        Session::put('settings_tab', 'avatars');
+
+        Settings::where('param', 'use_avatars')->update(['value' => ($request->input('use_avatars')) ? true : null]);
+
+        Cache::flush('settings');
+
+        flash()->success(trans('settings.avatars_updated'));
 
         return redirect()->back();
     }
