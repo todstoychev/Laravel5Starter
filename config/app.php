@@ -24,7 +24,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => 'http://localhost/tourist-bg.info',
+    'url' => 'http://laravel5starter.dev',
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -131,7 +131,6 @@ return [
         /**
          * Packages
          */
-        Orchestra\Imagine\ImagineServiceProvider::class,
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Nqxcode\LuceneSearch\ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class
@@ -180,7 +179,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Flash' => Laracasts\Flash\Flash::class,
-        'Imagine' => Orchestra\Imagine\Facade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Search' => Nqxcode\LuceneSearch\Facade::class,
     ],
