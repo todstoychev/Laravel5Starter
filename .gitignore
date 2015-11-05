@@ -3,3 +3,4 @@
 .env
 nbproject/
 .idea/
+*.log

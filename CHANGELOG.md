@@ -1,3 +1,6 @@
+# v0.4.1
+- Added changes in the models to keep them synchronized with the newest nqxcode searh.
+
 # v0.4.0
 - Added new setting to enable and disable the use avatars. Created the necessary seeder data to enter the new setting in the database. Based on this setting value the usage of the avatars is enabled or disabled.
 

@@ -5,15 +5,15 @@ namespace App\Models;
 use App\Http\Requests\User\PasswordResetRequest;
 use Carbon\Carbon;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use Lib\ICR;
-use Illuminate\Support\Facades\Config;
-use Nqxcode\LuceneSearch\Model\Searchable;
+use Nqxcode\LuceneSearch\Model\SearchableInterface;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
 /**
@@ -34,7 +34,7 @@ use Nqxcode\LuceneSearch\Model\SearchTrait;
  * @author Todor Todorov <todstoychev@gmail.com>
  * @package App\Models
  */
-class User extends Model implements AuthenticatableContract, Searchable {
+class User extends Model implements AuthenticatableContract, SearchableInterface {
 
     use SoftDeletes,
         Authenticatable,
@@ -313,4 +313,10 @@ class User extends Model implements AuthenticatableContract, Searchable {
     {
         return true;
     }
+
+    public static function searchableIds()
+    {
+        //
+    }
+
 }

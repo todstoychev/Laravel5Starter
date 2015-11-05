@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
-use Nqxcode\LuceneSearch\Model\Searchable;
+use Nqxcode\LuceneSearch\Model\SearchableInterface;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
 /**
@@ -14,7 +14,7 @@ use Nqxcode\LuceneSearch\Model\SearchTrait;
  * @author Todor Todorov <todstoychev@gmail.com>
  * @package App\Models
  */
-class Action extends Model implements Searchable
+class Action extends Model implements SearchableInterface
 {
     use SearchTrait;
 
@@ -94,4 +94,10 @@ class Action extends Model implements Searchable
     {
         return true;
     }
+
+    public static function searchableIds()
+    {
+        //
+    }
+
 }
