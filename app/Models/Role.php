@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Nqxcode\LuceneSearch\Model\Searchable;
+use Nqxcode\LuceneSearch\Model\SearchableInterface;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
 /**
@@ -12,7 +12,7 @@ use Nqxcode\LuceneSearch\Model\SearchTrait;
  * @author Todor Todorov <todstoychev@gmail.com>
  * @package App\Models
  */
-class Role extends Model implements Searchable {
+class Role extends Model implements SearchableInterface {
     use SearchTrait,
         ChecksTrait;
 
@@ -95,4 +95,10 @@ class Role extends Model implements Searchable {
     {
         return true;
     }
+
+    public static function searchableIds()
+    {
+        // 
+    }
+
 }
