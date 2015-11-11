@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\Admin\AddUserRequest;
 use App\Http\Requests\Admin\EditUserRequest;
 use App\Http\Requests\User\SearchRequest;
+use Todstoychev\Icr\Icr;
 
 /**
  * Controller used to handle user actions in the admin part.
@@ -29,18 +30,22 @@ class AdminUsersController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('force_https', [
-            'only' => [
-                'getAdd',
-                'postAdd',
+        $this->middleware(
+            'force_https',
+            [
+                'only' => [
+                    'getAdd',
+                    'postAdd',
+                ],
             ]
-        ]);
+        );
     }
 
     /**
      * Renders all page
      *
      * @param Request $request
+     *
      * @internal param int $limit Items per page
      * @internal param string $param Column to order
      * @internal param string $order Order direction
@@ -50,13 +55,21 @@ class AdminUsersController extends AdminController
     {
         $query = User::getAll(true, true);
 
-        return $this->all($request, $query, 'admin/users', trans('users.all_title'), trans('users.delete_message'), 'admin.users.all');
+        return $this->all(
+            $request,
+            $query,
+            'admin/users',
+            trans('users.all_title'),
+            trans('users.delete_message'),
+            'admin.users.all'
+        );
     }
 
     /**
      * Deletes user
      *
      * @param int $id User id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDelete($id)
@@ -94,6 +107,7 @@ class AdminUsersController extends AdminController
      * Adds an user
      *
      * @param AddUserRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postAdd(AddUserRequest $request)
@@ -105,7 +119,15 @@ class AdminUsersController extends AdminController
         $user->changeSettings($request);
 
         if ($request->file('avatar') && Settings::get('use_avatars')) {
-            $user->changeAvatar($request);
+            $response = Icr::uploadImage($request->file('avatar'), 'avatar');
+
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
+
+            $user->changeAvatar($response);
         }
 
         $user->save();
@@ -121,6 +143,7 @@ class AdminUsersController extends AdminController
      * Renders edit user page
      *
      * @param int $id User id
+     *
      * @return \Illuminate\View\View
      */
     public function getEdit($id)
@@ -128,10 +151,13 @@ class AdminUsersController extends AdminController
         $user = User::getUser($id, true);
         $roles = Role::all();
 
-        return view('admin.users.edit', [
-            'user' => $user,
-            'roles' => $roles
-        ]);
+        return view(
+            'admin.users.edit',
+            [
+                'user' => $user,
+                'roles' => $roles,
+            ]
+        );
     }
 
     /**
@@ -139,6 +165,7 @@ class AdminUsersController extends AdminController
      *
      * @param EditUserRequest $request
      * @param int $id User id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function putEdit(EditUserRequest $request, $id)
@@ -149,10 +176,7 @@ class AdminUsersController extends AdminController
         if (
             $user->hasRole('admin') &&
             count($user->getAdmins(false, true)) <= 1 &&
-            (
-                !in_array(1, $request->input('roles'))
-                || !$request->input('active')
-            )
+            (!in_array(1, $request->input('roles')) || !$request->input('active'))
         ) {
             flash()->error(trans('users.can_not_edit'));
 
@@ -164,7 +188,15 @@ class AdminUsersController extends AdminController
         }
 
         if ($request->file('avatar') && Settings::get('use_avatars')) {
-            $user->changeAvatar($request);
+            $response = Icr::uploadImage($request->file('avatar'), 'avatar');
+
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
+
+            $user->changeAvatar($response);
         }
 
         $user->save();
@@ -180,12 +212,21 @@ class AdminUsersController extends AdminController
      * Deletes user avatar
      *
      * @param int $id User id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDeleteAvatar($id)
     {
         if (Settings::get('use_avatars')) {
             $user = User::find($id);
+            $response = Icr::deleteImage($user->avatar, 'avatar');
+
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
+
             $user->deleteAvatar();
             $user->save();
 
@@ -200,6 +241,7 @@ class AdminUsersController extends AdminController
      * Disable user
      *
      * @param int $id User id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getDisable($id)
@@ -228,6 +270,7 @@ class AdminUsersController extends AdminController
      * Activates user
      *
      * @param int $id User id
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function getActivate($id)
@@ -248,6 +291,7 @@ class AdminUsersController extends AdminController
      * Gets search page
      *
      * @param Request $request
+     *
      * @return \Illuminate\View\View
      */
     public function getSearch(Request $request)
@@ -263,7 +307,7 @@ class AdminUsersController extends AdminController
                     [
                         'proximity' => false,
                         'fuzzy' => 0.1,
-                        'phrase' => false
+                        'phrase' => false,
                     ]
                 )
             );
@@ -286,9 +330,11 @@ class AdminUsersController extends AdminController
                 'uri' => 'admin/users',
                 'count' => $count,
                 'all' => User::count(),
-                'delete_message' => trans('users.delete_message')
+                'delete_message' => trans('users.delete_message'),
             ];
         } catch (\Exception $e) {
+            var_dump($e);
+
             $data = [
                 'results' => [],
                 'param' => null,
@@ -297,9 +343,10 @@ class AdminUsersController extends AdminController
                 'uri' => 'admin/users',
                 'count' => 0,
                 'all' => 0,
-                'delete_message' => trans('users.delete_message')
+                'delete_message' => trans('users.delete_message'),
             ];
         }
+
         return view('admin.users.search', $data);
     }
 
@@ -307,6 +354,7 @@ class AdminUsersController extends AdminController
      * Handles search
      *
      * @param SearchRequest $request
+     *
      * @return \Illuminate\View\View
      */
     public function postSearch(SearchRequest $request)
@@ -318,5 +366,4 @@ class AdminUsersController extends AdminController
             null
         );
     }
-
 }

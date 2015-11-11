@@ -29,9 +29,9 @@
             @if(\App\Models\Settings::get('use_avatars'))
                 <td>
                     @if($result->avatar)
-                        <a href="{{ URL::asset(Config::get('image_crop_resizer.uploads_path')) }}/avatar/large/{{ $result->avatar }}"
+                        <a href="{{ URL::asset(Config::get('icr.config.uploads_path')) }}/avatar/large/{{ $result->avatar }}"
                            data-lightbox="{{ $result->id }}">
-                            <img src="{{ URL::asset(Config::get('image_crop_resizer.uploads_path')) }}/avatar/small/{{ $result->avatar }}"
+                            <img src="{{ URL::asset(Config::get('icr.config.uploads_path')) }}/avatar/small/{{ $result->avatar }}"
                                  width="24" height="24"/>
                         </a>
                     @else
