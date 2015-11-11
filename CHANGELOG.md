@@ -1,3 +1,7 @@
+# v0.5.0
+- Removed old lib/ICR class and changed with new module - todstoychev/icr. Tempaltes changed to use new module. Some logic and model changes added also.
+- Lucene search improved.
+
 # v0.4.1
 - Added changes in the models to keep them synchronized with the newest nqxcode search.
 
