@@ -13,7 +13,7 @@ return [
      |
      | For example, model's description can be like this:
      |
-     |      namespace\ModelClass::class => [
+     |      'namespace\ModelClass' => [
      |          'fields' => [
      |              'name', 'description', // Fields for indexing.
      |          ]
@@ -60,7 +60,7 @@ return [
     'analyzer' => [
 
         'filters' => [
-            Nqxcode\Stemming\TokenFilterEnRu::class,
+            'Nqxcode\Stemming\TokenFilterEnRu',
         ],
 
         'stopwords' => Nqxcode\LuceneSearch\Analyzer\Stopwords\Files::get(),

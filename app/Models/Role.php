@@ -96,9 +96,12 @@ class Role extends Model implements SearchableInterface {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function searchableIds()
     {
-        // 
+        return self::all()->lists('id');
     }
 
 }

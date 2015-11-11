@@ -23,10 +23,10 @@ use App\Http\Requests\User\ChangeAvatarRequest;
 // Models
 use App\Models\PasswordReset;
 use App\Models\User;
+use Todstoychev\Icr\Icr;
 
 /**
- * Controller that holds basic user action, like changing password,
- * changing email and avatar...
+ * Controller that holds basic user action, like changing password, changing email and avatar...
  *
  * @author Todor Todorov <todstoychev@gmail.com>
  * @package App\Http\Controllers
@@ -34,6 +34,9 @@ use App\Models\User;
 class UsersController extends Controller
 {
 
+    /**
+     * @inheritdoc
+     */
     public function __construct()
     {
         parent::__construct();
@@ -81,6 +84,7 @@ class UsersController extends Controller
      * Handles login
      *
      * @param LoginRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function postLogin(LoginRequest $request)
@@ -125,6 +129,7 @@ class UsersController extends Controller
      * Handles user registration
      *
      * @param RegisterRequest $request
+     *
      * @return $this|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
@@ -173,6 +178,7 @@ class UsersController extends Controller
      * Handles account confirmation
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function getConfirm(Request $request)
@@ -230,6 +236,7 @@ class UsersController extends Controller
      * Handles password change
      *
      * @param ChangePasswordRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function putChangePassword(ChangePasswordRequest $request)
@@ -260,6 +267,7 @@ class UsersController extends Controller
      * Handles email changing
      *
      * @param ChangeEmailRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function putChangeEmail(ChangeEmailRequest $request)
@@ -290,6 +298,7 @@ class UsersController extends Controller
      * Handles forgotten password token creation and email sending
      *
      * @param ForgottenPasswordRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postForgottenPassword(ForgottenPasswordRequest $request)
@@ -329,6 +338,7 @@ class UsersController extends Controller
      * Renders reset password form
      *
      * @param Request $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
     public function getPasswordReset(Request $request)
@@ -354,6 +364,7 @@ class UsersController extends Controller
      * Handles forgotten password changing
      *
      * @param PasswordResetRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function putPasswordReset(PasswordResetRequest $request)
@@ -378,6 +389,7 @@ class UsersController extends Controller
      * Handles avatar change
      *
      * @param ChangeAvatarRequest $request
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function postChangeAvatar(ChangeAvatarRequest $request)
@@ -385,7 +397,32 @@ class UsersController extends Controller
         if (Settings::get('use_avatars')) {
             Session::put('profile_tab', 'avatar');
 
-            Auth::user()->changeAvatar($request);
+            $response = null;
+
+            // If avatar presented - delete it
+            if (Auth::user()->avatar) {
+                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar');
+            }
+
+            // Handle delete error
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
+
+            // Upload new avatar image
+            $response = Icr::uploadImage($request->file('avatar'), 'avatar');
+
+            // Handle upload errors
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
+
+            // Change avatar in database
+            Auth::user()->changeAvatar($response);
 
             flash()->success(trans('users.avatar_changed'));
         }
@@ -402,6 +439,20 @@ class UsersController extends Controller
     {
         if (Settings::get('use_avatars')) {
             Session::put('profile_tab', 'avatar');
+
+            $response = null;
+
+            // If avatar presented - delete it
+            if (Auth::user()->avatar) {
+                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar');
+            }
+
+            // Handle delete error
+            if ($response instanceof \Exception) {
+                flash()->error($response->getMessage());
+
+                return redirect()->back();
+            }
 
             Auth::user()->deleteAvatar();
 
