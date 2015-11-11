@@ -133,7 +133,8 @@ return [
          */
         Dimsav\Translatable\TranslatableServiceProvider::class,
         Nqxcode\LuceneSearch\ServiceProvider::class,
-        Laracasts\Flash\FlashServiceProvider::class
+        Laracasts\Flash\FlashServiceProvider::class,
+        Todstoychev\Icr\ServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -181,5 +182,6 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Search' => Nqxcode\LuceneSearch\Facade::class,
+        'Icr' => \Todstoychev\Icr\Icr::class,
     ],
 ];

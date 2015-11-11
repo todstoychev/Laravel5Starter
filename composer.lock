@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "54499689116712d1def36d14d179d95f",
-    "content-hash": "978f881d158f966c09425db991e35bbe",
+    "hash": "4ce05256e69df013a7fc0232786230c2",
+    "content-hash": "9078135106120c9c525d64db21f09732",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -203,16 +203,16 @@
         },
         {
             "name": "doctrine/inflector",
-            "version": "v1.0.1",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/inflector.git",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604"
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/0bcb2e79d8571787f18b7eb036ed3d004908e604",
-                "reference": "0bcb2e79d8571787f18b7eb036ed3d004908e604",
+                "url": "https://api.github.com/repos/doctrine/inflector/zipball/90b2128806bfde671b6952ab8bea493942c1fdae",
+                "reference": "90b2128806bfde671b6952ab8bea493942c1fdae",
                 "shasum": ""
             },
             "require": {
@@ -224,7 +224,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "1.1.x-dev"
                 }
             },
             "autoload": {
@@ -266,7 +266,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2014-12-20 21:24:13"
+            "time": "2015-11-06 14:35:42"
         },
         {
             "name": "imagine/imagine",
@@ -1118,20 +1118,23 @@
         },
         {
             "name": "paragonie/random_compat",
-            "version": "1.0.10",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paragonie/random_compat.git",
-                "reference": "2fa50aa2f17066fa74ba00d943e8cee1a98284af"
+                "reference": "19f765b66c6fbb56ee3b11bc16d52e38eebdc295"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/2fa50aa2f17066fa74ba00d943e8cee1a98284af",
-                "reference": "2fa50aa2f17066fa74ba00d943e8cee1a98284af",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/19f765b66c6fbb56ee3b11bc16d52e38eebdc295",
+                "reference": "19f765b66c6fbb56ee3b11bc16d52e38eebdc295",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.*|5.*"
             },
             "suggest": {
                 "ext-libsodium": "Provides a modern crypto API that can be used to generate random bytes."
@@ -1159,7 +1162,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2015-10-23 13:21:37"
+            "time": "2015-11-10 00:45:41"
         },
         {
             "name": "psr/log",
@@ -2008,15 +2011,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/todstoychev/icr.git",
-                "reference": "d90ab6d236db99160d086e2e7bd52a75e7c8eef1"
+                "reference": "706d9038e66281eb09bcc5335e9cb329853f0b1c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/todstoychev/icr/zipball/d90ab6d236db99160d086e2e7bd52a75e7c8eef1",
-                "reference": "d90ab6d236db99160d086e2e7bd52a75e7c8eef1",
+                "url": "https://api.github.com/repos/todstoychev/icr/zipball/706d9038e66281eb09bcc5335e9cb329853f0b1c",
+                "reference": "706d9038e66281eb09bcc5335e9cb329853f0b1c",
                 "shasum": ""
             },
             "require": {
+                "imagine/imagine": "~0.5.0",
                 "laravel/framework": "5.*",
                 "php": ">=5.4"
             },
@@ -2043,7 +2047,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2015-10-24 19:03:30"
+            "time": "2015-11-11 09:09:39"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -2885,16 +2889,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "4.8.16",
+            "version": "4.8.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e"
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/625f8c345606ed0f3a141dfb88f4116f0e22978e",
-                "reference": "625f8c345606ed0f3a141dfb88f4116f0e22978e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cc501c1adf86482fbb54fb2958e1c7685f57a61",
+                "reference": "6cc501c1adf86482fbb54fb2958e1c7685f57a61",
                 "shasum": ""
             },
             "require": {
@@ -2953,7 +2957,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2015-10-23 06:48:33"
+            "time": "2015-11-10 21:39:46"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

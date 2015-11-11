@@ -2,7 +2,7 @@
     @if (isset($user))
     <div class="col-sm-6">
         @if ($user->avatar)
-        <img src="{{ URL::asset(Config::get('image_crop_resizer.uploads_path') . '/avatar/large/' . $user->avatar) }}" class="col-xs-12" />
+        <img src="{{ URL::asset(Config::get('icr.config.uploads_path') . '/avatar/large/' . $user->avatar) }}" class="col-xs-12" />
         <hr />
         <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ URL::to('admin/users/delete-avatar/' . $user->id) }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger delete-avatar">
             <i class="glyphicon glyphicon-remove"></i>

@@ -9,10 +9,8 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
-use Lib\ICR;
 use Nqxcode\LuceneSearch\Model\SearchableInterface;
 use Nqxcode\LuceneSearch\Model\SearchTrait;
 
@@ -267,14 +265,13 @@ class User extends Model implements AuthenticatableContract, SearchableInterface
         $this->save();
     }
 
-    public function changeAvatar(Request $request) {
-        if ($this->avatar) {
-            $this->deleteAvatar();
-        }
-
-        $icr = new ICR('avatar', $request->file('avatar'));
-
-        $this->avatar = $icr->getFilename();
+    /**
+     * Change avatar
+     *
+     * @param string $fileName
+     */
+    public function changeAvatar($fileName) {
+        $this->avatar = $fileName;
         $this->save();
     }
 
@@ -282,15 +279,6 @@ class User extends Model implements AuthenticatableContract, SearchableInterface
      * Deletes avatar
      */
     public function deleteAvatar() {
-        $config = Config::get('image_crop_resizer');
-        $path = public_path($config['uploads_path']);
-
-        unlink($path . '/avatar/' . $this->avatar);
-
-        foreach ($config['avatar'] as $size => $values) {
-            unlink($path . '/avatar/' . $size . '/' . $this->avatar);
-        }
-
         $this->avatar = null;
         $this->save();
     }
@@ -314,9 +302,12 @@ class User extends Model implements AuthenticatableContract, SearchableInterface
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public static function searchableIds()
     {
-        //
+        return self::all()->lists('id');
     }
 
 }
