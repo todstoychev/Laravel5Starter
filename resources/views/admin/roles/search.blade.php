@@ -3,7 +3,7 @@
 @section('thead')
 <tr>
     <th>
-        {{ Lib\TableSorter::sort_search('Admin\AdminRolesController@getSearch', trans('roles.role'), $search, 'role', $order) }}
+        {!! TableSorter::sortSearch('Admin\AdminRolesController@getSearch', trans('roles.role'), $search, 'role', $order) !!}
     </th>
     <th>
         {{ trans('temp.actions') }}

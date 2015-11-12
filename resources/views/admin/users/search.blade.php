@@ -12,13 +12,13 @@
         @if(\App\Models\Settings::get('use_avatars'))
             <th>{{ trans('users.avatar') }}</th>
         @endif
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.username'), $search, 'users.username', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.email'), $search, 'users.email', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.roles'), $search, 'ur.role_id', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.deactivated_at'), $search, 'users.deleted_at', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.registered_at'), $search, 'users.created_at', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.confirmed_at'), $search, 'users.confirmed_at', $order) }}</th>
-        <th>{{ Lib\TableSorter::sort_search('Admin\AdminUsersController@getSearch', trans('users.last_seen'), $search, 'users.last_seen', $order) }}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.username'), $search, 'users.username', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.email'), $search, 'users.email', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.roles'), $search, 'ur.role_id', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.deactivated_at'), $search, 'users.deleted_at', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.registered_at'), $search, 'users.created_at', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.confirmed_at'), $search, 'users.confirmed_at', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.last_seen'), $search, 'users.last_seen', $order) !!}</th>
         <th>{{ trans('temp.actions') }}</th>
     </tr>
 @stop
