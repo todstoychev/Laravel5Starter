@@ -12,13 +12,13 @@
         @if(\App\Models\Settings::get('use_avatars'))
             <th>{{ trans('users.avatar') }}</th>
         @endif
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.username'), 'users.username', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.email'), 'users.email', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.roles'), 'ur.role_id', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.deactivated_at'), 'users.deleted_at', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.registered_at'), 'users.created_at', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.confirmed_at'), 'users.confirmed_at', $order, $limit) }}</th>
-        <th>{{ Lib\TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.last_seen'), 'users.last_seen', $order, $limit) }}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.username'), 'users.username', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.email'), 'users.email', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.roles'), 'ur.role_id', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.deactivated_at'), 'users.deleted_at', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.registered_at'), 'users.created_at', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.confirmed_at'), 'users.confirmed_at', $order, $limit) !!}</th>
+        <th>{!! TableSorter::sort('Admin\AdminUsersController@getAll', trans('users.last_seen'), 'users.last_seen', $order, $limit) !!}</th>
         <th>{{ trans('temp.actions') }}</th>
     </tr>
 @stop

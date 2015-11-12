@@ -3,7 +3,7 @@
 @section('thead')
 <tr>
     <th>
-        {{ Lib\TableSorter::sort('Admin\AdminRolesController@getAll', trans('roles.role'), 'role', $order, $limit) }}
+        {!! TableSorter::sort('Admin\AdminRolesController@getAll', trans('roles.role'), 'role', $order, $limit) !!}
     </th>
     <th>
         {{ trans('temp.actions') }}
