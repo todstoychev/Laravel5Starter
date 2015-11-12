@@ -135,6 +135,7 @@ return [
         Nqxcode\LuceneSearch\ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Todstoychev\Icr\ServiceProvider::class,
+        Todstoychev\TableSorter\ServiceProvider::class,
     ],
     /*
       |--------------------------------------------------------------------------
@@ -182,6 +183,7 @@ return [
         'Flash' => Laracasts\Flash\Flash::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Search' => Nqxcode\LuceneSearch\Facade::class,
-        'Icr' => \Todstoychev\Icr\Icr::class,
+        'Icr' => Todstoychev\Icr\Icr::class,
+        'TableSorter' => Todstoychev\TableSorter\TableSorter::class,
     ],
 ];
