@@ -1,3 +1,14 @@
+# 0.6.2
+- Documentation update
+
+# v0.6.1
+- Removed old library.
+- composer.json fixed.
+
+# v0.6.0
+- Implemented todstoychev/table-sorter
+- Laravel version upgraded
+
 # v0.5.0
 - Removed old lib/ICR class and changed with new module - todstoychev/icr. Tempaltes changed to use new module. Some logic and model changes added also.
 - Lucene search improved.
