@@ -8,7 +8,7 @@ The project uses several modules:
 4. [nqxcode/laravel-lucene-search](https://github.com/nqxcode/laravel-lucene-search) - full text search module
 5. [dimsav/laravel-translatable](https://github.com/dimsav/laravel-translatable) - used to translate models. It is necessary if you plan to create multilanguage application.
 6. [todstoychev/icr](https://github.com/todstoychev/icr) - image manipulation module based on Imagine library.
-7. [todstoychev/icr](https://github.com/todstoychev/table-sorter) - Table sorter plugin
+7. [todstoychev/table-sorter](https://github.com/todstoychev/table-sorter) - Table sorter plugin
 
 The project contains also several frontend plugins:
 
