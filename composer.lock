@@ -119,16 +119,16 @@
         },
         {
             "name": "dimsav/laravel-translatable",
-            "version": "v5.3",
+            "version": "v5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dimsav/laravel-translatable.git",
-                "reference": "d38db2ed4d34e22ded79ac6bb257311d3f274a5b"
+                "reference": "222d8ab86c7529e644bd819930e22ad9dd0527b1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/d38db2ed4d34e22ded79ac6bb257311d3f274a5b",
-                "reference": "d38db2ed4d34e22ded79ac6bb257311d3f274a5b",
+                "url": "https://api.github.com/repos/dimsav/laravel-translatable/zipball/222d8ab86c7529e644bd819930e22ad9dd0527b1",
+                "reference": "222d8ab86c7529e644bd819930e22ad9dd0527b1",
                 "shasum": ""
             },
             "require": {
@@ -166,7 +166,7 @@
                 "laravel",
                 "translation"
             ],
-            "time": "2015-10-23 07:36:11"
+            "time": "2015-11-15 20:32:59"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -936,16 +936,16 @@
         },
         {
             "name": "nqxcode/laravel-lucene-search",
-            "version": "v2.1.2.1",
+            "version": "v2.1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nqxcode/laravel-lucene-search.git",
-                "reference": "4b4d79011a4c2f89ddadec0bf2a6f211c1a84e7a"
+                "reference": "d2a6155b531fc76e55b984d908b12936176aad66"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nqxcode/laravel-lucene-search/zipball/4b4d79011a4c2f89ddadec0bf2a6f211c1a84e7a",
-                "reference": "4b4d79011a4c2f89ddadec0bf2a6f211c1a84e7a",
+                "url": "https://api.github.com/repos/nqxcode/laravel-lucene-search/zipball/d2a6155b531fc76e55b984d908b12936176aad66",
+                "reference": "d2a6155b531fc76e55b984d908b12936176aad66",
                 "shasum": ""
             },
             "require": {
@@ -988,7 +988,7 @@
                 "search",
                 "zendsearch"
             ],
-            "time": "2015-11-04 19:07:42"
+            "time": "2015-11-13 21:46:10"
         },
         {
             "name": "nqxcode/lucene-stemmer-en-ru",
