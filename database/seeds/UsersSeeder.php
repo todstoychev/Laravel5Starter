@@ -19,17 +19,17 @@ class UsersSeeder extends Seeder {
 
         $user->roles()->save(Role::find(1));
         
-//        for ($i = 0; $i < 50; $i++) {
-//            $user = new User();
-//            $user->username = $faker->userName;
-//            $user->password = Hash::make('password');
-//            $user->email = $faker->safeEmail;
-//            $user->deleted_at = null;
-//            $user->confirmed_at = \Carbon\Carbon::now();
-//            $user->save();
-//
-//            $user->roles()->save(Role::find(2));
-//        }
+        for ($i = 0; $i < 50; $i++) {
+            $user = new User();
+            $user->username = $faker->userName;
+            $user->password = Hash::make('password');
+            $user->email = $faker->safeEmail;
+            $user->deleted_at = null;
+            $user->confirmed_at = \Carbon\Carbon::now();
+            $user->save();
+
+            $user->roles()->save(Role::find(2));
+        }
     }
 
 }
