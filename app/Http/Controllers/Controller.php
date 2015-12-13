@@ -29,6 +29,17 @@ abstract class Controller extends BaseController {
         $this->middleware('permissions');
         $this->middleware('locale');
     }
+    
+    /**
+     * Missing method handler
+     * 
+     * @param array $parameters
+     * @return \Illuminate\View\View
+     */
+    public function missingMethod($parameters = [])
+    {
+        return view('errors.404', ['admin' => null]);
+    }
 
     /**
      * Function to send emails to the user and to the admin.
