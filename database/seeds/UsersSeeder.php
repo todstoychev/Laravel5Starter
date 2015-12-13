@@ -27,7 +27,7 @@ class UsersSeeder extends Seeder {
             $user->deleted_at = null;
             $user->confirmed_at = \Carbon\Carbon::now();
             $user->save();
-            
+
             $user->roles()->save(Role::find(2));
         }
     }

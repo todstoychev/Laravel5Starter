@@ -41,32 +41,32 @@ class UsersController extends Controller
     {
         parent::__construct();
         $this->middleware(
-            'force_https',
-            [
-                'only' => [
-                    'getLogin',
-                    'postLogin',
-                    'getRegister',
-                    'postRegister',
-                    'getProfile',
-                    'putChangePassword'
-                ]
+                'force_https',
+                [
+            'only' => [
+                'getLogin',
+                'postLogin',
+                'getRegister',
+                'postRegister',
+                'getProfile',
+                'putChangePassword'
             ]
+                ]
         );
         $this->middleware(
-            'authenticated',
-            [
-                'only' => [
-                    'getLogin',
-                    'postLogin',
-                    'getRegister',
-                    'postRegister',
-                    'getForgottenPassword',
-                    'postForgottenPassword',
-                    'getPasswordReset',
-                    'postPasswordReset'
-                ]
+                'authenticated',
+                [
+            'only' => [
+                'getLogin',
+                'postLogin',
+                'getRegister',
+                'postRegister',
+                'getForgottenPassword',
+                'postForgottenPassword',
+                'getPasswordReset',
+                'postPasswordReset'
             ]
+                ]
         );
     }
 
@@ -89,21 +89,28 @@ class UsersController extends Controller
      */
     public function postLogin(LoginRequest $request)
     {
+        $user = User::where('username', $request->input('username'))->first();
+        $rememberMe = (null === $request->input('remember_me')) ? false : true;
 
+        // Check is the account confirmed
+        if (!empty($user) && !empty($user->confirm_token)) {
+            flash()->error(trans('users.account_not_confirmed'));
+
+            return redirect()->back();
+        }
+        
         if (
-        Auth::attempt(
-            [
-                'username' => $request->input('username'),
-                'password' => $request->input('password')
-            ],
-            $request->input('remember_me')
-        )
+                Auth::attempt(
+                        [
+                            'username' => $request->input('username'),
+                            'password' => $request->input('password'),
+                        ], $rememberMe
+                )
         ) {
             flash()->success(
-                trans(
-                    'users.welcome',
-                    ['username' => Auth::user()->username]
-                )
+                    trans(
+                            'users.welcome', ['username' => Auth::user()->username]
+                    )
             );
 
             return redirect('/');
@@ -124,7 +131,6 @@ class UsersController extends Controller
         return view('users.register');
     }
 
-
     /**
      * Handles user registration
      *
@@ -142,7 +148,6 @@ class UsersController extends Controller
             'deleted_at' => date('Y-m-d H:i:s'),
             'confirm_token' => Hash::make(time() . env('APP_KEY'))
         ]);
-        $user->save();
 
         $data = [
             'user_email' => $request->input('email'),
@@ -163,15 +168,16 @@ class UsersController extends Controller
         $mail_send = $this->sendMail($data, 'emails.register', 'emails.new_user');
 
         if ($mail_send) {
+            $user->save();
             flash()->success(trans('users.register_success'));
 
             return redirect('/');
-        } else {
-            $user->delete();
-            flash()->error(trans('users.registration_failed'));
-
-            return redirect()->back()->withInput($request->input());
         }
+
+        $user->delete();
+        flash()->error(trans('users.registration_failed'));
+
+        return redirect()->back()->withInput($request->input());
     }
 
     /**
@@ -184,7 +190,7 @@ class UsersController extends Controller
     public function getConfirm(Request $request)
     {
         $user = User::where('confirm_token', $request->input('token'))
-            ->first();
+                ->first();
 
         if ($user != null) {
             $data = $user->confirmRegistration();
@@ -245,10 +251,9 @@ class UsersController extends Controller
         Session::put('profile_tab', 'password');
 
         if (
-        Hash::check(
-            $request->input('old_password'),
-            Auth::user()->password
-        )
+                Hash::check(
+                        $request->input('old_password'), Auth::user()->password
+                )
         ) {
             Auth::user()->password = Hash::make($request->input('new_password'));
             Auth::user()->save();
@@ -317,7 +322,8 @@ class UsersController extends Controller
             ];
 
             // Send email
-            Mail::send('emails.password_reset', $data, function ($msg) use ($request) {
+            Mail::send('emails.password_reset', $data,
+                    function ($msg) use ($request) {
                 $msg->to($request->input('email'));
                 $msg->from(Config::get('mail.from.address'), 'NoReply');
                 $msg->subject(trans('users.reset_password_subject'));
