@@ -72,5 +72,6 @@ return [
     'can_not_delete' => 'This user is the only one administrator or there is only one active admin and can not be deleted!',
     'can_not_deactivate' => 'This user is the only one administrator and can not be deactivated!', 
     'can_not_edit' => 'This user is the only one administrator and can not be edited!', 
-    'delete_avatar_message' => 'Do you really want to delete this avatar?'
+    'delete_avatar_message' => 'Do you really want to delete this avatar',
+    'account_not_confirmed' => 'Your account is not confirmed and it is inactive!'
 ];
