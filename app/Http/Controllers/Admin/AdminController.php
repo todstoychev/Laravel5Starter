@@ -26,5 +26,16 @@ class AdminController extends Controller {
     public function getIndex() {
         return view('admin.index.index');
     }
+    
+    /**
+     * Missing method handler
+     * 
+     * @param array $parameters
+     * @return \Illuminate\View\View
+     */
+    public function missingMethod($parameters = array())
+    {
+        return view('errors.404', ['admin' => 'admin.']);
+    }
 
 }
