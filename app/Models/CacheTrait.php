@@ -24,7 +24,7 @@ trait CacheTrait
     {
         try {
             return Cache::tags($cacheTags);
-        } catch (\ErrorException $e) {
+        } catch (\BadMethodCallException $e) {
             return Cache::getFacadeRoot();
         }
     }
