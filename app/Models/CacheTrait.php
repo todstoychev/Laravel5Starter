@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Cache;
 /**
  * Cache trait
  *
- * @author Todor Todorov <todstoychev@gmail.com>
  * @package App\Models
+ * @author Todor Todorov <todstoychev@gmail.com>
  */
 trait CacheTrait
 {
