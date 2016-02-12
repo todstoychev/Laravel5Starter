@@ -73,7 +73,7 @@ class Role extends Model implements SearchableInterface {
      * @return object
      */
     public function users() {
-        return $this->belongsToMany('App\Models\User', 'users_roles');
+        return $this->belongsToMany('App\Models\User', 'user_roles');
     }
 
     /**
