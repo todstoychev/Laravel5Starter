@@ -2160,18 +2160,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/todstoychev/icr.git",
-                "reference": "7fb213505117febea3352e35613cf1a6c430e919"
+                "reference": "09bac5a02fa8f181989776ad2cfcc7e40c537930"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/todstoychev/icr/zipball/7fb213505117febea3352e35613cf1a6c430e919",
-                "reference": "7fb213505117febea3352e35613cf1a6c430e919",
+                "url": "https://api.github.com/repos/todstoychev/icr/zipball/09bac5a02fa8f181989776ad2cfcc7e40c537930",
+                "reference": "09bac5a02fa8f181989776ad2cfcc7e40c537930",
                 "shasum": ""
             },
             "require": {
                 "imagine/imagine": "~0.5.0",
                 "laravel/framework": "5.*",
                 "php": ">=5.4"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "autoload": {
@@ -2199,7 +2202,7 @@
                 "imagine",
                 "scale"
             ],
-            "time": "2016-02-12 19:11:03"
+            "time": "2016-02-13 05:46:39"
         },
         {
             "name": "todstoychev/table-sorter",
