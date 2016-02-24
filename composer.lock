@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "eed5a5c91b8bb968e685d7bd0584aa54",
-    "content-hash": "3b425c46a2263be42a756d928b64ae22",
+    "hash": "f0d13ae7b72cebc7b3c7c7431917cdb4",
+    "content-hash": "12f0d6aacf95b6f149507691baaf7917",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -270,16 +270,16 @@
         },
         {
             "name": "imagine/imagine",
-            "version": "v0.5.0",
+            "version": "v0.6.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/avalanche123/Imagine.git",
-                "reference": "f64ec666baaa800edcbf237db41121a569230709"
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/f64ec666baaa800edcbf237db41121a569230709",
-                "reference": "f64ec666baaa800edcbf237db41121a569230709",
+                "url": "https://api.github.com/repos/avalanche123/Imagine/zipball/149041d2a1b517107bfe270ca2b1a17aa341715d",
+                "reference": "149041d2a1b517107bfe270ca2b1a17aa341715d",
                 "shasum": ""
             },
             "require": {
@@ -294,6 +294,11 @@
                 "ext-imagick": "to use the Imagick implementation"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.7-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Imagine": "lib/"
@@ -318,7 +323,7 @@
                 "image manipulation",
                 "image processing"
             ],
-            "time": "2013-07-10 17:25:36"
+            "time": "2015-09-19 16:54:05"
         },
         {
             "name": "jakub-onderka/php-console-color",
@@ -510,16 +515,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v5.1.29",
+            "version": "v5.1.30",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "7e7ba568ffbc8f3f00778f2e8f41fb92127944fd"
+                "reference": "f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/7e7ba568ffbc8f3f00778f2e8f41fb92127944fd",
-                "reference": "7e7ba568ffbc8f3f00778f2e8f41fb92127944fd",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a",
+                "reference": "f00b80d4d33cf67815d1b4aaae8d4b47af2f2a2a",
                 "shasum": ""
             },
             "require": {
@@ -634,20 +639,20 @@
                 "framework",
                 "laravel"
             ],
-            "time": "2016-02-02 14:56:40"
+            "time": "2016-02-17 18:00:25"
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.16",
+            "version": "1.0.17",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "183e1a610664baf6dcd6fceda415baf43cbdc031"
+                "reference": "02f5b6c9a8b9278c8381e3361e7bd9d641c740ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/183e1a610664baf6dcd6fceda415baf43cbdc031",
-                "reference": "183e1a610664baf6dcd6fceda415baf43cbdc031",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/02f5b6c9a8b9278c8381e3361e7bd9d641c740ca",
+                "reference": "02f5b6c9a8b9278c8381e3361e7bd9d641c740ca",
                 "shasum": ""
             },
             "require": {
@@ -660,8 +665,7 @@
                 "ext-fileinfo": "*",
                 "mockery/mockery": "~0.9",
                 "phpspec/phpspec": "^2.2",
-                "phpspec/prophecy-phpunit": "~1.0",
-                "phpunit/phpunit": "~4.8"
+                "phpunit/phpunit": "~4.8 || ~5.0"
             },
             "suggest": {
                 "ext-fileinfo": "Required for MimeType",
@@ -718,7 +722,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2015-12-19 20:16:43"
+            "time": "2016-02-19 15:35:38"
         },
         {
             "name": "monolog/monolog",
@@ -2156,25 +2160,28 @@
         },
         {
             "name": "todstoychev/icr",
-            "version": "dev-master",
+            "version": "v0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/todstoychev/icr.git",
-                "reference": "09bac5a02fa8f181989776ad2cfcc7e40c537930"
+                "reference": "0b706c41e517a13a73da34bd6a8f16685f67004f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/todstoychev/icr/zipball/09bac5a02fa8f181989776ad2cfcc7e40c537930",
-                "reference": "09bac5a02fa8f181989776ad2cfcc7e40c537930",
+                "url": "https://api.github.com/repos/todstoychev/icr/zipball/0b706c41e517a13a73da34bd6a8f16685f67004f",
+                "reference": "0b706c41e517a13a73da34bd6a8f16685f67004f",
                 "shasum": ""
             },
             "require": {
-                "imagine/imagine": "~0.5.0",
-                "laravel/framework": "5.*",
-                "php": ">=5.4"
+                "illuminate/filesystem": ">5.1",
+                "illuminate/support": ">5.1",
+                "imagine/imagine": "0.6.*",
+                "league/flysystem": "^1.0",
+                "php": ">=5.5.9",
+                "symfony/http-foundation": "2.7.*"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.0"
+                "phpunit/phpunit": "~4.8"
             },
             "type": "library",
             "autoload": {
@@ -2192,17 +2199,9 @@
                     "email": "todstoychev@gmail.com"
                 }
             ],
-            "description": "Image crop resizer based on Imagine module",
+            "description": "Image manipulation and upload module",
             "homepage": "https://github.com/todstoychev/icr",
-            "keywords": [
-                "Resizer",
-                "crop",
-                "image",
-                "image manipulation",
-                "imagine",
-                "scale"
-            ],
-            "time": "2016-02-13 05:46:39"
+            "time": "2016-02-22 20:12:01"
         },
         {
             "name": "todstoychev/table-sorter",
@@ -2295,42 +2294,44 @@
         },
         {
             "name": "zendframework/zend-hydrator",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-hydrator.git",
-                "reference": "f3ed8b833355140350bbed98d8a7b8b66875903f"
+                "reference": "22652e1661a5a10b3f564cf7824a2206cf5a4a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/f3ed8b833355140350bbed98d8a7b8b66875903f",
-                "reference": "f3ed8b833355140350bbed98d8a7b8b66875903f",
+                "url": "https://api.github.com/repos/zendframework/zend-hydrator/zipball/22652e1661a5a10b3f564cf7824a2206cf5a4a65",
+                "reference": "22652e1661a5a10b3f564cf7824a2206cf5a4a65",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
-                "zendframework/zend-stdlib": "^2.5.1"
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-stdlib": "^2.7 || ^3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0",
                 "squizlabs/php_codesniffer": "^2.0@dev",
-                "zendframework/zend-eventmanager": "^2.5.1",
-                "zendframework/zend-filter": "^2.5.1",
-                "zendframework/zend-inputfilter": "^2.5.1",
-                "zendframework/zend-serializer": "^2.5.1",
-                "zendframework/zend-servicemanager": "^2.5.1"
+                "zendframework/zend-eventmanager": "^2.6.2 || ^3.0",
+                "zendframework/zend-filter": "^2.6",
+                "zendframework/zend-inputfilter": "^2.6",
+                "zendframework/zend-serializer": "^2.6.1",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3"
             },
             "suggest": {
-                "zendframework/zend-eventmanager": "^2.5.1, to support aggregate hydrator usage",
-                "zendframework/zend-filter": "^2.5.1, to support naming strategy hydrator usage",
-                "zendframework/zend-serializer": "^2.5.1, to use the SerializableStrategy",
-                "zendframework/zend-servicemanager": "^2.5.1, to support hydrator plugin manager usage"
+                "zendframework/zend-eventmanager": "^2.6.2 || ^3.0, to support aggregate hydrator usage",
+                "zendframework/zend-filter": "^2.6, to support naming strategy hydrator usage",
+                "zendframework/zend-serializer": "^2.6.1, to use the SerializableStrategy",
+                "zendframework/zend-servicemanager": "^2.7.5 || ^3.0.3, to support hydrator plugin manager usage"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0-dev",
-                    "dev-develop": "1.1-dev"
+                    "dev-release-1.0": "1.0-dev",
+                    "dev-release-1.1": "1.1-dev",
+                    "dev-master": "2.0-dev",
+                    "dev-develop": "2.1-dev"
                 }
             },
             "autoload": {
@@ -2347,25 +2348,25 @@
                 "hydrator",
                 "zf2"
             ],
-            "time": "2015-09-17 14:06:43"
+            "time": "2016-02-18 22:38:26"
         },
         {
             "name": "zendframework/zend-stdlib",
-            "version": "2.7.4",
+            "version": "2.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stdlib.git",
-                "reference": "cae029346a33663b998507f94962eb27de060683"
+                "reference": "4499760badfada27ee600f5c2cfd47d5263ccf1b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/cae029346a33663b998507f94962eb27de060683",
-                "reference": "cae029346a33663b998507f94962eb27de060683",
+                "url": "https://api.github.com/repos/zendframework/zend-stdlib/zipball/4499760badfada27ee600f5c2cfd47d5263ccf1b",
+                "reference": "4499760badfada27ee600f5c2cfd47d5263ccf1b",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
-                "zendframework/zend-hydrator": "~1.0"
+                "php": "^5.5 || ^7.0",
+                "zendframework/zend-hydrator": "~1.1"
             },
             "require-dev": {
                 "athletic/athletic": "~0.1",
@@ -2387,8 +2388,9 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.7-dev",
-                    "dev-develop": "2.8-dev"
+                    "dev-release-2.7": "2.7-dev",
+                    "dev-master": "3.0-dev",
+                    "dev-develop": "3.1-dev"
                 }
             },
             "autoload": {
@@ -2405,29 +2407,29 @@
                 "stdlib",
                 "zf2"
             ],
-            "time": "2015-10-15 15:57:32"
+            "time": "2016-02-19 16:02:11"
         }
     ],
     "packages-dev": [
         {
             "name": "barryvdh/laravel-debugbar",
-            "version": "v2.1.1",
+            "version": "v2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/barryvdh/laravel-debugbar.git",
-                "reference": "974fd16e328ca851a081449100d9509af59cf0ff"
+                "reference": "13b7058d2120c8d5af7f1ada21b7c44dd87b666a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/974fd16e328ca851a081449100d9509af59cf0ff",
-                "reference": "974fd16e328ca851a081449100d9509af59cf0ff",
+                "url": "https://api.github.com/repos/barryvdh/laravel-debugbar/zipball/13b7058d2120c8d5af7f1ada21b7c44dd87b666a",
+                "reference": "13b7058d2120c8d5af7f1ada21b7c44dd87b666a",
                 "shasum": ""
             },
             "require": {
-                "illuminate/support": "~5.0.17|5.1.*|5.2.*",
+                "illuminate/support": "5.1.*|5.2.*",
                 "maximebf/debugbar": "~1.11.0",
-                "php": ">=5.4.0",
-                "symfony/finder": "~2.6|~3.0"
+                "php": ">=5.5.9",
+                "symfony/finder": "~2.7|~3.0"
             },
             "type": "library",
             "extra": {
@@ -2461,7 +2463,7 @@
                 "profiler",
                 "webprofiler"
             ],
-            "time": "2015-12-22 06:22:38"
+            "time": "2016-02-17 08:32:21"
         },
         {
             "name": "doctrine/instantiator",
@@ -2793,22 +2795,24 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "v1.5.0",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7"
+                "reference": "3c91bdf81797d725b14cb62906f9a4ce44235972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/4745ded9307786b730d7a60df5cb5a6c43cf95f7",
-                "reference": "4745ded9307786b730d7a60df5cb5a6c43cf95f7",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/3c91bdf81797d725b14cb62906f9a4ce44235972",
+                "reference": "3c91bdf81797d725b14cb62906f9a4ce44235972",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
+                "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "~2.0",
-                "sebastian/comparator": "~1.1"
+                "sebastian/comparator": "~1.1",
+                "sebastian/recursion-context": "~1.0"
             },
             "require-dev": {
                 "phpspec/phpspec": "~2.0"
@@ -2816,7 +2820,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.4.x-dev"
+                    "dev-master": "1.5.x-dev"
                 }
             },
             "autoload": {
@@ -2849,7 +2853,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2015-08-13 10:07:40"
+            "time": "2016-02-15 07:46:21"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -3643,7 +3647,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "todstoychev/icr": 20,
         "todstoychev/table-sorter": 20
     },
     "prefer-stable": false,
