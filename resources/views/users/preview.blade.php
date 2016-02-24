@@ -2,10 +2,10 @@
     @if(\App\Models\Settings::get('use_avatars'))
         <div class="col-sm-6">
             @if (Auth::user()->avatar)
-                <img src="{{ URL::asset(Config::get('icr.config.uploads_path') . '/avatar/large/' . Auth::user()->avatar) }}"
+                <img src="{{ asset('uploads/images/avatar/large/' . Auth::user()->avatar) }}"
                      class="col-xs-12"/>
             @else
-                <img src="{{ URL::asset('images/no_image.png') }}" class="col-xs-12"/>
+                <img src="{{ asset('images/no_image.png') }}" class="col-xs-12"/>
             @endif
         </div>
     @endif

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Session;
 // Facades
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
@@ -407,7 +408,7 @@ class UsersController extends Controller
 
             // If avatar presented - delete it
             if (Auth::user()->avatar) {
-                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar');
+                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar', 'images');
             }
 
             // Handle delete error
@@ -418,7 +419,7 @@ class UsersController extends Controller
             }
 
             // Upload new avatar image
-            $response = Icr::uploadImage($request->file('avatar'), 'avatar');
+            $response = Icr::uploadImage($request->file('avatar'), 'avatar', 'images');
 
             // Handle upload errors
             if ($response instanceof \Exception) {
@@ -450,7 +451,7 @@ class UsersController extends Controller
 
             // If avatar presented - delete it
             if (Auth::user()->avatar) {
-                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar');
+                $response = Icr::deleteImage(Auth::user()->avatar, 'avatar', 'images');
             }
 
             // Handle delete error
