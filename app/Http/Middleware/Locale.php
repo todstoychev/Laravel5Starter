@@ -46,10 +46,13 @@ class Locale {
 
         if (!array_key_exists(0, $segments) || $segments[0] !== $locale) {
             Session::put('locale', $locale);
+            $this->app->setLocale($locale);
             $segments[0] = $locale;
 
             return $this->redirector->to(implode('/', $segments));
         }
+
+        $this->app->setLocale($locale);
 
         return $next($request);
     }
