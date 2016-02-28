@@ -1,12 +1,12 @@
 <ul class="nav navbar-nav">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-            {{ strtoupper(Session::get('locale')) }} <span class="caret"></span>
+            {{ strtoupper(\Illuminate\Support\Facades\App::getLocale()) }} <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" role="menu">
             @foreach (App\Models\Settings::getLocales() as $locale)
             <li>
-                <a href="{{ URL::to('change-locale/' . $locale) }}">
+                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/change-locale/' . $locale) }}">
                     {{ strtoupper($locale) }}
                 </a>
             </li>

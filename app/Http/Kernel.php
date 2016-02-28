@@ -30,7 +30,8 @@ class Kernel extends HttpKernel
         'force_https' => 'App\Http\Middleware\ForceHttps',
         'last_activity' => 'App\Http\Middleware\LastActivity',
         'locale' => 'App\Http\Middleware\Locale',
-        'contacts' => 'App\Http\Middleware\Contacts'
+        'contacts' => 'App\Http\Middleware\Contacts',
+        'change_locale' => 'App\Http\Middleware\ChangeLocale',
     ];
 
 }

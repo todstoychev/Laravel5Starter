@@ -135,5 +135,5 @@
             }
         });
     </script>
-    <script src="{{ URL::asset('js/accordion.js') }}"></script>
+    <script src="{{ asset('js/accordion.js') }}"></script>
 @stop

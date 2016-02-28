@@ -27,7 +27,11 @@ abstract class Controller extends BaseController {
     public function __construct() {
         $this->middleware('last_activity');
         $this->middleware('permissions');
-        $this->middleware('locale');
+        $this->middleware('locale', [
+            'except' => [
+                'getChangeLocale',
+            ]
+        ]);
     }
     
     /**

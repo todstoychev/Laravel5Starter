@@ -16,7 +16,7 @@
         <footer class="navbar navbar-default" role="navigation">
 
         </footer>
-        <script src="{{ URL::asset('js/main.js') }}"></script>
+        <script src="{{ asset('js/main.js') }}"></script>
         @yield('javascripts')
     </body>
 </html>

@@ -8,7 +8,7 @@
 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <h1 class="page-header">{{ trans('users.login') }}</h1>
     
-    <form action="{{ URL::to('users/login') }}" method="POST">
+    <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/login') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         
         <!-- Username -->
@@ -41,10 +41,10 @@
         
         <!-- Forgotten password -->
         <div class="form-group text-center">
-            <a href="{{ URL::to('users/forgotten-password') }}">
+            <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/forgotten-password') }}">
                 {{ trans('users.forgotten_password') }}
             </a> | 
-            <a href="{{ URL::to('users/register') }}">
+            <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/register') }}">
                 {{ trans('users.register') }}
             </a>
         </div>

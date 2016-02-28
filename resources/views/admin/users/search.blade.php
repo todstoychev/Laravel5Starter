@@ -3,7 +3,7 @@
 @section('stylesheets')
     @parent
     @if(\App\Models\Settings::get('use_avatars'))
-        <link rel="stylesheet" type="text/css" href="{{ URL::asset('lightbox/css/lightbox.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('lightbox/css/lightbox.css') }}"/>
     @endif
 @stop
 
@@ -29,9 +29,9 @@
             @if(\App\Models\Settings::get('use_avatars'))
                 <td>
                     @if($result->avatar)
-                        <a href="{{ URL::asset(Config::get('icr.config.uploads_path')) }}/avatar/large/{{ $result->avatar }}"
+                        <a href="{{ asset(Config::get('icr.config.uploads_path')) }}/avatar/large/{{ $result->avatar }}"
                            data-lightbox="{{ $result->id }}">
-                            <img src="{{ URL::asset(Config::get('icr.config.uploads_path')) }}/avatar/small/{{ $result->avatar }}"
+                            <img src="{{ asset(Config::get('icr.config.uploads_path')) }}/avatar/small/{{ $result->avatar }}"
                                  width="24" height="24"/>
                         </a>
                     @else
@@ -49,26 +49,26 @@
             <td>
                 <!-- Delete button -->
                 <a href="#" title="{{ trans('temp.delete') }}"
-                   data-href="{{ URL::to($uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete"
+                   data-href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete"
                    class="btn btn-xs btn-danger">
                     <i class="glyphicon glyphicon-remove"></i>
                 </a>
 
                 <!-- Edit button -->
-                <a href="{{ URL::to($uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}"
+                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}"
                    class="btn btn-xs btn-warning">
                     <i class="glyphicon glyphicon-pencil"></i>
                 </a>
 
                 <!-- Disable -->
-                <a href="{{ URL::to($uri . '/disable/' . $result->id) }}"
+                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/disable/' . $result->id) }}"
                    class="btn btn-xs btn-danger {{ ($result->deleted_at) ? 'disabled' : null }}"
                    title="{{ trans('temp.disable') }}">
                     <i class="glyphicon glyphicon-arrow-down"></i>
                 </a>
 
                 <!-- Restore -->
-                <a href="{{ URL::to($uri . '/activate/' . $result->id) }}"
+                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/activate/' . $result->id) }}"
                    class="btn btn-xs btn-success {{ (!$result->deleted_at) ? 'disabled' : null }}"
                    title="{{ trans('users.activate') }}">
                     <i class="glyphicon glyphicon-arrow-up"></i>
@@ -81,6 +81,6 @@
 @section('javascripts')
     @parent
     @if(\App\Models\Settings::get('use_avatars'))
-        <script src="{{ URL::asset('lightbox/js/lightbox.min.js') }}"></script>
+        <script src="{{ asset('lightbox/js/lightbox.min.js') }}"></script>
     @endif
 @stop
