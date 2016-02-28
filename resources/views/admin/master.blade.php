@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ Session::has('locale') ? Session::get('locale') : Cache::get('settings')['fallback_locale'] }}">
+<html lang="{{ \Illuminate\Support\Facades\App::getLocale() }}">
     @include('head')
     <body>
         <header>

@@ -1,4 +1,4 @@
-<form action="{{ URL::to($uri . '/all') }}" method="POST">
+<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/all') }}" method="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="form-group">
         <select name="limit" class="select2-no-search" id="limit" value="{{ $limit }}">

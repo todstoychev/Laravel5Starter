@@ -2,14 +2,14 @@
     <div class="col-sm-6">
         @if (Auth::user()->avatar)
         <img src="{{ asset('uploads/images/avatar/large/' . Auth::user()->avatar) }}" class="col-xs-12" />
-        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ URL::to('users/delete-avatar') }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger delete-avatar">
+        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/delete-avatar') }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger delete-avatar">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
          @else
-        <img src="{{ URL::asset('images/no_image.png') }}" class="col-xs-12" />
+        <img src="{{ asset('images/no_image.png') }}" class="col-xs-12" />
         @endif
     </div>
-    <form action="{{ URL::to('users/change-avatar') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/change-avatar') }}" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         <div class="col-sm-6">
             <div class="form-group">
