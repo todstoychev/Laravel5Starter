@@ -10,7 +10,7 @@
         </a>
         <ul class="dropdown-menu" role="menu">
             <li>
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . 'users/profile') }}">
+                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/users/profile') }}">
                     <i class="glyphicon glyphicon-edit"></i> {{ trans('users.edit_profile') }}
                 </a>
             </li>
