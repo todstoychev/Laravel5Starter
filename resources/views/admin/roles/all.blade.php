@@ -17,12 +17,12 @@
     <td>{{ $result->role }}</td>
     <td>
         <!-- Delete button -->
-        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ URL::to($uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger">
+        <a href="#" title="{{ trans('temp.delete') }}" data-href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete" class="btn btn-xs btn-danger">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
 
         <!-- Edit button -->
-        <a href="{{ URL::to($uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}" class="btn btn-xs btn-warning">
+        <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}" class="btn btn-xs btn-warning">
             <i class="glyphicon glyphicon-pencil"></i>
         </a>
     </td>

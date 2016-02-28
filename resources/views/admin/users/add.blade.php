@@ -5,18 +5,18 @@
 @stop
 
 @section('stylesheets')
-<link href="{{ URL::asset('select2/select2.css') }}" rel="stylesheet" type="text/css" />
-<link href="{{ URL::asset('select2/select2-bootstrap.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('select2/select2.css') }}" rel="stylesheet" type="text/css" />
+<link href="{{ asset('select2/select2-bootstrap.css') }}" rel="stylesheet" type="text/css" />
 @stop
 
 @section('content')
 @if(isset($user))
 <h1 class="page-header">{{ trans('users.edit') }}</h1>
-<form action="{{ URL::to('admin/users/edit/' . $user->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/users/edit/' . $user->id) }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT" />
 @else
 <h1 class="page-header">{{ trans('users.add') }}</h1>
-<form action="{{ URL::to('admin/users/add') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/users/add') }}" method="POST" enctype="multipart/form-data">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="col-sm-6 col-sm-offset-3">
@@ -85,8 +85,8 @@
 @stop
 
 @section('javascripts')
-<script src="{{ URL::asset('js/accordion.js') }}"></script>
-<script src="{{ URL::asset('select2/select2.min.js') }}"></script>
+<script src="{{ asset('js/accordion.js') }}"></script>
+<script src="{{ asset('select2/select2.min.js') }}"></script>
 <script>
 $(document).ready(function () {
     $('select.select2-no-search').select2({

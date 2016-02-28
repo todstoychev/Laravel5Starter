@@ -22,7 +22,7 @@ return [
     'contacts' => 'Contacts',
     'show_contacts_page' => 'Show contacts page',
     'contacts_updated' => 'Contacts page settings updated!',
-    'avatars' => 'avatars',
+    'avatars' => 'Avatars',
     'use_avatars' => 'Use avatars',
-    'avatars_update' => 'Avatar settings updated successfully!'
+    'avatars_updated' => 'Avatar settings updated successfully!'
 ];

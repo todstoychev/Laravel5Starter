@@ -1,4 +1,4 @@
-@extends($admin . 'master')
+@extends('master')
 
 @section('title')
 {{ trans('errors.oops_title') }}

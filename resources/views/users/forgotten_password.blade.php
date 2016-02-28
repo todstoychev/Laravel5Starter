@@ -8,7 +8,7 @@
 <h1 class="page-header">{{ trans('users.reset_password') }}</h1>
 
 <div class="col-sm-6 col-sm-offset-3">
-    <form action="{{ URL::to('users/forgotten-password') }}" method="POST">
+    <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/forgotten-password') }}" method="POST">
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         
         <!-- Email -->

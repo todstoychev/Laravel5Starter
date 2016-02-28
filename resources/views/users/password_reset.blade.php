@@ -7,7 +7,7 @@
 @section('content')
 <h1 class="page-header">{{ trans('users.reset_password') }}</h1>
 <div class="col-sm-6 col-sm-offset-3">
-    <form action="{{ URL::to('users/password-reset') }}?token={{ $token }}" method="POST">
+    <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/password-reset') }}?token={{ $token }}" method="POST">
         <input type="hidden" name="_method" value="PUT" />
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
         
