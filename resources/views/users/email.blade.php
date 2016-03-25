@@ -1,4 +1,4 @@
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/change-email') }}" method='POST'>
+<form action="{{ url(app()->getLocale() .  '/users/change-email') }}" method='POST'>
     <input name="_method" type="hidden" value="PUT" />
     <input name="_token" type="hidden" value="{{ csrf_token() }}" />
 

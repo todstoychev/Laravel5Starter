@@ -8,7 +8,7 @@
 <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
     <h1 class="page-header">{{ trans('users.register') }}</h1>
     
-    <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/register') }}" method="POST">
+    <form action="{{ url(app()->getLocale() .  '/users/register') }}" method="POST">
         <input name="_token" type="hidden" value="{{ csrf_token() }}" />
         
         <!-- Username -->

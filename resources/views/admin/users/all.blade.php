@@ -49,26 +49,26 @@
             <td>
                 <!-- Delete button -->
                 <a href="#" title="{{ trans('temp.delete') }}"
-                   data-href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete"
+                   data-href="{{ url(app()->getLocale() . '/' . $uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete"
                    class="btn btn-xs btn-danger">
                     <i class="glyphicon glyphicon-remove"></i>
                 </a>
 
                 <!-- Edit button -->
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}"
+                <a href="{{ url(app()->getLocale() . '/' . $uri . '/edit/' . $result->id) }}" title="{{ trans('temp.edit') }}"
                    class="btn btn-xs btn-warning">
                     <i class="glyphicon glyphicon-pencil"></i>
                 </a>
 
                 <!-- Disable -->
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/disable/' . $result->id) }}"
+                <a href="{{ url(app()->getLocale() . '/' . $uri . '/disable/' . $result->id) }}"
                    class="btn btn-xs btn-danger {{ ($result->deleted_at) ? 'disabled' : null }}"
                    title="{{ trans('temp.disable') }}">
                     <i class="glyphicon glyphicon-arrow-down"></i>
                 </a>
 
                 <!-- Restore -->
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/activate/' . $result->id) }}"
+                <a href="{{ url(app()->getLocale() . '/' . $uri . '/activate/' . $result->id) }}"
                    class="btn btn-xs btn-success {{ (!$result->deleted_at) ? 'disabled' : null }}"
                    title="{{ trans('users.activate') }}">
                     <i class="glyphicon glyphicon-arrow-up"></i>

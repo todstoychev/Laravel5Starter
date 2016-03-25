@@ -10,21 +10,21 @@
         </a>
         <ul class="dropdown-menu" role="menu">
             <li>
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/users/profile') }}">
+                <a href="{{ url(app()->getLocale() . '/users/profile') }}">
                     <i class="glyphicon glyphicon-edit"></i> {{ trans('users.edit_profile') }}
                 </a>
             </li>
             @if(Auth::user()->hasRole('admin'))
                 <li class='divider'></li>
                 <li>
-                    <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin') }}">
+                    <a href="{{ url(app()->getLocale() .  '/admin') }}">
                         <i class="glyphicon glyphicon-cog"></i> {{ trans('admin.admin_panel') }}
                     </a>
                 </li>
             @endif
             <li class="divider"></li>
             <li>
-                <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/users/logout') }}">
+                <a href="{{ url(app()->getLocale() .  '/users/logout') }}">
                     <i class="glyphicon glyphicon-log-out"></i> {{ trans('users.logout') }}
                 </a>
             </li>

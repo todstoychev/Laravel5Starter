@@ -1,11 +1,11 @@
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/settings/favicon') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url(app()->getLocale() .  '/admin/settings/favicon') }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT" />
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     
     @if($settings['favicon'])
     <div class="form-group">
         <img src="{{ asset($settings['favicon']) }}" />
-        <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/settings/delete-favicon') }}" title="{{ trans('settings.delete_favicon') }}" class="btn btn-xs btn-danger">
+        <a href="{{ url(app()->getLocale() .  '/admin/settings/delete-favicon') }}" title="{{ trans('settings.delete_favicon') }}" class="btn btn-xs btn-danger">
             <i class="glyphicon glyphicon-remove"></i>
         </a>
     </div>
