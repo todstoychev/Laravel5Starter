@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ \Illuminate\Support\Facades\App::getLocale() }}">
+<html lang="{{ app()->getLocale() }}">
     @include('head')
     <body>
         <header>

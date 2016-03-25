@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>@yield('title') | {{ App\Models\Settings::get('sitename_' . \Illuminate\Support\Facades\App::getLocale()) }}</title>
+        <title>@yield('title') | {{ App\Models\Settings::get('sitename_' . app()->getLocale()) }}</title>
 
         <link rel="stylesheet" href="{{ asset('bs/css/bootstrap.min.css') }}" />
         <link rel="stylesheet" href="{{ asset('bs/css/bootstrap-theme.min.css') }}" />

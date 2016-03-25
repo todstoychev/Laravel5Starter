@@ -1,4 +1,4 @@
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/settings/contacts') }}" method="POST">
+<form action="{{ url(app()->getLocale() .  '/admin/settings/contacts') }}" method="POST">
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <input type="hidden" name="_method" value="PUT" />
 

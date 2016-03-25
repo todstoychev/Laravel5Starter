@@ -12,11 +12,11 @@
 @section('content')
 @if(isset($user))
 <h1 class="page-header">{{ trans('users.edit') }}</h1>
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/users/edit/' . $user->id) }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url(app()->getLocale() .  '/admin/users/edit/' . $user->id) }}" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="_method" value="PUT" />
 @else
 <h1 class="page-header">{{ trans('users.add') }}</h1>
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/users/add') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ url(app()->getLocale() .  '/admin/users/add') }}" method="POST" enctype="multipart/form-data">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="col-sm-6 col-sm-offset-3">
