@@ -8,7 +8,7 @@
     <h1 class="page-header">{{ $title }}</h1>
     <div class="row">
         <div class="col-lg-6 pull-right">
-            <form action="{{ url(app()->getLocale() . $uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
+            <form action="{{ url(app()->getLocale() . '/' . $uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                 <div class="form-group">
