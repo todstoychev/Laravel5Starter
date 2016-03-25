@@ -38,7 +38,7 @@
                 @else
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="{{ url(app()->getLocale() . 'users/login') }}">
+                            <a href="{{ url(app()->getLocale() . '/users/login') }}">
                                 <i class="glyphicon glyphicon-log-in"></i> {{ trans('users.login') }}
                             </a>
                         </li>
