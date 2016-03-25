@@ -8,10 +8,10 @@
 <h1 class="page-header">{{ trans('temp.search_results') }}</h1>
 <div class="row">
     <div class="col-lg-6">
-        <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/add') }}" class="btn btn-primary" id="add"><i class="glyphicon glyphicon-plus-sign"></i> {{ trans('temp.add') }}</a>
+        <a href="{{ url(app()->getLocale() . '/' . $uri . '/add') }}" class="btn btn-primary" id="add"><i class="glyphicon glyphicon-plus-sign"></i> {{ trans('temp.add') }}</a>
     </div>
     <div class="col-lg-6">
-        <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/' . $uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
+        <form action="{{ url(app()->getLocale() . '/' . $uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
             <div class="form-group">

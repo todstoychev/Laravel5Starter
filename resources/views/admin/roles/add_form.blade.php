@@ -1,8 +1,8 @@
 @if (isset($role))
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  ''admin/roles/edit/' . $role->id) }}" method="POST">
+<form action="{{ url(app()->getLocale() .  ''admin/roles/edit/' . $role->id) }}" method="POST">
     <input type="hidden" name="_method" value="PUT" />
 @else
-<form action="{{ url(\Illuminate\Support\Facades\App::getLocale() .  '/admin/roles/add') }}" method="POST">
+<form action="{{ url(app()->getLocale() .  '/admin/roles/add') }}" method="POST">
 @endif
     <input type="hidden" name="_token" value="{{ csrf_token() }}" />
     <div class="form-group">

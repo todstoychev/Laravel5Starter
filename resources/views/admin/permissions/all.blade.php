@@ -8,7 +8,7 @@
     <h1 class="page-header">{{ $title }}</h1>
     <div class="row">
         <div class="col-lg-6 pull-right">
-            <form action="{{ url($uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
+            <form action="{{ url(app()->getLocale() . $uri . '/search') }}" method="POST" class="navbar-form pull-right" role="search">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
 
                 <div class="form-group">
@@ -24,7 +24,7 @@
         </div>
     </div>
     <div class="table-responsive">
-        <form action="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/admin/permissions/all') }}" method="POST">
+        <form action="{{ url(app()->getLocale() . '/admin/permissions/all') }}" method="POST">
             <input type="hidden" name="_method" value="PUT" />
             <input type="hidden" name="_token" value="{{ csrf_token() }}" />
             <table class="table table-condensed table-striped">

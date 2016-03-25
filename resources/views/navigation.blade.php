@@ -9,7 +9,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/') }}">
+            <a class="navbar-brand" href="{{ url(app()->getLocale() . '/') }}">
                 <i class="glyphicon glyphicon-home"></i>
             </a>
         </div>
@@ -21,7 +21,7 @@
                     {{-- Contacts page --}}
                     @if (\App\Models\Settings::get('show_contacts_page'))
                         <li>
-                            <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . '/contacts') }}">
+                            <a href="{{ url(app()->getLocale() . '/contacts') }}">
                                 {{ trans('contacts.contacts') }}
                             </a>
                         </li>
@@ -38,7 +38,7 @@
                 @else
                     <ul class="nav navbar-nav">
                         <li>
-                            <a href="{{ url(\Illuminate\Support\Facades\App::getLocale() . 'users/login') }}">
+                            <a href="{{ url(app()->getLocale() . 'users/login') }}">
                                 <i class="glyphicon glyphicon-log-in"></i> {{ trans('users.login') }}
                             </a>
                         </li>
