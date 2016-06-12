@@ -1,0 +1,26 @@
+<?php
+
+return [
+    'add_product' => 'Add product',
+    'images' => 'Images',
+    'main_image' => 'Main image',
+    'title' => 'Title',
+    'price' => 'Price',
+    'qty' => 'Quantity',
+    'currency' => 'Currency',
+    'product_info' => 'Product info',
+    'description' => 'Description',
+    'add_success' => 'Product added successfully!',
+    'edit_product' => 'Edit product',
+    'select_currency' => 'Select currency',
+    'remove_image' => 'Remove image',
+    'edit_success' => 'Product edited successfully!',
+    'image_remove_success' => 'Image removed successfully!',
+    'image_remove_confirmation' => 'Do you really want to remove this image?',
+    'created_at' => 'Created at',
+    'updated_at' => 'Updated at',
+    'all_title' => 'All products',
+    'image' => 'Image',
+    'remove_success' => 'Product removed successfully!',
+    'products' => 'Products',
+];

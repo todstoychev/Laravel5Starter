@@ -333,8 +333,6 @@ class AdminUsersController extends AdminController
                 'delete_message' => trans('users.delete_message'),
             ];
         } catch (\Exception $e) {
-            var_dump($e);
-
             $data = [
                 'results' => [],
                 'param' => null,

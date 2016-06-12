@@ -72,6 +72,7 @@ return array(
     "timezone"         => "Полето :attribute трябва да съдържа валидна часова зона.",
     "unique"           => "Полето :attribute вече съществува.",
     "url"              => "Полето :attribute е в невалиден формат.",
+    "float"              => "Полето :attribute е в невалиден формат.",
     "recaptcha" => 'Полето :attribute не е вярно.',
 
     /*

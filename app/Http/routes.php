@@ -13,6 +13,12 @@
 
 // Admin routes
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::controller('slider', 'AdminSliderController');
+
+    Route::controller('product-image', 'AdminProductImageController');
+    
+    Route::controller('products', 'AdminProductController');
+
     Route::controller('permissions', 'AdminPermissionsController');
 
     Route::controller('settings', 'AdminSettingsController');

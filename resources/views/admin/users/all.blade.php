@@ -49,7 +49,9 @@
             <td>
                 <!-- Delete button -->
                 <a href="#" title="{{ trans('temp.delete') }}"
-                   data-href="{{ url(app()->getLocale() . '/' . $uri . '/delete/' . $result->id) }}" data-toggle="modal" data-target="#delete"
+                   data-href="{{ url(app()->getLocale() . '/' . $uri . '/delete/' . $result->id) }}"
+                   data-toggle="modal"
+                   data-target="#delete"
                    class="btn btn-xs btn-danger">
                     <i class="glyphicon glyphicon-remove"></i>
                 </a>

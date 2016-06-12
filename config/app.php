@@ -69,7 +69,7 @@ return [
       |
      */
     'key' => env('APP_KEY', 'SomeRandomString'),
-    'cipher' => MCRYPT_RIJNDAEL_128,
+    'cipher' => 'AES-256-CBC',
     /*
       |--------------------------------------------------------------------------
       | Logging Configuration
@@ -136,6 +136,7 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Todstoychev\Icr\ServiceProvider::class,
         Todstoychev\TableSorter\ServiceProvider::class,
+        App\Providers\ValidatorServiceProvider::class
     ],
     /*
       |--------------------------------------------------------------------------

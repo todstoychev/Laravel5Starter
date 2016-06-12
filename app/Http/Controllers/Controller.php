@@ -137,7 +137,8 @@ abstract class Controller extends BaseController {
      *
      * @param string $search Search string
      * @param array $options
-     * @return Array
+     *
+     * @return array
      */
     protected function search($search, $options = []) {
         $result = Search::query($search, '*', $options)->get();

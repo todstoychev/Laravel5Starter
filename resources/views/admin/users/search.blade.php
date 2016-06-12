@@ -12,7 +12,7 @@
         @if(\App\Models\Settings::get('use_avatars'))
             <th>{{ trans('users.avatar') }}</th>
         @endif
-        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.username'), $search, 'users.username', $order) !!}</th>
+        <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.username'), $, 'users.username', $order) !!}</th>
         <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.email'), $search, 'users.email', $order) !!}</th>
         <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.roles'), $search, 'ur.role_id', $order) !!}</th>
         <th>{!! TableSorter::sortSearch('Admin\AdminUsersController@getSearch', trans('users.deactivated_at'), $search, 'users.deleted_at', $order) !!}</th>

@@ -4,3 +4,5 @@
 nbproject/
 .idea/
 *.log
+.gitignore
+product/

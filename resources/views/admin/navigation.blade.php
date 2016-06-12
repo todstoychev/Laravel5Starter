@@ -50,6 +50,20 @@
                             {{ trans('permissions.permissions') }}
                         </a>
                     </li>
+
+                    <!-- Products -->
+                    <li>
+                        <a href="{{ url(app()->getLocale() . '/admin/products/all') }}">
+                            {{ trans('product.products') }}
+                        </a>
+                    </li>
+
+                    <!-- Sliders -->
+                    <li>
+                        <a href="{{ url(app()->getLocale() . '/admin/slider/all') }}">
+                            {{ trans('slider.slider') }}
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navber-left -->

@@ -27,19 +27,54 @@ return [
         'models' => [
             \App\Models\User::class => [
                 'fields' => [
-                    'username', 'email', 'last_activity', 'created_at', 'confirmed_at', 'confirm_token',
-                ]
+                    'username',
+                    'email',
+                    'last_activity',
+                    'created_at',
+                    'confirmed_at',
+                    'confirm_token',
+                ],
             ],
             \App\Models\Role::class => [
                 'fields' => [
-                    'role'
-                ]
-             ],
+                    'role',
+                ],
+            ],
             \App\Models\Action::class => [
                 'fields' => [
-                    'uri', 'action'
-                ]
-            ]
+                    'uri',
+                    'action',
+                ],
+            ],
+            \App\Models\Product::class => [
+                'fields' => [
+                    'price',
+                    'qty',
+                    'currency',
+                    'created_at',
+                    'updated_at',
+                ],
+            ],
+            \App\Models\ProductTranslation::class => [
+                'fields' => [
+                    'title',
+                    'description',
+                ],
+            ],
+            \App\Models\Slider::class => [
+                'fields' => [
+                    'image_name',
+                    'link',
+                    'created_at',
+                    'updated_at',
+                ],
+            ],
+            \App\Models\SliderTranslation::class => [
+                'fields' => [
+                    'title',
+                    'text',
+                ],
+            ],
         ],
     ],
 
