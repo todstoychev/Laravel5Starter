@@ -12,7 +12,7 @@
     "laracasts/flash": "~1.3",
     "dimsav/laravel-translatable": "~5.0",
     "nqxcode/laravel-lucene-search": "2.1.*",
-    "todstoychev/icr": "dev-feature/create_rename_operation",
+    "todstoychev/icr": "dev-master",
     "todstoychev/table-sorter": "dev-master"
   },
   "require-dev": {
