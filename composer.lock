@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0d10783fa8cef0501b3ed50c922f12d9",
-    "content-hash": "eb9182c12a8fff0e585abbd7fd28c341",
+    "hash": "eed5a5c91b8bb968e685d7bd0584aa54",
+    "content-hash": "3b425c46a2263be42a756d928b64ae22",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -2223,16 +2223,16 @@
         },
         {
             "name": "todstoychev/icr",
-            "version": "dev-feature/create_rename_operation",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/todstoychev/icr.git",
-                "reference": "02a5f9025e91c4cbe4afc73105033f8b552d118e"
+                "reference": "cdfca76f8fa23e40c92991ccb7cb699832eff27f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/todstoychev/icr/zipball/02a5f9025e91c4cbe4afc73105033f8b552d118e",
-                "reference": "02a5f9025e91c4cbe4afc73105033f8b552d118e",
+                "url": "https://api.github.com/repos/todstoychev/icr/zipball/cdfca76f8fa23e40c92991ccb7cb699832eff27f",
+                "reference": "cdfca76f8fa23e40c92991ccb7cb699832eff27f",
                 "shasum": ""
             },
             "require": {
@@ -2264,7 +2264,7 @@
             ],
             "description": "Image manipulation and upload module",
             "homepage": "https://github.com/todstoychev/icr",
-            "time": "2016-06-11 06:56:25"
+            "time": "2016-06-11 16:06:17"
         },
         {
             "name": "todstoychev/table-sorter",
