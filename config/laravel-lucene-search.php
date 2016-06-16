@@ -46,35 +46,6 @@ return [
                     'action',
                 ],
             ],
-            \App\Models\Product::class => [
-                'fields' => [
-                    'price',
-                    'qty',
-                    'currency',
-                    'created_at',
-                    'updated_at',
-                ],
-            ],
-            \App\Models\ProductTranslation::class => [
-                'fields' => [
-                    'title',
-                    'description',
-                ],
-            ],
-            \App\Models\Slider::class => [
-                'fields' => [
-                    'image_name',
-                    'link',
-                    'created_at',
-                    'updated_at',
-                ],
-            ],
-            \App\Models\SliderTranslation::class => [
-                'fields' => [
-                    'title',
-                    'text',
-                ],
-            ],
         ],
     ],
 
